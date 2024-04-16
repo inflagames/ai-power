@@ -1,15 +1,16 @@
 {
-  "name": "azetz",
+  "name": "fear-the-water",
   "version": "0.0.1",
-  "description": "Azetz game",
+  "description": "<Fear the Watter> is a game made for js13kgames 2024",
   "keywords": [
     "js13kgames",
     "gamedev",
     "game"
   ],
-  "license": "",
+  "license": "Apache-2.0",
   "author": "wil92",
   "scripts": {
+    "build:ci": "NODE_ENV=production webpack",
     "build": "NODE_ENV=production webpack && ./compress.sh fear_the_water",
     "dev": "webpack",
     "start": "webpack serve",
@@ -41,6 +42,6 @@
     "terser-webpack-plugin": "^5.1.4",
     "webpack": "^5.50.0",
     "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^5.0.4"
   }
 }
