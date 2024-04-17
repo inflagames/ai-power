@@ -1,11 +1,12 @@
 # Fear the water (Game)
 
 Minimalistic game to participate in the js14kgames contest (2024).
+
 TBD
 
 [![show game image here]()]()
 
-[game demo deployed in github]()
+[game demo deployed in github](https://inflagames.github.io/fear-the-water/)
 
 ## Develop mode
 
