@@ -53,42 +53,42 @@ export default class Game {
 
   registerEvents() {
     this.canvas.addEventListener("click", (e) =>
-      this.clickEvent(e, EVENT_CLICK)
+      this.clickEvent(e, EVENT_CLICK),
     );
     this.canvas.addEventListener("mousedown", (e) =>
-      this.clickEvent(e, EVENT_MOUSEDOWN)
+      this.clickEvent(e, EVENT_MOUSEDOWN),
     );
     this.canvas.addEventListener("mouseup", (e) =>
-      this.clickEvent(e, EVENT_MOUSEUP)
+      this.clickEvent(e, EVENT_MOUSEUP),
     );
     this.canvas.addEventListener("mouseout", (e) =>
-      this.clickEvent(e, EVENT_MOUSEOUT)
+      this.clickEvent(e, EVENT_MOUSEOUT),
     );
     this.canvas.addEventListener("mouseleave", (e) =>
-      this.clickEvent(e, EVENT_MOUSELEAVE)
+      this.clickEvent(e, EVENT_MOUSELEAVE),
     );
     this.canvas.addEventListener("mousemove", (e) =>
-      this.clickEvent(e, EVENT_MOUSEMOVE)
+      this.clickEvent(e, EVENT_MOUSEMOVE),
     );
     this.canvas.addEventListener(
       "touchstart",
       (e) => this.touchEvent(e, EVENT_TOUCHDOWN),
-      false
+      false,
     );
     this.canvas.addEventListener(
       "touchend",
       (e) => this.touchEvent(e, EVENT_TOUCHUP),
-      false
+      false,
     );
     this.canvas.addEventListener(
       "touchcancel",
       (e) => this.touchEvent(e, EVENT_TOUCHCANCEL),
-      false
+      false,
     );
     this.canvas.addEventListener(
       "touchmove",
       (e) => this.touchEvent(e, EVENT_TOUCHMOVE),
-      false
+      false,
     );
   }
 
@@ -124,7 +124,7 @@ export default class Game {
         x: event?.targetTouches[0]?.pageX,
         y: event?.targetTouches[0]?.pageY,
       },
-      type
+      type,
     );
   }
 

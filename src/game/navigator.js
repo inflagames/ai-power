@@ -43,7 +43,7 @@ export default class Navigator {
     } else if (this.sceneClasses.has(scene)) {
       this.scenesInstances.set(
         scene,
-        new (this.sceneClasses.get(scene))(this, new Observable())
+        new (this.sceneClasses.get(scene))(this, new Observable()),
       );
       this.currentScene = this.scenesInstances.get(scene);
     }

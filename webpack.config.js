@@ -64,11 +64,11 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: [path.join(__dirname, "src"), path.join(__dirname, "dist")],
-    port: port,
-    host: '0.0.0.0',
+    // contentBase: [path.join(__dirname, "src"), path.join(__dirname, "dist")],
+    static: path.join(__dirname, "src"),
+    port,
+    host: "0.0.0.0",
     hot: true,
-    inline: true,
-    liveReload: true
+    liveReload: true,
   },
 };
