@@ -1,5 +1,13 @@
-import Observable, {filterObservable, takeUntil} from "../../utils/observable";
-import {EVENT_CLICK, EVENT_MOUSELEAVE, EVENT_MOUSEOUT, EVENT_TOUCHCANCEL, EVENT_TOUCHUP} from "../../utils/variables";
+import Observable, {
+  filterObservable,
+  takeUntil,
+} from "../../utils/observable";
+import {
+  EVENT_MOUSELEAVE,
+  EVENT_MOUSEOUT,
+  EVENT_TOUCHCANCEL,
+  EVENT_TOUCHUP,
+} from "../../utils/variables";
 
 export default class BaseObject {
   /**
@@ -35,8 +43,7 @@ export default class BaseObject {
   /**
    * @param context {CanvasRenderingContext2D}
    */
-  render(context) {
-  }
+  render(context) {}
 
   /**
    * Event listener
@@ -59,21 +66,31 @@ export default class BaseObject {
    * @return {boolean}
    */
   validateEventPropagation(position, event) {
-    if (event === EVENT_TOUCHUP || event === EVENT_MOUSEOUT ||
-      event === EVENT_TOUCHCANCEL || event === EVENT_MOUSELEAVE) {
+    if (
+      event === EVENT_TOUCHUP ||
+      event === EVENT_MOUSEOUT ||
+      event === EVENT_TOUCHCANCEL ||
+      event === EVENT_MOUSELEAVE
+    ) {
       return true;
     }
-    if (this.isPositionInside(this.lastMousePosition) && !this.isPositionInside(position)) {
-      this.eventEmitter.emit({event: EVENT_MOUSEOUT});
+    if (
+      this.isPositionInside(this.lastMousePosition) &&
+      !this.isPositionInside(position)
+    ) {
+      this.eventEmitter.emit({ event: EVENT_MOUSEOUT });
     }
     this.lastMousePosition = position;
     return (this.isMouseHover = this.isPositionInside(position));
   }
 
   isPositionInside(position) {
-    return position && position.x >= this.x &&
+    return (
+      position &&
+      position.x >= this.x &&
       position.x <= this.x + this.width &&
       position.y >= this.y &&
-      position.y <= this.y + this.height;
+      position.y <= this.y + this.height
+    );
   }
 }

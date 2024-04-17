@@ -1,6 +1,11 @@
-import {detectCollision, linearFunction, randomNumber, rotateVector,} from "../../utils/helpers";
-import {FPS, SCREEN_HEIGHT, SCREEN_WIDTH} from "../../utils/variables";
-import {SHIP_PADDING_Y} from "../play.scene";
+import {
+  detectCollision,
+  linearFunction,
+  randomNumber,
+  rotateVector,
+} from "../../utils/helpers";
+import { FPS, SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/variables";
+import { SHIP_PADDING_Y } from "../play.scene";
 
 const SHIP_ACCELERATING = "0";
 const SHIP_DECELERATING = "1";
@@ -57,9 +62,9 @@ export default class GameLogic {
   }
 
   destroy() {
-    this.spaces.forEach(space => space.destroy.emit());
-    this.enemies.forEach(enemy => enemy.component.destroy.emit());
-    this.objects.forEach(obj => obj.component.destroy.emit());
+    this.spaces.forEach((space) => space.destroy.emit());
+    this.enemies.forEach((enemy) => enemy.component.destroy.emit());
+    this.objects.forEach((obj) => obj.component.destroy.emit());
     this.ship.component.destroy.emit();
   }
 
@@ -88,13 +93,33 @@ export default class GameLogic {
   }
 
   updateGameDifficulty() {
-    this.configs.maxDistanceForShip = this.calculateScaleValue(MAX_DISTANCE_FOR_SHIP, 50);
-    this.configs.startDistanceForShip = this.calculateScaleValue(START_DISTANCE_FOR_SHIP, 100);
-    this.configs.maxDistanceForMeteorite = this.calculateScaleValue(MAX_DISTANCE_FOR_METEORITE, 150);
-    this.configs.startDistanceForMeteorite = this.calculateScaleValue(START_DISTANCE_FOR_METEORITE, 50);
+    this.configs.maxDistanceForShip = this.calculateScaleValue(
+      MAX_DISTANCE_FOR_SHIP,
+      50,
+    );
+    this.configs.startDistanceForShip = this.calculateScaleValue(
+      START_DISTANCE_FOR_SHIP,
+      100,
+    );
+    this.configs.maxDistanceForMeteorite = this.calculateScaleValue(
+      MAX_DISTANCE_FOR_METEORITE,
+      150,
+    );
+    this.configs.startDistanceForMeteorite = this.calculateScaleValue(
+      START_DISTANCE_FOR_METEORITE,
+      50,
+    );
     this.configs.shipVelocity = this.calculateScaleValue(SHIP_VELOCITY, 7, 1);
-    this.configs.meteoriteBaseVelocity = this.calculateScaleValue(METEORITE_BASE_VELOCITY, 3, 1);
-    this.configs.meteoriteStartVelocity = this.calculateScaleValue(METEORITE_START_VELOCITY, 2, 1);
+    this.configs.meteoriteBaseVelocity = this.calculateScaleValue(
+      METEORITE_BASE_VELOCITY,
+      3,
+      1,
+    );
+    this.configs.meteoriteStartVelocity = this.calculateScaleValue(
+      METEORITE_START_VELOCITY,
+      2,
+      1,
+    );
   }
 
   /**
@@ -104,7 +129,10 @@ export default class GameLogic {
    * @return {number}
    */
   calculateScaleValue(start, end, sign = -1) {
-    return start + (Math.abs(start - end) * linearFunction(500, this.getScore()) * sign);
+    return (
+      start +
+      Math.abs(start - end) * linearFunction(500, this.getScore()) * sign
+    );
   }
 
   animateComponents() {
@@ -145,7 +173,9 @@ export default class GameLogic {
     const shapes = this.ship.component.getProjection().filter((p) => !p.smoke);
     let component;
     for (const enemy of this.enemies) {
-      const enemyShapes = enemy.component.getProjection().filter((p) => !p.smoke);
+      const enemyShapes = enemy.component
+        .getProjection()
+        .filter((p) => !p.smoke);
       if (this.checkCollisionInProjections(shapes, enemyShapes)) {
         this.ship.status = [SHIP_DIE_ANIMATION];
         component = enemy.component;
@@ -206,7 +236,9 @@ export default class GameLogic {
       x: xPosition,
       expectedX: xPosition,
       y: SCREEN_HEIGHT + this.ship.y + 100,
-      velocity: this.configs.meteoriteBaseVelocity * Math.random() + this.configs.meteoriteStartVelocity,
+      velocity:
+        this.configs.meteoriteBaseVelocity * Math.random() +
+        this.configs.meteoriteStartVelocity,
       rotation: 0,
       component: meteorite,
     });
@@ -238,7 +270,7 @@ export default class GameLogic {
       this.moveEnemy(enemy);
       enemy.component.updateCoordinates(
         enemy.x,
-        SCREEN_HEIGHT - (enemy.y - this.ship.y)
+        SCREEN_HEIGHT - (enemy.y - this.ship.y),
       );
       enemy.component.rotation = enemy.rotation;
     });
@@ -247,7 +279,7 @@ export default class GameLogic {
       this.moveMeteorite(obj);
       obj.component.updateCoordinates(
         obj.x,
-        SCREEN_HEIGHT - (obj.y - this.ship.y)
+        SCREEN_HEIGHT - (obj.y - this.ship.y),
       );
       if (obj.expectedX === obj.x) {
         obj.expectedX = this.getRandomXPosition();
@@ -259,15 +291,24 @@ export default class GameLogic {
     this.wallCollision(enemy);
     this.rotate(enemy);
 
-    const movement = rotateVector({x: enemy.velocity, y: 0}, enemy.rotation);
+    const movement = rotateVector({ x: enemy.velocity, y: 0 }, enemy.rotation);
     enemy.x += movement.x;
     enemy.y += movement.y;
   }
 
   moveMeteorite(obj) {
     const velocity = obj.velocity;
-    let x = obj.x + (obj.x > obj.expectedX ? -velocity : obj.x < obj.expectedX ? velocity : 0);
-    if ((obj.x > obj.expectedX && x < obj.expectedX) || (obj.x < obj.expectedX && x > obj.expectedX)) {
+    let x =
+      obj.x +
+      (obj.x > obj.expectedX
+        ? -velocity
+        : obj.x < obj.expectedX
+          ? velocity
+          : 0);
+    if (
+      (obj.x > obj.expectedX && x < obj.expectedX) ||
+      (obj.x < obj.expectedX && x > obj.expectedX)
+    ) {
       x = obj.expectedX;
     }
     obj.x = x;
@@ -295,7 +336,10 @@ export default class GameLogic {
 
       this.calculateVelocity();
       this.rotateShip();
-      const movement = rotateVector({x: this.ship.velocity, y: 0}, this.ship.rotation);
+      const movement = rotateVector(
+        { x: this.ship.velocity, y: 0 },
+        this.ship.rotation,
+      );
 
       this.ship.x += movement.x;
       this.ship.y += movement.y;
@@ -307,7 +351,10 @@ export default class GameLogic {
   rotateShip() {
     this.rotate(this.ship);
     // stop rotation
-    if (this.ship.rotation === this.ship.expectedRotation && this.shipStatus() === SHIP_ROTATING) {
+    if (
+      this.ship.rotation === this.ship.expectedRotation &&
+      this.shipStatus() === SHIP_ROTATING
+    ) {
       this.ship.status.pop();
     }
   }
@@ -317,11 +364,18 @@ export default class GameLogic {
    * @param dir {number}
    */
   rotate(obj, dir = 1) {
-    const rotationFactor = ((1000 / FPS) * Math.PI) / TIME_TO_ROTATE_SHIP_MS * dir;
+    const rotationFactor =
+      (((1000 / FPS) * Math.PI) / TIME_TO_ROTATE_SHIP_MS) * dir;
     if (obj.rotation > obj.expectedRotation) {
-      obj.rotation = Math.max(obj.rotation - rotationFactor, obj.expectedRotation);
+      obj.rotation = Math.max(
+        obj.rotation - rotationFactor,
+        obj.expectedRotation,
+      );
     } else {
-      obj.rotation = Math.min(obj.rotation + rotationFactor, obj.expectedRotation);
+      obj.rotation = Math.min(
+        obj.rotation + rotationFactor,
+        obj.expectedRotation,
+      );
     }
   }
 
@@ -356,13 +410,18 @@ export default class GameLogic {
   }
 
   isShipClickable() {
-    return this.notMathStatus([SHIP_ROTATING, SHIP_DIE, SHIP_DIE_ANIMATION, SHIP_PAUSE]);
+    return this.notMathStatus([
+      SHIP_ROTATING,
+      SHIP_DIE,
+      SHIP_DIE_ANIMATION,
+      SHIP_PAUSE,
+    ]);
   }
 
   notMathStatus(statuses) {
     return statuses.reduce(
       (prev, status) => prev && this.shipStatus() !== status,
-      true
+      true,
     );
   }
 
@@ -372,8 +431,7 @@ export default class GameLogic {
    */
   wallCollision(obj) {
     if (
-      (obj.rotation === obj.expectedRotation &&
-        obj.x < MARGIN_TO_COLLIDE) ||
+      (obj.rotation === obj.expectedRotation && obj.x < MARGIN_TO_COLLIDE) ||
       (obj.rotation === obj.expectedRotation &&
         obj.x > SCREEN_WIDTH - MARGIN_TO_COLLIDE)
     ) {

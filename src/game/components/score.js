@@ -1,5 +1,5 @@
 import BaseObject from "./shared/base-object";
-import {scale} from "../utils/helpers";
+import { scale } from "../utils/helpers";
 
 export default class Score extends BaseObject {
   /**
@@ -24,7 +24,8 @@ export default class Score extends BaseObject {
     context.font = `${scale(this.textSize)}px Arial`;
     const metrics = context.measureText(this.score + "");
     const textWidth = metrics.width;
-    const textHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+    const textHeight =
+      metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
     const padding = 5;
 
     context.beginPath();
@@ -32,7 +33,7 @@ export default class Score extends BaseObject {
       scale(this.x - textWidth - padding * 2),
       scale(this.y),
       scale(textWidth + padding * 2),
-      scale(textHeight + padding * 2)
+      scale(textHeight + padding * 2),
     );
     context.fillStyle = this.backgroundColor;
     context.fill();
@@ -43,7 +44,7 @@ export default class Score extends BaseObject {
     context.fillText(
       this.score + "",
       scale(this.x - textWidth - padding),
-      scale(this.y + textHeight + padding)
+      scale(this.y + textHeight + padding),
     );
   }
 }

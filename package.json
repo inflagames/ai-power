@@ -16,7 +16,7 @@
     "start": "webpack serve",
     "gen": "node ./gen-shapes.js",
     "test": "jest",
-    "lint": "eslint ./src/**/*.js --fix"
+    "lint": "eslint ./src --fix"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "7.24.1",

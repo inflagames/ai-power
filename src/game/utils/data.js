@@ -1,4 +1,4 @@
-const APPLICATION_PREFIX = 'azetzv1';
+const APPLICATION_PREFIX = "azetzv1";
 const SCORE_KEY = `${APPLICATION_PREFIX}_game_score`;
 
 /** @type Data */
@@ -16,7 +16,7 @@ export default class Data {
    * @param score {number}
    */
   saveScore(score) {
-    localStorage.setItem(SCORE_KEY, score + '');
+    localStorage.setItem(SCORE_KEY, score + "");
   }
 
   getScore() {

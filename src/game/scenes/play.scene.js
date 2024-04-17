@@ -2,14 +2,17 @@ import Scene from "./shared/scene";
 import {
   EVENT_CLICK,
   EVENT_MOUSEDOWN,
-  EVENT_MOUSEMOVE, EVENT_MOUSEUP,
-  EVENT_TOUCHDOWN, EVENT_TOUCHMOVE,
+  EVENT_MOUSEMOVE,
+  EVENT_MOUSEUP,
+  EVENT_TOUCHDOWN,
+  EVENT_TOUCHMOVE,
   EVENT_TOUCHUP,
-  SCREEN_HEIGHT, SCREEN_WIDTH
+  SCREEN_HEIGHT,
+  SCREEN_WIDTH,
 } from "../utils/variables";
 import Ship from "../components/ship";
-import GameLogic, {SHIP_DIE_ANIMATION} from "./shared/game.logic";
-import {randomNumber} from "../utils/helpers";
+import GameLogic, { SHIP_DIE_ANIMATION } from "./shared/game.logic";
+import { randomNumber } from "../utils/helpers";
 import Score from "../components/score";
 import Space from "../components/space";
 import shape3 from "../shapes/ship3.json";
@@ -18,7 +21,7 @@ import Meteorite from "../components/meteorite";
 import Modal from "../components/modal";
 import Button from "../components/button";
 import Data from "../utils/data";
-import {isMobileMethod} from "../utils/mobile-device";
+import { isMobileMethod } from "../utils/mobile-device";
 
 export const isMobile = isMobileMethod.any();
 
@@ -36,7 +39,14 @@ export default class ScenePlay extends Scene {
     /** @member {Space[]} */
     this.spaces = [];
 
-    this.buttonPause = new Button(this.eventEmitter, SCORE_MARGIN, SCORE_MARGIN, 60, 30, "PAUSE");
+    this.buttonPause = new Button(
+      this.eventEmitter,
+      SCORE_MARGIN,
+      SCORE_MARGIN,
+      60,
+      30,
+      "PAUSE",
+    );
     this.buttonPause.textSize = 20;
     this.buttonPause.listenerEvent(EVENT_CLICK, () => {
       if (this.currentGame.canPauseGame()) {
@@ -71,18 +81,42 @@ export default class ScenePlay extends Scene {
     this.currentGame = new GameLogic();
 
     // space background
-    this.spaces.push(new Space(this.eventEmitter, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 3, 1.1, "rgba(0,0,0,1)"));
-    this.spaces.push(new Space(this.eventEmitter, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 2, 1.2));
-    this.spaces.push(new Space(this.eventEmitter, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 1, 1.5));
+    this.spaces.push(
+      new Space(
+        this.eventEmitter,
+        0,
+        0,
+        SCREEN_WIDTH,
+        SCREEN_HEIGHT,
+        3,
+        1.1,
+        "rgba(0,0,0,1)",
+      ),
+    );
+    this.spaces.push(
+      new Space(this.eventEmitter, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 2, 1.2),
+    );
+    this.spaces.push(
+      new Space(this.eventEmitter, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 1, 1.5),
+    );
     this.currentGame.spaces = this.spaces;
 
     // ship component
-    this.ship = new Ship(this.eventEmitter, SCREEN_WIDTH / 2,
-      SCREEN_HEIGHT - SHIP_PADDING_Y, 30, 35);
+    this.ship = new Ship(
+      this.eventEmitter,
+      SCREEN_WIDTH / 2,
+      SCREEN_HEIGHT - SHIP_PADDING_Y,
+      30,
+      35,
+    );
     this.currentGame.ship.component = this.ship;
 
     // score component
-    const score = new Score(this.eventEmitter, SCREEN_WIDTH - SCORE_MARGIN, SCORE_MARGIN);
+    const score = new Score(
+      this.eventEmitter,
+      SCREEN_WIDTH - SCORE_MARGIN,
+      SCORE_MARGIN,
+    );
     this.currentGame.score = score;
 
     // add components to the element array
@@ -96,7 +130,9 @@ export default class ScenePlay extends Scene {
   shipClickUp() {
     if (this.shipPressed) {
       this.shipPressed = false;
-      this.currentGame.launchShip(this.calculateShipRotation(this.directionToFlight));
+      this.currentGame.launchShip(
+        this.calculateShipRotation(this.directionToFlight),
+      );
       if (isMobile) {
         this.directionToFlight = null;
       }
@@ -118,14 +154,20 @@ export default class ScenePlay extends Scene {
    */
   render(context) {
     if (!this.time) {
-      this.time=0;
+      this.time = 0;
     }
     this.time++;
-    if(this.time>100) {
+    if (this.time > 100) {
       this.time = 0;
-      console.log('this.playableElements.length', this.playableElements.length);
-      console.log('this.currentGame.ship.length', this.currentGame.enemies.length);
-      console.log('this.currentGame.objects.length', this.currentGame.objects.length);
+      console.log("this.playableElements.length", this.playableElements.length);
+      console.log(
+        "this.currentGame.ship.length",
+        this.currentGame.enemies.length,
+      );
+      console.log(
+        "this.currentGame.objects.length",
+        this.currentGame.objects.length,
+      );
     }
     // execute game logic
     this.currentGame.play();
@@ -184,9 +226,11 @@ export default class ScenePlay extends Scene {
         SCREEN_WIDTH / 2 - modalWidth / 2,
         SCREEN_HEIGHT / 2 - modalWidth / 2,
         modalWidth,
-        modalHeight
+        modalHeight,
       );
-      Data.getInstance().saveScore(Math.max(Data.getInstance().getScore(), score));
+      Data.getInstance().saveScore(
+        Math.max(Data.getInstance().getScore(), score),
+      );
       modal.score = score;
       modal.buttonPlay.listenerEvent(EVENT_MOUSEUP, () => {
         modal.buttonPlay.destroy.emit();
@@ -205,13 +249,21 @@ export default class ScenePlay extends Scene {
 
   createEnemyByTime() {
     if (this.createNextObject < this.currentGame.ship.y) {
-      this.createNextObject = this.currentGame.ship.y +
-        randomNumber(this.currentGame.configs.maxDistanceForMeteorite, this.currentGame.configs.startDistanceForMeteorite);
+      this.createNextObject =
+        this.currentGame.ship.y +
+        randomNumber(
+          this.currentGame.configs.maxDistanceForMeteorite,
+          this.currentGame.configs.startDistanceForMeteorite,
+        );
       this.createMeteorite();
     }
     if (this.createNextShip < this.currentGame.ship.y) {
-      this.createNextShip = this.currentGame.ship.y +
-        randomNumber(this.currentGame.configs.maxDistanceForShip, this.currentGame.configs.startDistanceForShip);
+      this.createNextShip =
+        this.currentGame.ship.y +
+        randomNumber(
+          this.currentGame.configs.maxDistanceForShip,
+          this.currentGame.configs.startDistanceForShip,
+        );
       this.createEnemy();
     }
   }
@@ -241,7 +293,9 @@ export default class ScenePlay extends Scene {
         this.currentGame.removeObject(element.id);
       }
     }
-    this.playableElements = this.playableElements.filter((ele) => !toRemove.has(ele.id));
+    this.playableElements = this.playableElements.filter(
+      (ele) => !toRemove.has(ele.id),
+    );
   }
 
   isElementVisible(element) {
@@ -255,7 +309,10 @@ export default class ScenePlay extends Scene {
   calculateShipRotation(position) {
     if (position) {
       const angle = Math.PI / 6;
-      const rotation = Math.atan2((SCREEN_HEIGHT - SHIP_PADDING_Y) - position.y, position.x - this.ship.x);
+      const rotation = Math.atan2(
+        SCREEN_HEIGHT - SHIP_PADDING_Y - position.y,
+        position.x - this.ship.x,
+      );
       if (rotation >= 0) {
         return Math.min(Math.PI - angle, Math.max(angle, rotation));
       }

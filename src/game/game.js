@@ -90,6 +90,7 @@ export default class Game {
       (e) => this.touchEvent(e, EVENT_TOUCHMOVE),
       false,
     );
+    // toDo (gonzalezext)[17.04.24]: add key events
   }
 
   resizeScreen() {
@@ -182,19 +183,11 @@ export default class Game {
       ) {
         this.lastTime = currentTime;
 
-        this.drawScreen();
+        this.navigatorRoot.currentScene.render(this.context);
       }
 
       requestAnimationFrame(this.loop.bind(this));
     }
     // the else here will end the loop
-  }
-
-  /**
-   * Render the current scene
-   * todo: maybe this function can be removed
-   */
-  drawScreen() {
-    this.navigatorRoot.currentScene.render(this.context);
   }
 }

@@ -1,5 +1,5 @@
 import BaseObject from "./base-object";
-import {getPointByVectorRotation, scale} from "../../utils/helpers";
+import { getPointByVectorRotation, scale } from "../../utils/helpers";
 
 export default class BaseShape extends BaseObject {
   /**
@@ -52,12 +52,12 @@ export default class BaseShape extends BaseObject {
   brakeShapes() {
     const shapes = this.shipShape().shapes;
 
-    this.brakedShape = {shapes: []}
+    this.brakedShape = { shapes: [] };
 
     // brake in triangles
     for (const shape of shapes) {
       this.brakedShape = {
-        shapes: [...this.brakedShape.shapes, ...this.brakeShape(shape)]
+        shapes: [...this.brakedShape.shapes, ...this.brakeShape(shape)],
       };
     }
 
@@ -66,7 +66,7 @@ export default class BaseShape extends BaseObject {
       const cp = this.shapeCenter(shape.points);
       const d = Math.random() + 0.5;
       const factor = d / Math.sqrt(Math.pow(cp.x, 2) + Math.pow(cp.y, 2));
-      shape.vector = {x: cp.x * factor, y: cp.y * factor};
+      shape.vector = { x: cp.x * factor, y: cp.y * factor };
     }
   }
 
@@ -78,19 +78,24 @@ export default class BaseShape extends BaseObject {
     if (shape.points.length === 0) {
       return shape.points;
     }
-    const {min, max} = this.coverBox(shape.points);
+    const { min, max } = this.coverBox(shape.points);
 
     const fixedSize = 2;
     const size = 2.5;
     const newShapes = [];
-    let count = Math.ceil((max.x - min.x) * (max.y - min.y) / fixedSize);
+    let count = Math.ceil(((max.x - min.x) * (max.y - min.y)) / fixedSize);
     count = Math.min(count, 150);
 
     for (let i = 0; i < count; i++) {
-      const pos = {x: (max.x - min.x) * Math.random() + min.x, y: (max.y - min.y) * Math.random() + min.y};
+      const pos = {
+        x: (max.x - min.x) * Math.random() + min.x,
+        y: (max.y - min.y) * Math.random() + min.y,
+      };
       newShapes.push({
-        points: new Array(3).fill(null)
-          .map(() => ({x: pos.x + size * Math.random(), y: pos.y + size * Math.random()})),
+        points: new Array(3).fill(null).map(() => ({
+          x: pos.x + size * Math.random(),
+          y: pos.y + size * Math.random(),
+        })),
         background: shape.background,
       });
     }
@@ -102,25 +107,29 @@ export default class BaseShape extends BaseObject {
    * @param points {{x: number, y: number}[]}
    */
   shapeCenter(points) {
-    const {min, max} = this.coverBox(points);
-    return {x: (max.x + min.x) / 2, y: (max.y + min.y) / 2};
+    const { min, max } = this.coverBox(points);
+    return { x: (max.x + min.x) / 2, y: (max.y + min.y) / 2 };
   }
 
   coverBox(points) {
-    const min = {x: points[0].x, y: points[0].y}, max = {...min};
+    const min = { x: points[0].x, y: points[0].y };
+    const max = { ...min };
     for (let i = 1; i < points.length; i++) {
       min.x = Math.min(min.x, points[i].x);
       min.y = Math.min(min.y, points[i].y);
       max.x = Math.max(max.x, points[i].x);
       max.y = Math.max(max.y, points[i].y);
     }
-    return {min, max};
+    return { min, max };
   }
 
   moveBrakedPiece() {
     if (this.brakedShape) {
       for (const shape of this.brakedShape.shapes) {
-        shape.points = shape.points.map((p) => ({x: p.x + shape.vector.x, y: p.y + shape.vector.y}));
+        shape.points = shape.points.map((p) => ({
+          x: p.x + shape.vector.x,
+          y: p.y + shape.vector.y,
+        }));
         shape.background = this.reduceOpacity(shape.background, 30);
       }
     }
@@ -153,16 +162,19 @@ export default class BaseShape extends BaseObject {
     const rotation = this.rotation + Math.PI / 2;
 
     const shapes = this.shipShape().shapes;
-    const pivot = {x: this.x, y: this.y};
+    const pivot = { x: this.x, y: this.y };
 
     const projectedShape = [];
 
     for (const shape of shapes) {
-      const points = shape.points.map(p => ({x: p.x * this.scaleShape, y: p.y * this.scaleShape}));
+      const points = shape.points.map((p) => ({
+        x: p.x * this.scaleShape,
+        y: p.y * this.scaleShape,
+      }));
       for (let i = 0; i < points.length; i++) {
         points[i] = getPointByVectorRotation(points[i], pivot, rotation);
       }
-      projectedShape.push({...shape, points});
+      projectedShape.push({ ...shape, points });
     }
     return projectedShape;
   }

@@ -1,6 +1,6 @@
 import BaseObject from "./shared/base-object";
-import {scale, unscale} from "../utils/helpers";
-import {EVENT_MOUSEMOVE, EVENT_MOUSEOUT} from "../utils/variables";
+import { scale, unscale } from "../utils/helpers";
+import { EVENT_MOUSEMOVE, EVENT_MOUSEOUT } from "../utils/variables";
 
 export default class Button extends BaseObject {
   /**
@@ -34,7 +34,12 @@ export default class Button extends BaseObject {
    */
   render(context) {
     context.beginPath();
-    context.rect(scale(this.x), scale(this.y), scale(this.width), scale(this.height));
+    context.rect(
+      scale(this.x),
+      scale(this.y),
+      scale(this.width),
+      scale(this.height),
+    );
     context.fillStyle = this.backgroundColor;
     context.fill();
 
@@ -42,13 +47,17 @@ export default class Button extends BaseObject {
     context.font = `${scale(this.textSize)}px Arial`;
     const metrics = context.measureText(this.text);
     const textWidth = unscale(metrics.width);
-    const textHeight = unscale(metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent);
-    context.fillStyle = this.isMouseHover ? this.textColorHover : this.textColor;
-    context.text
+    const textHeight = unscale(
+      metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent,
+    );
+    context.fillStyle = this.isMouseHover
+      ? this.textColorHover
+      : this.textColor;
+    // context.text;
     context.fillText(
       this.text,
       scale(this.x + this.width / 2 - textWidth / 2),
-      scale(this.y + this.height / 2 + textHeight / 2)
+      scale(this.y + this.height / 2 + textHeight / 2),
     );
   }
 }

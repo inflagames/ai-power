@@ -1,6 +1,6 @@
 import BaseObject from "./shared/base-object";
-import {scale,randomNumber} from "../utils/helpers";
-import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../utils/variables";
+import { scale, randomNumber } from "../utils/helpers";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../utils/variables";
 
 export class Star extends BaseObject {
   /**
@@ -22,7 +22,10 @@ export class Star extends BaseObject {
     context.arc(
       scale(this.x),
       scale(this.y + this.shipY - this.group * SCREEN_HEIGHT),
-      scale(this.width), 0, Math.PI * 2);
+      scale(this.width),
+      0,
+      Math.PI * 2,
+    );
     context.fill();
   }
 }
@@ -38,8 +41,16 @@ export default class Space extends BaseObject {
    * @param velocity {number}
    * @param background {string}
    */
-  constructor(eventEmitter, x = 0, y = 0, width = 0, height = 0,
-              ratio, velocity = 1, background = "") {
+  constructor(
+    eventEmitter,
+    x = 0,
+    y = 0,
+    width = 0,
+    height = 0,
+    ratio,
+    velocity = 1,
+    background = "",
+  ) {
     super(eventEmitter, x, y, width, height);
     this.backgroundColor = background;
     this.shipY = 0;
@@ -92,8 +103,15 @@ export default class Space extends BaseObject {
     const numberOfStars = 20;
     const group = [];
     for (let i = 0; i < numberOfStars; i++) {
-      group.push(new Star(this.eventEmitter, randomNumber(SCREEN_WIDTH),
-        randomNumber(this.height), this.ratio, this.groupCount));
+      group.push(
+        new Star(
+          this.eventEmitter,
+          randomNumber(SCREEN_WIDTH),
+          randomNumber(this.height),
+          this.ratio,
+          this.groupCount,
+        ),
+      );
     }
     this.groupCount++;
     this.stars.push(group);

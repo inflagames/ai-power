@@ -1,4 +1,4 @@
-import {SCREEN_WIDTH} from "./variables";
+import { SCREEN_WIDTH } from "./variables";
 
 /**
  * @param maxValue {number}
@@ -25,7 +25,7 @@ export function logFunction(maxValue, currentValue) {
  */
 export function getPointByVectorRotation(vector, pivot, phi) {
   const result = rotateVector(vector, phi);
-  return {x: pivot.x + result.x, y: pivot.y - result.y};
+  return { x: pivot.x + result.x, y: pivot.y - result.y };
 }
 
 /**
@@ -41,7 +41,7 @@ export function rotateVector(vector, phi) {
 }
 
 export function getVector(p1, p2) {
-  return {x: p2.x - p1.x, y: p2.y - p1.y};
+  return { x: p2.x - p1.x, y: p2.y - p1.y };
 }
 
 export function distance(p1, p2) {
@@ -84,16 +84,21 @@ export function detectCollision(shape1, shape2) {
   for (const axi of axis) {
     const p1 = shapeProjection(shape1, axi);
     const p2 = shapeProjection(shape2, axi);
-    if (!((p1.min > p2.min && p1.min < p2.max) || (p1.max > p2.min && p1.max < p2.max) ||
-      (p2.min > p1.min && p2.min < p1.max) || (p2.max > p1.min && p2.max < p1.max) ||
-      (p1.min === p2.min && p1.max === p2.max))) {
+    if (
+      !(
+        (p1.min > p2.min && p1.min < p2.max) ||
+        (p1.max > p2.min && p1.max < p2.max) ||
+        (p2.min > p1.min && p2.min < p1.max) ||
+        (p2.max > p1.min && p2.max < p1.max) ||
+        (p1.min === p2.min && p1.max === p2.max)
+      )
+    ) {
       return false;
     }
   }
 
   return true;
 }
-
 
 /**
  * @param shape {{x: number, y: number}[]}
@@ -105,9 +110,15 @@ function extractAxis(shape) {
   }
   const axis = [];
   for (let i = 1; i < shape.length; i++) {
-    axis.push({x: shape[i].x - shape[i - 1].x, y: shape[i - 1].y - shape[i].y});
+    axis.push({
+      x: shape[i].x - shape[i - 1].x,
+      y: shape[i - 1].y - shape[i].y,
+    });
   }
-  axis.push({x: shape[0].x - shape[shape.length - 1].x, y: shape[shape.length - 1].y - shape[0].y});
+  axis.push({
+    x: shape[0].x - shape[shape.length - 1].x,
+    y: shape[shape.length - 1].y - shape[0].y,
+  });
   return axis;
 }
 
@@ -117,13 +128,14 @@ function extractAxis(shape) {
  * @return {{max: number, min: number}}
  */
 function shapeProjection(shape, v) {
-  let min = projection(v, shape[0]), max = min;
+  let min = projection(v, shape[0]);
+  let max = min;
   for (let i = 1; i < shape.length; i++) {
     const p = projection(v, shape[i]);
     min = Math.min(min, p);
     max = Math.max(max, p);
   }
-  return {min, max};
+  return { min, max };
 }
 
 /**
