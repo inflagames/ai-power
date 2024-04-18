@@ -3,6 +3,9 @@ import Observable, {
   takeUntil,
 } from "../../utils/observable";
 import {
+  EVENT_KEYDOWN,
+  EVENT_KEYPRESS,
+  EVENT_KEYUP,
   EVENT_MOUSELEAVE,
   EVENT_MOUSEOUT,
   EVENT_TOUCHCANCEL,
@@ -43,7 +46,8 @@ export default class BaseObject {
   /**
    * @param context {CanvasRenderingContext2D}
    */
-  render(context) {}
+  render(context) {
+  }
 
   /**
    * Event listener
@@ -54,10 +58,22 @@ export default class BaseObject {
     this.eventEmitter
       .pipe(filterObservable((data) => data.event === event))
       .on((data) => {
-        if (data && this.validateEventPropagation(data.position, data.event)) {
+        if (
+          (data &&
+            this.validateMouseEventPropagation(data.position, data.event)) ||
+          this.validateKeyboardEventPropagation(data.event)
+        ) {
           callback(data);
         }
       });
+  }
+
+  validateKeyboardEventPropagation(event) {
+    return (
+      event === EVENT_KEYDOWN ||
+      event === EVENT_KEYUP ||
+      event === EVENT_KEYPRESS
+    );
   }
 
   /**
@@ -65,7 +81,7 @@ export default class BaseObject {
    * @param event {string}
    * @return {boolean}
    */
-  validateEventPropagation(position, event) {
+  validateMouseEventPropagation(position, event) {
     if (
       event === EVENT_TOUCHUP ||
       event === EVENT_MOUSEOUT ||

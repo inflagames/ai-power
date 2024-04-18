@@ -22,7 +22,11 @@ export default class Ship extends BaseShape {
     this.updateCoordinates();
   }
 
-  updateCoordinates(x, y) {
+  /**
+   * @param x {number}
+   * @param y {number}
+   */
+  updateCoordinates({ x, y } = {}) {
     this.x = x || this.x;
     this.y = y || this.y;
   }
@@ -35,7 +39,7 @@ export default class Ship extends BaseShape {
   animateSmoke() {
     if (!this.brakedShape && this.enableSmoke) {
       const origins = this.shape.shapes.filter(
-        (s) => s.smoke && this.getOpacity(s.background) > 0,
+        (s) => s.smoke && this.getOpacity(s.background) > 0
       );
       const MAX_SMOKE_ITEMS = 40;
       const MAX_NEW_SMOKE_PER_ITERATION = 1;
@@ -46,7 +50,7 @@ export default class Ship extends BaseShape {
       for (const origin of origins) {
         origin.points = origin.points.map((p) => ({
           x: p.x + origin.vector.x,
-          y: p.y + origin.vector.y,
+          y: p.y + origin.vector.y
         }));
         origin.background = this.reduceOpacity(origin.background, 8);
       }
@@ -57,7 +61,7 @@ export default class Ship extends BaseShape {
         for (
           let i = Math.min(
             MAX_SMOKE_ITEMS - origins.length,
-            MAX_NEW_SMOKE_PER_ITERATION,
+            MAX_NEW_SMOKE_PER_ITERATION
           );
           i >= 0;
           i--
@@ -74,14 +78,14 @@ export default class Ship extends BaseShape {
               .map((v, i) =>
                 rotateVector(
                   { x: SMOKE_RADIO * Math.random() + 0.6, y: 0 },
-                  i * angle,
-                ),
-              ),
+                  i * angle
+                )
+              )
           });
         }
       }
       this.shape = {
-        shapes: [...origins, ...this.shape.shapes.filter((s) => !s.smoke)],
+        shapes: [...origins, ...this.shape.shapes.filter((s) => !s.smoke)]
       };
     }
   }

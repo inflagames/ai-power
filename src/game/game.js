@@ -19,6 +19,9 @@ import {
   EVENT_RESIZE,
   RUNNING,
   FPS,
+  EVENT_KEYDOWN,
+  EVENT_KEYPRESS,
+  EVENT_KEYUP,
 } from "./utils/variables";
 
 const intervalPerSecond = 1000 / FPS;
@@ -52,45 +55,63 @@ export default class Game {
   }
 
   registerEvents() {
-    this.canvas.addEventListener("click", (e) =>
-      this.clickEvent(e, EVENT_CLICK),
-    );
-    this.canvas.addEventListener("mousedown", (e) =>
-      this.clickEvent(e, EVENT_MOUSEDOWN),
-    );
-    this.canvas.addEventListener("mouseup", (e) =>
-      this.clickEvent(e, EVENT_MOUSEUP),
-    );
-    this.canvas.addEventListener("mouseout", (e) =>
-      this.clickEvent(e, EVENT_MOUSEOUT),
-    );
-    this.canvas.addEventListener("mouseleave", (e) =>
-      this.clickEvent(e, EVENT_MOUSELEAVE),
-    );
-    this.canvas.addEventListener("mousemove", (e) =>
-      this.clickEvent(e, EVENT_MOUSEMOVE),
-    );
+    // keyboard events
+    this.registerKeyboardEvent("keydown", EVENT_KEYDOWN);
+    this.registerKeyboardEvent("keyup", EVENT_KEYUP);
+    this.registerKeyboardEvent("keypress", EVENT_KEYPRESS);
+
+    // mouse events
+    this.registerClickEvent("click", EVENT_CLICK);
+    this.registerClickEvent("mousedown", EVENT_MOUSEDOWN);
+    this.registerClickEvent("mouseup", EVENT_MOUSEUP);
+    this.registerClickEvent("mouseout", EVENT_MOUSEOUT);
+    this.registerClickEvent("mouseleave", EVENT_MOUSELEAVE);
+    this.registerClickEvent("mousemove", EVENT_MOUSEMOVE);
+
+    // touch events
+    this.registerTouchEvent("touchstart", EVENT_TOUCHDOWN, false);
+    this.registerTouchEvent("touchend", EVENT_TOUCHUP, false);
+    this.registerTouchEvent("touchcancel", EVENT_TOUCHCANCEL, false);
+    this.registerTouchEvent("touchmove", EVENT_TOUCHMOVE, false);
+  }
+
+  /**
+   * @param type {string}
+   * @param eventType {string}
+   * @param option {boolean}
+   */
+  registerClickEvent(type, eventType, option = undefined) {
     this.canvas.addEventListener(
-      "touchstart",
-      (e) => this.touchEvent(e, EVENT_TOUCHDOWN),
-      false,
+      type,
+      (e) => this.clickEvent(e, eventType),
+      option,
     );
+  }
+
+  /**
+   * @param type {string}
+   * @param eventType {string}
+   * @param option {boolean}
+   */
+  registerTouchEvent(type, eventType, option = undefined) {
     this.canvas.addEventListener(
-      "touchend",
-      (e) => this.touchEvent(e, EVENT_TOUCHUP),
-      false,
+      type,
+      (e) => this.touchEvent(e, eventType),
+      option,
     );
-    this.canvas.addEventListener(
-      "touchcancel",
-      (e) => this.touchEvent(e, EVENT_TOUCHCANCEL),
-      false,
+  }
+
+  /**
+   * @param type {string}
+   * @param eventType {string}
+   * @param option {boolean}
+   */
+  registerKeyboardEvent(type, eventType, option = undefined) {
+    document.addEventListener(
+      type,
+      (e) => this.keyboardEvent(e, eventType),
+      option,
     );
-    this.canvas.addEventListener(
-      "touchmove",
-      (e) => this.touchEvent(e, EVENT_TOUCHMOVE),
-      false,
-    );
-    // toDo (gonzalezext)[17.04.24]: add key events
   }
 
   resizeScreen() {
@@ -138,7 +159,19 @@ export default class Game {
   }
 
   /**
+   * @param event {KeyboardEvent}
+   * @param type {string}
+   */
+  keyboardEvent(event, type) {
+    this.eventEmitter.emit({
+      event: type,
+      key: event.key,
+    });
+  }
+
+  /**
    * @param position {{x: number, y: number}}
+   * @param type {string}
    */
   emitPositionEvent(position, type) {
     const rect = this.canvas.getBoundingClientRect();
@@ -176,7 +209,6 @@ export default class Game {
    */
   loop(currentTime) {
     if (this.loopStatus === RUNNING) {
-      this.currentTime = currentTime;
       if (
         this.loopStatus === RUNNING &&
         intervalPerSecond <= currentTime - this.lastTime

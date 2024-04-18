@@ -1,6 +1,26 @@
 import { SCREEN_WIDTH } from "./variables";
 
 /**
+ * Multiply a vector by a scalar
+ * @param vector {{x: number, y: number}}
+ * @param scalar {number}
+ * @returns {{x: number, y: number}}
+ */
+export function multiplyVector(vector, scalar) {
+  return { x: vector.x * scalar, y: vector.y * scalar };
+}
+
+/**
+ * Add two vectors
+ * @param v1 {{x: number, y: number}}
+ * @param v2 {{x: number, y: number}}
+ * @returns {{x: number, y: number}}
+ */
+export function addVectors(v1, v2) {
+  return { x: v1.x + v2.x, y: v1.y + v2.y };
+}
+
+/**
  * @param maxValue {number}
  * @param currentValue {number}
  */
@@ -36,7 +56,7 @@ export function getPointByVectorRotation(vector, pivot, phi) {
 export function rotateVector(vector, phi) {
   return {
     x: vector.x * Math.cos(phi) - vector.y * Math.sin(phi),
-    y: vector.x * Math.sin(phi) + vector.y * Math.cos(phi),
+    y: vector.x * Math.sin(phi) + vector.y * Math.cos(phi)
   };
 }
 
@@ -101,6 +121,19 @@ export function detectCollision(shape1, shape2) {
 }
 
 /**
+ * Normalize a vector
+ * @param v {{x: number, y: number}}
+ * @returns {{x: number, y: number}}
+ */
+export function normalizeVector(v) {
+  if (v.x === 0 && v.y === 0) {
+    return { x: 0, y: 0 };
+  }
+  const length = Math.sqrt(v.x * v.x + v.y * v.y);
+  return { x: v.x / length, y: v.y / length };
+}
+
+/**
  * @param shape {{x: number, y: number}[]}
  * @return {{x: number, y: number}[]}
  */
@@ -112,12 +145,12 @@ function extractAxis(shape) {
   for (let i = 1; i < shape.length; i++) {
     axis.push({
       x: shape[i].x - shape[i - 1].x,
-      y: shape[i - 1].y - shape[i].y,
+      y: shape[i - 1].y - shape[i].y
     });
   }
   axis.push({
     x: shape[0].x - shape[shape.length - 1].x,
-    y: shape[shape.length - 1].y - shape[0].y,
+    y: shape[shape.length - 1].y - shape[0].y
   });
   return axis;
 }
