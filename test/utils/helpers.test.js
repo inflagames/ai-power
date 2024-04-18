@@ -1,4 +1,4 @@
-import {detectCollision, linearFunction, logFunction} from "../../src/game/utils/helpers";
+import {detectCollision, linearFunction, logFunction} from "../../src/game/utils/math";
 
 describe("Helpers", () => {
   describe("Collisions", () => {

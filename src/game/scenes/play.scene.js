@@ -7,7 +7,7 @@ import {
   SCREEN_HEIGHT,
   SCREEN_WIDTH
 } from "../utils/variables";
-import Ship from "../components/ship";
+import Player from "../components/player";
 import Score from "../components/score";
 import Modal from "../components/modal";
 import Button from "../components/button";
@@ -60,7 +60,7 @@ export default class ScenePlay extends Scene {
     this.currentGame = new GameLogic();
 
     // player component
-    this.player = new Ship(
+    this.player = new Player(
       this.eventEmitter,
       SCREEN_WIDTH / 2,
       SCREEN_HEIGHT / 2,
