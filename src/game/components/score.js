@@ -1,5 +1,5 @@
 import BaseObject from "./shared/base-object";
-import { scale } from "../utils/helpers";
+import { scale } from "../utils/math";
 
 export default class Score extends BaseObject {
   /**

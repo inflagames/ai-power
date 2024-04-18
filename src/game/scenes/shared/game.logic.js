@@ -1,4 +1,4 @@
-import { addVectors, detectCollision, multiplyVector } from "../../utils/helpers";
+import { addVectors, detectCollision, multiplyVector } from "../../utils/math";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/variables";
 import DirectionKeys from "./direction-keys";
 

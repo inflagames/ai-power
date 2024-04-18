@@ -1,5 +1,5 @@
 import BaseObject from "./base-object";
-import { getPointByVectorRotation, scale } from "../../utils/helpers";
+import { getPointByVectorRotation, scale } from "../../utils/math";
 
 export default class BaseShape extends BaseObject {
   /**

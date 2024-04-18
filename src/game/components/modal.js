@@ -1,6 +1,6 @@
 import BaseObject from "./shared/base-object";
 import { EVENT_CLICK, SCREEN_HEIGHT, SCREEN_WIDTH } from "../utils/variables";
-import { scale, unscale } from "../utils/helpers";
+import { scale, unscale } from "../utils/math";
 import Button from "./button";
 
 export default class Modal extends BaseObject {

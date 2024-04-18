@@ -1,5 +1,5 @@
 import BaseObject from "./shared/base-object";
-import { scale, unscale } from "../utils/helpers";
+import { scale, unscale } from "../utils/math";
 import { EVENT_MOUSEMOVE, EVENT_MOUSEOUT } from "../utils/variables";
 
 export default class Button extends BaseObject {

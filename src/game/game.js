@@ -1,6 +1,6 @@
 import Navigator from "./navigator";
 import Observable from "./utils/observable";
-import { unscale } from "./utils/helpers";
+import { unscale } from "./utils/math";
 import {
   SCREEN_WIDTH,
   SCREEN_RATIO,

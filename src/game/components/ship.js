@@ -1,6 +1,6 @@
 import BaseShape from "./shared/base-shape";
 import shape2 from "../shapes/ship2.json";
-import { rotateVector } from "../utils/helpers";
+import { rotateVector } from "../utils/math";
 
 export default class Ship extends BaseShape {
   /**

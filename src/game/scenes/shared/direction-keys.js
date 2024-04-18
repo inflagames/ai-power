@@ -1,4 +1,4 @@
-import { normalizeVector } from "../../utils/helpers";
+import { normalizeVector } from "../../utils/math";
 
 export const UP_DIRECTION = 1;
 export const DOWN_DIRECTION = 2;

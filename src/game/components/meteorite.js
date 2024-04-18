@@ -1,5 +1,5 @@
 import BaseShape from "./shared/base-shape";
-import { getVector, randomNumber, rotateVector } from "../utils/helpers";
+import { getVector, randomNumber, rotateVector } from "../utils/math";
 
 export default class Meteorite extends BaseShape {
   /**
