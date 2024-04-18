@@ -21,7 +21,8 @@ export default class GameLogic {
         x: SCREEN_WIDTH / 2,
         y: SCREEN_HEIGHT / 2
       },
-      rotation: Math.PI / 2,
+      rotation: Math.PI / 2, // todo: eliminate this property
+      directionVector: { x: 0, y: 1 },
       expectedRotation: 0,
       velocity: 0,
       minVelocity: 10,
@@ -56,10 +57,13 @@ export default class GameLogic {
   movePlayer() {
     const VELOCITY = 10;
 
-    const movement = multiplyVector(this.directionKeys.directionVector(), VELOCITY);
-    this.player.position = addVectors(movement, this.player.position);
+    if (this.directionKeys.hasPressedKeys()) {
+      this.player.directionVector = multiplyVector(this.directionKeys.directionVector(), VELOCITY);
+      this.player.position = addVectors(this.player.directionVector, this.player.position);
+    }
 
     this.player.component.updateCoordinates(this.player.position);
+    this.player.component.updateDirectionVector({ ...this.player.directionVector, y: -this.player.directionVector.y });
     // toDo (gonzalezext)[18.04.24]: validate collision
   }
 

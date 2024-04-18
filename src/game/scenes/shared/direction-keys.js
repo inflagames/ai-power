@@ -40,6 +40,14 @@ export default class DirectionKeys {
   }
 
   /**
+   * Current state of the keys
+   * @returns {boolean}
+   */
+  hasPressedKeys() {
+    return this.presedKeys.length > 0;
+  }
+
+  /**
    * @returns {{x: number, y: number}}
    */
   directionVector() {

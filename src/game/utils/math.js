@@ -1,5 +1,9 @@
 import { SCREEN_WIDTH } from "./variables";
 
+export function vectorToAngle(vector) {
+  return Math.atan2(vector.y, vector.x);
+}
+
 /**
  * Multiply a vector by a scalar
  * @param vector {{x: number, y: number}}
@@ -131,6 +135,20 @@ export function normalizeVector(v) {
   }
   const length = Math.sqrt(v.x * v.x + v.y * v.y);
   return { x: v.x / length, y: v.y / length };
+}
+
+/**
+ * Linear interpolation between two vectors
+ * @param v1 {{x: number, y: number}}
+ * @param v2 {{x: number, y: number}}
+ * @param t {number}
+ * @returns {{x: number, y: number}}
+ */
+export function lerpVector(v1, v2, t) {
+  return {
+    x: v1.x + (v2.x - v1.x) * t,
+    y: v1.y + (v2.y - v1.y) * t
+  };
 }
 
 /**

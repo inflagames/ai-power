@@ -1,5 +1,5 @@
 import BaseObject from "./base-object";
-import { getPointByVectorRotation, scale } from "../../utils/math";
+import { getPointByVectorRotation, scale, vectorToAngle } from "../../utils/math";
 
 export default class BaseShape extends BaseObject {
   /**
@@ -13,6 +13,7 @@ export default class BaseShape extends BaseObject {
     super(eventEmitter, x, y, width, height);
     this.backgroundColor = "#00f";
     this.rotation = 0;
+    this.directionVector = { x: 1, y: 0 };
     this.scaleShape = 4;
     this.brakedShape = null;
   }
@@ -159,7 +160,8 @@ export default class BaseShape extends BaseObject {
    * @return {{points: {x: number, y: number}[], background: string, smoke: boolean}[]}
    */
   getProjection() {
-    const rotation = this.rotation + Math.PI / 2;
+    // const rotation = this.rotation + Math.PI / 2;
+    const rotation = vectorToAngle(this.directionVector) + Math.PI / 2;
 
     const shapes = this.shipShape().shapes;
     const pivot = { x: this.x, y: this.y };
@@ -180,7 +182,7 @@ export default class BaseShape extends BaseObject {
   }
 
   /**
-   * @returns {{shapes: {background: string, points: {x: number, y: number}}[]}}
+   * @returns {{shapes: {background: string, points: {x: number, y: number}[]}[]}}
    */
   shipShape() {
     return {
