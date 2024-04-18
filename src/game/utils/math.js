@@ -1,5 +1,10 @@
 import { SCREEN_WIDTH } from "./variables";
 
+/**
+ * Vector to angle conversion
+ * @param vector {{x: number, y: number}}
+ * @returns {number}
+ */
 export function vectorToAngle(vector) {
   return Math.atan2(vector.y, vector.x);
 }

@@ -1,4 +1,4 @@
-import { addVectors, detectCollision, multiplyVector } from "../../utils/math";
+import { addVectors, detectCollision, lerpVector, multiplyVector, normalizeVector } from "../../utils/math";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/variables";
 import DirectionKeys from "./direction-keys";
 
@@ -58,7 +58,8 @@ export default class GameLogic {
     const VELOCITY = 10;
 
     if (this.directionKeys.hasPressedKeys()) {
-      this.player.directionVector = multiplyVector(this.directionKeys.directionVector(), VELOCITY);
+      const rot = lerpVector(this.player.directionVector, this.directionKeys.directionVector(), 0.95);
+      this.player.directionVector = multiplyVector(normalizeVector(rot), VELOCITY);
       this.player.position = addVectors(this.player.directionVector, this.player.position);
     }
 
