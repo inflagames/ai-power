@@ -4,9 +4,10 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH, GRID_SIZE } from "../utils/variables";
 import Tile from "./tile";
 import level1 from "./levels/level.001.json";
 
-const ROW_TILE = 1; //     001
-const ROW_TILE_FREE = 2; //    010
-const ROW_TILE_TREE_V1 = 4; // 100
+const ROW_TILE = 1; //         0001
+const ROW_TILE_FREE = 2; //    0010
+const ROW_TILE_TREE_V1 = 4; // 0100
+const ROW_PLAYER_START = 8; // 1000
 
 
 export default class Level extends BaseObject {
@@ -31,7 +32,10 @@ export default class Level extends BaseObject {
 
     this.components = [];
 
-    this.loadLevel(level1.map);
+    this.currentLevel = { ...level1 };
+    this.playerInitialPosition = { x: 0, y: 0 };
+
+    this.loadLevel(this.currentLevel.map);
   }
 
   loadLevel(level) {
@@ -65,6 +69,12 @@ export default class Level extends BaseObject {
           );
           this.components.push(tile);
         }
+
+        if (tile & ROW_PLAYER_START) {
+          this.playerInitialPosition = {
+            x: col * GRID_SIZE + GRID_SIZE * .5,
+            y: row * GRID_SIZE + GRID_SIZE * .5 };
+        }
       }
     }
   }
@@ -72,7 +82,7 @@ export default class Level extends BaseObject {
   render(context) {
     this.cleanScreen(context);
 
-    this.paintGrid(context);
+    // this.paintGrid(context);
 
     this.components.forEach((component) => component.render(context));
   }

@@ -59,17 +59,6 @@ export default class ScenePlay extends Scene {
     if (this.currentGame) {
       this.currentGame.destroy();
     }
-    this.currentGame = new GameLogic();
-
-    // player component
-    this.player = new Player(
-      this.eventEmitter,
-      SCREEN_WIDTH / 2,
-      SCREEN_HEIGHT / 2,
-      30,
-      35
-    );
-    this.currentGame.player.component = this.player;
 
     // create level
     this.level = new Level(
@@ -80,6 +69,17 @@ export default class ScenePlay extends Scene {
       SCREEN_HEIGHT,
       "#000"
     );
+
+    // player component
+    this.player = new Player(
+      this.eventEmitter,
+      this.level.playerInitialPosition.x,
+      this.level.playerInitialPosition.y,
+      30,
+      35
+    );
+    this.currentGame = new GameLogic(this.level.playerInitialPosition);
+    this.currentGame.player.component = this.player;
 
     // score component
     const score = new Score(

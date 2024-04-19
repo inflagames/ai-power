@@ -7,7 +7,11 @@ const GAME_OVER = "5";
 const GAME_PAUSE = "7";
 
 export default class GameLogic {
-  constructor() {
+  /**
+   *
+   * @param playerPosition {{x: number, y: number}}
+   */
+  constructor(playerPosition) {
     /** @member {Score} */
     this.score = null;
 
@@ -17,10 +21,7 @@ export default class GameLogic {
     this.directionKeys = new DirectionKeys();
 
     this.player = {
-      position: {
-        x: SCREEN_WIDTH / 2,
-        y: SCREEN_HEIGHT / 2
-      },
+      position: playerPosition,
       rotation: Math.PI / 2, // todo: eliminate this property
       directionVector: { x: 0, y: 1 },
       expectedRotation: 0,
