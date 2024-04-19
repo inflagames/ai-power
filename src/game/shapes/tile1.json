@@ -3,6 +3,8 @@
     {
       "id": "path40916-9-3",
       "background": "#b85c54",
+      "stroke": "#000000",
+      "strokeWidth": 0.115301,
       "points": [
         {
           "x": -25,
@@ -41,6 +43,8 @@
     {
       "id": "path40916",
       "background": "#c56057",
+      "stroke": "#000000",
+      "strokeWidth": 0.149407,
       "points": [
         {
           "x": -24.909255898366606,
@@ -79,6 +83,8 @@
     {
       "id": "path40916-9",
       "background": "#be7063",
+      "stroke": "#000000",
+      "strokeWidth": 0.149407,
       "points": [
         {
           "x": -0.22686025408348698,
@@ -117,6 +123,8 @@
     {
       "id": "path40916-9-7",
       "background": "#c55f56",
+      "stroke": "#000000",
+      "strokeWidth": 0.178584,
       "points": [
         {
           "x": -10.390199637023589,

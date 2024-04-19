@@ -14,7 +14,7 @@ export default class BaseShape extends BaseObject {
     this.backgroundColor = "#00f";
     this.rotation = 0;
     this.directionVector = { x: 1, y: 0 };
-    this.scaleShape = 4;
+    this.scaleShape = 3.3;
     this.brakedShape = null;
   }
 
@@ -39,8 +39,10 @@ export default class BaseShape extends BaseObject {
       }
       context.closePath();
       context.fillStyle = shape.background;
-      if (!this.brakedShape) {
+      if (Boolean(shape.stroke)) {
         context.stroke();
+        context.strokeStyle = shape.stroke;
+        context.lineWidth = shape.strokeWidth * 5;
       }
       context.fill();
     }
@@ -157,14 +159,14 @@ export default class BaseShape extends BaseObject {
   }
 
   /**
-   * @return {{points: {x: number, y: number}[], background: string, smoke: boolean}[]}
+   * @return {{points: {x: number, y: number}[], background: string, stroke: string, strokeWidth: number, smoke: boolean}[]}
    */
   getProjection() {
     // const rotation = this.rotation + Math.PI / 2;
     const rotation = vectorToAngle(this.directionVector) + Math.PI / 2;
 
     const shapes = this.currentShape().shapes;
-    const pivot = { x: this.x, y: this.y };
+    const pivot = this.getPosition();
 
     const projectedShape = [];
 
@@ -179,6 +181,13 @@ export default class BaseShape extends BaseObject {
       projectedShape.push({ ...shape, points });
     }
     return projectedShape;
+  }
+
+  /**
+   * @returns {{x: number, y: number}}
+   */
+  getPosition() {
+    return { x: this.x, y: this.y };
   }
 
   /**

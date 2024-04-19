@@ -3,6 +3,8 @@
     {
       "id": "foot-r",
       "background": "#523e35",
+      "stroke": "#000000",
+      "strokeWidth": 0.165,
       "points": [
         {
           "x": 4.562043795620436,
@@ -49,6 +51,8 @@
     {
       "id": "foot-l",
       "background": "#523e35",
+      "stroke": "#000000",
+      "strokeWidth": 0.165,
       "points": [
         {
           "x": -4.805352798053512,
@@ -95,6 +99,8 @@
     {
       "id": "path132294-9",
       "background": "#e2eac1",
+      "stroke": "#000000",
+      "strokeWidth": 0.165,
       "points": [
         {
           "x": -2.5547445255474734,
@@ -165,6 +171,8 @@
     {
       "id": "path132294",
       "background": "#e2eac1",
+      "stroke": "#000000",
+      "strokeWidth": 0.165,
       "points": [
         {
           "x": 2.1897810218978258,
@@ -235,6 +243,8 @@
     {
       "id": "path70565",
       "background": "#3a3544",
+      "stroke": "#000000",
+      "strokeWidth": 0.165,
       "points": [
         {
           "x": 3.588807785888058,
@@ -277,6 +287,8 @@
     {
       "id": "path166293-4",
       "background": "#6e3d2e",
+      "stroke": "#000000",
+      "strokeWidth": 0.165853,
       "points": [
         {
           "x": -20.49878345498785,
@@ -327,6 +339,8 @@
     {
       "id": "path166293-4-5",
       "background": "#6e3d2e",
+      "stroke": "#000000",
+      "strokeWidth": 0.165853,
       "points": [
         {
           "x": 20.49878345498785,
@@ -377,6 +391,8 @@
     {
       "id": "path149189",
       "background": "#6e3d2e",
+      "stroke": "#000000",
+      "strokeWidth": 0.165,
       "points": [
         {
           "x": 17.396593673965945,
@@ -415,6 +431,8 @@
     {
       "id": "path149189-7",
       "background": "#6e3d2e",
+      "stroke": "#000000",
+      "strokeWidth": 0.165,
       "points": [
         {
           "x": -17.39659367396594,
@@ -453,6 +471,8 @@
     {
       "id": "path71384",
       "background": "#7b7959",
+      "stroke": "#000000",
+      "strokeWidth": 0.175779,
       "points": [
         {
           "x": -9.489051094890518,
@@ -515,6 +535,8 @@
     {
       "id": "path71384-1",
       "background": "#7b7959",
+      "stroke": "#000000",
+      "strokeWidth": 0.160998,
       "points": [
         {
           "x": -9.489051094890518,
@@ -577,6 +599,8 @@
     {
       "id": "path65968-1",
       "background": "#ba6560",
+      "stroke": "#000000",
+      "strokeWidth": 0.165,
       "points": [
         {
           "x": -16.24087591240878,
@@ -611,6 +635,8 @@
     {
       "id": "path65968",
       "background": "#ba6560",
+      "stroke": "#000000",
+      "strokeWidth": 0.165,
       "points": [
         {
           "x": 15.632603406326048,
@@ -645,6 +671,8 @@
     {
       "id": "path63330-3",
       "background": "#ab5552",
+      "stroke": "#000000",
+      "strokeWidth": 0.100969,
       "points": [
         {
           "x": -0.18248175182478832,
@@ -723,6 +751,8 @@
     {
       "id": "path70563-6",
       "background": "#3a3544",
+      "stroke": "#000000",
+      "strokeWidth": 0.165,
       "points": [
         {
           "x": -12.895377128953792,
@@ -745,6 +775,8 @@
     {
       "id": "path70563",
       "background": "#3a3544",
+      "stroke": "#000000",
+      "strokeWidth": 0.165,
       "points": [
         {
           "x": 12.530413625304142,
@@ -767,6 +799,8 @@
     {
       "id": "path66083",
       "background": "#c56057",
+      "stroke": "#000000",
+      "strokeWidth": 0.165,
       "points": [
         {
           "x": -3.2238442822384137,
@@ -829,6 +863,8 @@
     {
       "id": "path119374",
       "background": "#e2eac1",
+      "stroke": "#000000",
+      "strokeWidth": 0.165,
       "points": [
         {
           "x": 2.55474452554747,
@@ -863,6 +899,8 @@
     {
       "id": "path119374-2",
       "background": "#e2eac1",
+      "stroke": "#000000",
+      "strokeWidth": 0.165,
       "points": [
         {
           "x": -2.91970802919705,
@@ -897,6 +935,8 @@
     {
       "id": "path63330",
       "background": "#ab5552",
+      "stroke": "#000000",
+      "strokeWidth": 0.165,
       "points": [
         {
           "x": -0.12165450121657173,
@@ -975,6 +1015,8 @@
     {
       "id": "path132989",
       "background": "#e2eac1",
+      "stroke": "#000000",
+      "strokeWidth": 0.165,
       "points": [
         {
           "x": -15.51094890510948,

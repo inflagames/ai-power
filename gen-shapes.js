@@ -62,9 +62,13 @@ function extractPath(file) {
       subs += p[i];
     }
 
+    const stroke = getStyle(values.get("style"), "stroke");
+    const strokeWidth = getStyle(values.get("style"), "stroke-width");
+
     shapes.push({
       id: values.get("inkscape:label") || values.get("id"),
       background: getStyle(values.get("style"), "fill"),
+      ...(Boolean(stroke) && Boolean(strokeWidth) ? { stroke, strokeWidth: +strokeWidth } : {}),
       points: extractMesh(values.get("d"))
     });
   }

@@ -2,6 +2,7 @@
 export const SCREEN_RATIO = 3 / 4;
 export const SCREEN_WIDTH = 1024;
 export const SCREEN_HEIGHT = SCREEN_WIDTH * SCREEN_RATIO;
+export const GRID_SIZE = (SCREEN_WIDTH - 1) / 12;
 
 // game status
 export const RUNNING = 1;
