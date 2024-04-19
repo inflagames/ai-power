@@ -1,9 +1,17 @@
 import Observable, {
   filterObservable,
-  mapObservable, takeUntil,
+  mapObservable, takeUntil
 } from "../../src/game/utils/observable";
 
 describe("Observable", () => {
+  it("test bits", () => {
+    let a = 10; // 1010
+    let b = 5; //  0101
+
+    console.log(a & b); // 0000
+    console.log(a | b); // 1111
+  });
+
   describe("Observable class", () => {
     it("should get the DATA_EXAMPLE emitted by the observable", () => {
       const DATA_EXAMPLE = "example info emitted";
@@ -68,21 +76,23 @@ describe("Observable", () => {
     });
   });
 
-  describe('Observable takeUntil', function () {
-    it('should cut the stream after takeUntil is emitted', function () {
+  describe("Observable takeUntil", function() {
+    it("should cut the stream after takeUntil is emitted", function() {
       const unsub = new Observable();
       const obs = new Observable();
 
       const functionToCall = jest.fn();
 
       const obsResult = obs.pipe(takeUntil(unsub));
-      obsResult.on(() => {functionToCall()});
+      obsResult.on(() => {
+        functionToCall();
+      });
       expect(unsub.subscriptions).toHaveLength(1);
 
       unsub.emit();
       expect(unsub.subscriptions).toHaveLength(0);
 
-      obs.emit()
+      obs.emit();
       expect(obsResult.subscriptions).toHaveLength(0);
       expect(functionToCall).toHaveBeenCalledTimes(0);
     });

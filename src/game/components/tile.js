@@ -1,5 +1,6 @@
 import BaseShape from "./shared/base-shape";
 import shapeTile1 from "../shapes/tile1.json";
+import shapeTile2 from "../shapes/tile2.json";
 import { GRID_SIZE } from "../utils/variables";
 import { addVectors } from "../utils/math";
 
@@ -8,14 +9,15 @@ export default class Tile extends BaseShape {
    * @param eventEmitter {Observable}
    * @param x {number}
    * @param y {number}
-   * @param width
-   * @param height
+   * @param size {number}
    */
-  constructor(eventEmitter, x = 0, y = 0, width = 0, height = 0) {
-    super(eventEmitter, x, y, width, height);
+  constructor(eventEmitter, x = 0, y = 0, size) {
+    super(eventEmitter, x, y, size * GRID_SIZE, size * GRID_SIZE);
 
-    this.tileShape = { shapes: [] };
+    this.size = size;
+    this.tileShape = size === 1 ? {...shapeTile2} : {...shapeTile1};
     this.positionCorrection = { x: 0, y: 0 };
+
     this.setupTile();
   }
 
@@ -23,9 +25,9 @@ export default class Tile extends BaseShape {
    * Setting up the tile shape. This method calculate the correction needed to center the tile in the grid
    */
   setupTile() {
-    let minPosition = { ...shapeTile1.shapes[0].points[0] };
-    let maxPosition = { ...shapeTile1.shapes[0].points[0] };
-    for (let s of shapeTile1.shapes) {
+    let minPosition = { ...this.tileShape.shapes[0].points[0] };
+    let maxPosition = { ...this.tileShape.shapes[0].points[0] };
+    for (let s of this.tileShape.shapes) {
       for (let p of s.points) {
         if (p.x < minPosition.x) {
           minPosition.x = p.x;
@@ -43,18 +45,19 @@ export default class Tile extends BaseShape {
     }
 
     const tileFactor = {
-      x: (GRID_SIZE * 2) / ((maxPosition.x - minPosition.x) * this.scaleShape),
-      y: (GRID_SIZE * 2) / ((maxPosition.y - minPosition.y) * this.scaleShape)
+      x: (GRID_SIZE * this.size) / ((maxPosition.x - minPosition.x) * this.scaleShape),
+      y: (GRID_SIZE * this.size) / ((maxPosition.y - minPosition.y) * this.scaleShape)
     };
 
-    const errorPixel = 1;
+    console.log("tileFactor", tileFactor);
+
     this.positionCorrection = {
-      x: Math.abs(minPosition.x * this.scaleShape) + errorPixel,
-      y: Math.abs(minPosition.y * this.scaleShape) + errorPixel
+      x: (GRID_SIZE * this.size) * 0.5,
+      y: (GRID_SIZE * this.size) * 0.5
     };
 
     // make size correction base on the grid size
-    this.tileShape.shapes = shapeTile1.shapes.map(s => ({
+    this.tileShape.shapes = this.tileShape.shapes.map(s => ({
       ...s,
       points: s.points.map(p => ({
         x: p.x * tileFactor.x,

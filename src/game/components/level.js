@@ -3,6 +3,12 @@ import { scale } from "../utils/math";
 import { SCREEN_HEIGHT, SCREEN_WIDTH, GRID_SIZE } from "../utils/variables";
 import Plant from "./plant";
 import Tile from "./tile";
+import level1 from "./levels/level.001.json";
+
+const ROW_TILE = 1; //     001
+const ROW_TILE_FREE = 2; //    010
+const ROW_TILE_TREE_V1 = 4; // 100
+
 
 export default class Level extends BaseObject {
   /**
@@ -24,25 +30,64 @@ export default class Level extends BaseObject {
     super(eventEmitter, x, y, width, height);
     this.backgroundColor = background;
 
-    // fist plant example
-    const plant = new Plant(
-      this.eventEmitter,
-      SCREEN_WIDTH * 0.5,
-      SCREEN_HEIGHT * 0.5,
-      50,
-      50
-    );
+    // // fist plant example
+    // const plant = new Plant(
+    //   this.eventEmitter,
+    //   SCREEN_WIDTH * 0.5,
+    //   SCREEN_HEIGHT * 0.5,
+    //   50,
+    //   50
+    // );
+    //
+    // // first tile example
+    // const tile = new Tile(
+    //   this.eventEmitter,
+    //   GRID_SIZE,
+    //   GRID_SIZE,
+    //   50,
+    //   50
+    // );
+    // this.components = [plant, tile];
 
-    // first tile example
-    const tile = new Tile(
-      this.eventEmitter,
-      0,
-      0,
-      50,
-      50
-    );
+    this.components = [];
 
-    this.components = [plant, tile];
+    this.loadLevel(level1.map);
+    console.log(this.components);
+  }
+
+  loadLevel(level) {
+    const flags = new Array(level.length).fill(1).map(() => new Array(level[0].length).fill(true));
+    for (let row = 0; row < level.length; row++) {
+      for (let col = 0; col < level[row].length; col++) {
+        const tile = level[row][col];
+        if (flags[row][col] && (tile & ROW_TILE !== 0)) {
+
+          let size = 1;
+
+          // check if 2x2 tile fit
+          if (row + 1 < level.length && col + 1 < level[row].length &&
+            (level[row][col + 1] & ROW_TILE) &&
+            (level[row + 1][col] & ROW_TILE) &&
+            (level[row + 1][col + 1] & ROW_TILE)
+          ) {
+            flags[row][col] = false;
+            flags[row][col + 1] = false;
+            flags[row + 1][col] = false;
+            flags[row + 1][col + 1] = false;
+
+            size = 2;
+          }
+
+          const tile = new Tile(
+            this.eventEmitter,
+            col * GRID_SIZE,
+            row * GRID_SIZE,
+            size
+          );
+          this.components.push(tile);
+        }
+      }
+    }
   }
 
   render(context) {
