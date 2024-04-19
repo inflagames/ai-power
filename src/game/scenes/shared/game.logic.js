@@ -1,5 +1,4 @@
 import { addVectors, detectCollision, lerpVector, multiplyVector, normalizeVector } from "../../utils/math";
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/variables";
 import DirectionKeys from "./direction-keys";
 
 const GAME_STOP = "3";
@@ -19,6 +18,9 @@ export default class GameLogic {
 
     /** @member {DirectionKeys} */
     this.directionKeys = new DirectionKeys();
+
+    /** @member {Level} */
+    this.level = null;
 
     this.player = {
       position: playerPosition,
@@ -61,12 +63,30 @@ export default class GameLogic {
     if (this.directionKeys.hasPressedKeys()) {
       const rot = lerpVector(this.player.directionVector, this.directionKeys.directionVector(), 0.95);
       this.player.directionVector = multiplyVector(normalizeVector(rot), VELOCITY);
+
+      // check collision
+      const prevPosition = this.player.position;
       this.player.position = addVectors(this.player.directionVector, this.player.position);
+      if (this.checkCollisionWithMap()) {
+        this.player.position = prevPosition;
+      }
     }
 
     this.player.component.updateCoordinates(this.player.position);
     this.player.component.updateDirectionVector({ ...this.player.directionVector, y: -this.player.directionVector.y });
-    // toDo (gonzalezext)[18.04.24]: validate collision
+  }
+
+  /**
+   * @returns {boolean}
+   */
+  checkCollisionWithMap() {
+    // toDo (gonzalezext)[19.04.24]: this need to be optimized (check only with the nearest components)
+    for (const component of this.level.components) {
+      if (this.checkCollisionInProjections(this.player.component.getProjection(), component.getProjection())) {
+        return true;
+      }
+    }
+    return false;
   }
 
   canPauseGame() {

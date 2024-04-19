@@ -79,6 +79,7 @@ export default class ScenePlay extends Scene {
     );
     this.currentGame = new GameLogic(this.level.playerInitialPosition);
     this.currentGame.player.component = this.player;
+    this.currentGame.level = this.level;
 
     // score component
     const score = new Score(
