@@ -52,7 +52,6 @@ export default class Level extends BaseObject {
     this.components = [];
 
     this.loadLevel(level1.map);
-    console.log(this.components);
   }
 
   loadLevel(level) {

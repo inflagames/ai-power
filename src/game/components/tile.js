@@ -2,7 +2,7 @@ import BaseShape from "./shared/base-shape";
 import shapeTile1 from "../shapes/tile1.json";
 import shapeTile2 from "../shapes/tile2.json";
 import { GRID_SIZE } from "../utils/variables";
-import { addVectors } from "../utils/math";
+import { addVectors, randomNumber } from "../utils/math";
 
 export default class Tile extends BaseShape {
   /**
@@ -14,11 +14,27 @@ export default class Tile extends BaseShape {
   constructor(eventEmitter, x = 0, y = 0, size) {
     super(eventEmitter, x, y, size * GRID_SIZE, size * GRID_SIZE);
 
+    this.directionVector = this.getRotation();
+
     this.size = size;
     this.tileShape = size === 1 ? {...shapeTile2} : {...shapeTile1};
     this.positionCorrection = { x: 0, y: 0 };
 
     this.setupTile();
+  }
+
+  getRotation() {
+    const currentDirection = randomNumber(4);
+    switch (currentDirection) {
+      case 0:
+        return { x: 1, y: 0 };
+      case 1:
+        return { x: 0, y: 1 };
+      case 2:
+        return { x: -1, y: 0 };
+      case 3:
+        return { x: 0, y: -1 };
+    }
   }
 
   /**
@@ -48,8 +64,6 @@ export default class Tile extends BaseShape {
       x: (GRID_SIZE * this.size) / ((maxPosition.x - minPosition.x) * this.scaleShape),
       y: (GRID_SIZE * this.size) / ((maxPosition.y - minPosition.y) * this.scaleShape)
     };
-
-    console.log("tileFactor", tileFactor);
 
     this.positionCorrection = {
       x: (GRID_SIZE * this.size) * 0.5,
