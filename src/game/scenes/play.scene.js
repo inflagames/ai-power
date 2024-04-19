@@ -15,8 +15,6 @@ import Data from "../utils/data";
 import { isMobileMethod } from "../utils/mobile-device";
 import GameLogic from "./shared/game.logic";
 import Level from "../components/level";
-import Plant from "../components/plant";
-import Tile from "../components/tile";
 
 export const isMobile = isMobileMethod.any();
 
@@ -38,6 +36,7 @@ export default class ScenePlay extends Scene {
       30,
       "PAUSE"
     );
+    this.buttonPause.backgroundColor = "#00000000";
     this.buttonPause.textSize = 20;
     this.buttonPause.listenerEvent(EVENT_CLICK, () => {
       if (this.currentGame.canPauseGame()) {
@@ -87,6 +86,7 @@ export default class ScenePlay extends Scene {
       SCREEN_WIDTH - SCORE_MARGIN,
       SCORE_MARGIN
     );
+    score.backgroundColor = "#00000000";
     this.currentGame.score = score;
 
     // add components to the element array
