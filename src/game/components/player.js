@@ -1,5 +1,5 @@
 import BaseShape from "./shared/base-shape";
-import shape2 from "../shapes/ship2.json";
+import shape from "../shapes/character.json";
 
 export default class Player extends BaseShape {
   /**
@@ -14,8 +14,8 @@ export default class Player extends BaseShape {
     /** @member {number} */
     this.rotation = Math.PI / 2;
     this.directionVector = { x: 0, y: 1 };
-    this.scaleShape = 4;
-    this.shape = shape2;
+    this.scaleShape = 1.5;
+    this.shape = shape;
 
     this.updateCoordinates();
   }

@@ -4,4 +4,4 @@ dist
 *.zip
 .idea
 coverage
-result.json
+src/game/shapes/result.json
