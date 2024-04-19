@@ -7,6 +7,18 @@ const fs = require("fs");
 if (process.argv.length > 2) {
   const filePath = process.argv[2];
   const resultFile = process.argv[3] || "character.json";
+
+  generateShapes(filePath, resultFile);
+} else {
+  fs.readdirSync("./files").forEach(file => {
+    if (file.endsWith(".model.svg")) {
+      console.log("Generating shapes for", file);
+      generateShapes(`./files/${file}`, `./src/game/shapes/${file.replace(".model.svg", ".json")}`);
+    }
+  });
+}
+
+function generateShapes(filePath, resultFile) {
   const file = fs.readFileSync(filePath, { encoding: "utf8" });
 
   fs.writeFileSync(resultFile, JSON.stringify(extractPath(file), null, "  "));
@@ -51,15 +63,15 @@ function extractPath(file) {
     }
 
     shapes.push({
-      id: values.get('inkscape:label') || values.get('id'),
+      id: values.get("inkscape:label") || values.get("id"),
       background: getStyle(values.get("style"), "fill"),
       points: extractMesh(values.get("d"))
     });
   }
 
   // parametrize the shapes
-  let min = {...shapes[0].points[0]};
-  let max = {...shapes[0].points[0]};
+  let min = { ...shapes[0].points[0] };
+  let max = { ...shapes[0].points[0] };
   for (let s of shapes) {
     for (let p of s.points) {
       if (p.x < min.x) {
