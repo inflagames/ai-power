@@ -1,7 +1,6 @@
 import BaseObject from "./shared/base-object";
 import { scale } from "../utils/math";
 import { SCREEN_HEIGHT, SCREEN_WIDTH, GRID_SIZE } from "../utils/variables";
-import Plant from "./plant";
 import Tile from "./tile";
 import level1 from "./levels/level.001.json";
 
@@ -29,25 +28,6 @@ export default class Level extends BaseObject {
   ) {
     super(eventEmitter, x, y, width, height);
     this.backgroundColor = background;
-
-    // // fist plant example
-    // const plant = new Plant(
-    //   this.eventEmitter,
-    //   SCREEN_WIDTH * 0.5,
-    //   SCREEN_HEIGHT * 0.5,
-    //   50,
-    //   50
-    // );
-    //
-    // // first tile example
-    // const tile = new Tile(
-    //   this.eventEmitter,
-    //   GRID_SIZE,
-    //   GRID_SIZE,
-    //   50,
-    //   50
-    // );
-    // this.components = [plant, tile];
 
     this.components = [];
 
