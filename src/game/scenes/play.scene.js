@@ -15,6 +15,8 @@ import Data from "../utils/data";
 import { isMobileMethod } from "../utils/mobile-device";
 import GameLogic from "./shared/game.logic";
 import Level from "../components/level";
+import Plant from "../components/plant";
+import Tile from "../components/tile";
 
 export const isMobile = isMobileMethod.any();
 
@@ -87,8 +89,26 @@ export default class ScenePlay extends Scene {
     );
     this.currentGame.score = score;
 
+    // fist plant example
+    const plant = new Plant(
+      this.eventEmitter,
+      SCREEN_WIDTH * 0.7,
+      SCREEN_HEIGHT * 0.7,
+      50,
+      50
+    );
+
+    // first tile example
+    const tile = new Tile(
+      this.eventEmitter,
+      SCREEN_WIDTH * 0.3,
+      SCREEN_HEIGHT * 0.3,
+      50,
+      50
+    );
+
     // add components to the element array
-    this.elements = [this.player, this.buttonPause];
+    this.elements = [this.player, this.buttonPause, plant, tile];
     this.elements.push(score);
 
     // elements of the game

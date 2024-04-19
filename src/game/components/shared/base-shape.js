@@ -163,7 +163,7 @@ export default class BaseShape extends BaseObject {
     // const rotation = this.rotation + Math.PI / 2;
     const rotation = vectorToAngle(this.directionVector) + Math.PI / 2;
 
-    const shapes = this.shipShape().shapes;
+    const shapes = this.currentShape().shapes;
     const pivot = { x: this.x, y: this.y };
 
     const projectedShape = [];
@@ -184,7 +184,7 @@ export default class BaseShape extends BaseObject {
   /**
    * @returns {{shapes: {background: string, points: {x: number, y: number}[]}[]}}
    */
-  shipShape() {
+  currentShape() {
     return {
       shapes: [],
     };

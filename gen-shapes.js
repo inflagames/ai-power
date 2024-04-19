@@ -89,8 +89,6 @@ function extractPath(file) {
       // parametrize the shapes
       p.x = p.x / maxV * size - size / 2;
       p.y = p.y / maxV * size - size / 2;
-      // p.x = p.x / max * size - size;
-      // p.y = p.y / max * size - size;
     }
   }
 

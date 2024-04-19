@@ -42,7 +42,7 @@ export default class Player extends BaseShape {
     super.animate();
   }
 
-  shipShape() {
+  currentShape() {
     return this.brakedShape || this.shape;
   }
 }
