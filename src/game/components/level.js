@@ -4,9 +4,10 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH, GRID_SIZE } from "../utils/variables";
 import Tile, { TILE_1X1, TILE_2X2, TILE_FLOOR } from "./tile";
 import level1 from "./levels/level.001.json";
 import Bubble from "./bubble";
+import Hole from "./hole";
 
 const ROW_TILE = 1; //         0001
-const ROW_TILE_FREE = 2; //    0010
+const ROW_HOLE = 2; //         0010
 const ROW_TILE_TREE_V1 = 4; // 0100
 const ROW_PLAYER_START = 8; // 1000
 
@@ -35,10 +36,12 @@ export default class Level extends BaseObject {
     const bubble = this.newBubble();
 
     /** @member {BaseObject[]} */
-    this.components = [bubble];
-    this.floor = [];
+    this.components = [];
 
+    this.tiles = [];
+    this.floor = [];
     this.bubbles = [];
+    this.hole = undefined;
 
     this.currentLevel = { ...level1 };
     this.playerInitialPosition = { x: 0, y: 0 };
@@ -79,6 +82,7 @@ export default class Level extends BaseObject {
             row * GRID_SIZE,
             type
           );
+          this.tiles.push(tile);
           this.components.push(tile);
         } else if ((tile & ROW_TILE) === 0) {
           const tile = new Tile(
@@ -88,6 +92,16 @@ export default class Level extends BaseObject {
             TILE_FLOOR
           );
           this.floor.push(tile);
+        }
+
+        if (tile & ROW_HOLE) {
+          const hole = new Hole(
+            this.eventEmitter,
+            col * GRID_SIZE + GRID_SIZE * .5,
+            row * GRID_SIZE + GRID_SIZE * .5
+          );
+          this.hole = hole;
+          this.components.push(hole);
         }
 
         if (tile & ROW_PLAYER_START) {
@@ -106,8 +120,6 @@ export default class Level extends BaseObject {
     this.floor.forEach((component) => component.render(context));
     this.renderWatterColor(context);
     this.updateBubbles();
-
-    // this.paintGrid(context);
 
     this.components.forEach((component) => component.render(context));
   }
@@ -151,22 +163,5 @@ export default class Level extends BaseObject {
 
   cleanScreen(context) {
     context.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-  }
-
-  paintGrid(context) {
-    context.strokeStyle = "#fff";
-    context.lineWidth = 1;
-    for (let i = 0; i < SCREEN_WIDTH; i += GRID_SIZE) {
-      context.beginPath();
-      context.moveTo(i, 0);
-      context.lineTo(i, SCREEN_HEIGHT);
-      context.stroke();
-    }
-    for (let i = 0; i < SCREEN_HEIGHT; i += GRID_SIZE) {
-      context.beginPath();
-      context.moveTo(0, i);
-      context.lineTo(SCREEN_WIDTH, i);
-      context.stroke();
-    }
   }
 }

@@ -166,10 +166,10 @@ export default class BaseShape extends BaseObject {
   }
 
   /**
+   * @param shapeId {string}
    * @return {{points: {x: number, y: number}[], background: string, stroke: string, strokeWidth: number, smoke: boolean}[]}
    */
-  getProjection() {
-    // const rotation = this.rotation + Math.PI / 2;
+  getProjection(shapeId = undefined) {
     const rotation = vectorToAngle(this.directionVector) + Math.PI / 2;
 
     const shapes = this.currentShape().shapes;
@@ -178,6 +178,10 @@ export default class BaseShape extends BaseObject {
     const projectedShape = [];
 
     for (const shape of shapes) {
+      if (shapeId && shape.id !== shapeId) {
+        continue;
+      }
+
       const points = shape.points.map((p) => ({
         x: p.x * this.scaleShape,
         y: p.y * this.scaleShape
@@ -198,7 +202,7 @@ export default class BaseShape extends BaseObject {
   }
 
   /**
-   * @returns {{shapes: {background: string, points: {x: number, y: number}[]}[]}}
+   * @returns {{shapes: {background: string, id: string, points: {x: number, y: number}[]}[]}}
    */
   currentShape() {
     return {

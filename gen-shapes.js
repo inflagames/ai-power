@@ -68,7 +68,7 @@ function extractPath(file) {
     shapes.push({
       id: values.get("inkscape:label") || values.get("id"),
       background: getStyle(values.get("style"), "fill"),
-      ...(Boolean(stroke) && Boolean(strokeWidth) ? { stroke, strokeWidth: +strokeWidth } : {}),
+      ...(Boolean(stroke) && Boolean(strokeWidth && stroke !== "none") ? { stroke, strokeWidth: +strokeWidth } : {}),
       points: extractMesh(values.get("d"))
     });
   }

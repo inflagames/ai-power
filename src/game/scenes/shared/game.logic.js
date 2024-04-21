@@ -81,11 +81,18 @@ export default class GameLogic {
    */
   checkCollisionWithMap() {
     // toDo (gonzalezext)[19.04.24]: this need to be optimized (check only with the nearest components)
-    for (const component of this.level.components) {
+    for (const component of this.level.tiles) {
       if (this.checkCollisionInProjections(this.player.component.getProjection(), component.getProjection())) {
         return true;
       }
     }
+
+    // validate end of the level
+    if (this.checkCollisionInProjections(this.player.component.getProjection(), this.level.hole.getProjection("center"))) {
+      this.levelComplete();
+      return false;
+    }
+
     return false;
   }
 
@@ -141,5 +148,10 @@ export default class GameLogic {
       }
     }
     return false;
+  }
+
+  levelComplete() {
+    // toDo (gonzalezext)[18.04.24]:
+    console.log("Level complete");
   }
 }
