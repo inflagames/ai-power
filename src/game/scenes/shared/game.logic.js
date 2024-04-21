@@ -88,9 +88,11 @@ export default class GameLogic {
     }
 
     // validate end of the level
-    if (this.checkCollisionInProjections(this.player.component.getProjection(), this.level.hole.getProjection("center"))) {
-      this.levelComplete();
-      return false;
+    for (const component of this.level.finishLevelItem) {
+      if (this.checkCollisionInProjections(this.player.component.getProjection(), component.getProjection("center"))) {
+        this.levelComplete();
+        return false;
+      }
     }
 
     return false;

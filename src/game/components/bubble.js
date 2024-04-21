@@ -1,6 +1,5 @@
 import BaseShape from "./shared/base-shape";
 
-const ROUND_RECT_CORNER = 5;
 const MAX_LIFE_TIME = 20;
 
 export default class Bubble extends BaseShape {
@@ -27,7 +26,7 @@ export default class Bubble extends BaseShape {
     this.scaleShape = this.growBubbleFunction(this.getTimeFactor());
     const w = this.width * this.scaleShape;
     const h = this.height * this.scaleShape;
-    context.roundRect(this.x - w * .5, this.y - h * .5, w, h, ROUND_RECT_CORNER);
+    context.ellipse(this.x, this.y, w, h, 0, 0, Math.PI * 2);
     context.fill();
   }
 
@@ -51,9 +50,5 @@ export default class Bubble extends BaseShape {
 
   bubbleDead() {
     return this.lifeTime > MAX_LIFE_TIME;
-  }
-
-  animate() {
-    // toDo (gonzalezext)[19.04.24]: maybe we can animate the leafs
   }
 }

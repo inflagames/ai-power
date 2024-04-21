@@ -41,7 +41,7 @@ export default class Level extends BaseObject {
     this.tiles = [];
     this.floor = [];
     this.bubbles = [];
-    this.hole = undefined;
+    this.finishLevelItem = [];
 
     this.currentLevel = { ...level1 };
     this.playerInitialPosition = { x: 0, y: 0 };
@@ -100,7 +100,7 @@ export default class Level extends BaseObject {
             col * GRID_SIZE + GRID_SIZE * .5,
             row * GRID_SIZE + GRID_SIZE * .5
           );
-          this.hole = hole;
+          this.finishLevelItem.push(hole);
           this.components.push(hole);
         }
 
