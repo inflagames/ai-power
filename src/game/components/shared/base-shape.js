@@ -60,7 +60,7 @@ export default class BaseShape extends BaseObject {
     // brake in triangles
     for (const shape of shapes) {
       this.brakedShape = {
-        shapes: [...this.brakedShape.shapes, ...this.brakeShape(shape)],
+        shapes: [...this.brakedShape.shapes, ...this.brakeShape(shape)]
       };
     }
 
@@ -92,14 +92,14 @@ export default class BaseShape extends BaseObject {
     for (let i = 0; i < count; i++) {
       const pos = {
         x: (max.x - min.x) * Math.random() + min.x,
-        y: (max.y - min.y) * Math.random() + min.y,
+        y: (max.y - min.y) * Math.random() + min.y
       };
       newShapes.push({
         points: new Array(3).fill(null).map(() => ({
           x: pos.x + size * Math.random(),
-          y: pos.y + size * Math.random(),
+          y: pos.y + size * Math.random()
         })),
-        background: shape.background,
+        background: shape.background
       });
     }
 
@@ -131,7 +131,7 @@ export default class BaseShape extends BaseObject {
       for (const shape of this.brakedShape.shapes) {
         shape.points = shape.points.map((p) => ({
           x: p.x + shape.vector.x,
-          y: p.y + shape.vector.y,
+          y: p.y + shape.vector.y
         }));
         shape.background = this.reduceOpacity(shape.background, 30);
       }
@@ -144,8 +144,15 @@ export default class BaseShape extends BaseObject {
    * @returns {string}
    */
   reduceOpacity(color, extract) {
+    // toDo (gonzalezext)[21.04.24]: remove this method
     let alpha = this.getOpacity(color);
     alpha = Math.min(255, Math.max(alpha - extract, 0));
+    alpha = alpha.toString(16);
+    return `#${color.substr(1, 6)}${(alpha.length < 2 ? "0" : "") + alpha}`;
+  }
+
+  getColorWithOpacity(color, alphaFactor) {
+    let alpha = Math.min(255, Math.max(Math.floor(255 * alphaFactor), 0));
     alpha = alpha.toString(16);
     return `#${color.substr(1, 6)}${(alpha.length < 2 ? "0" : "") + alpha}`;
   }
@@ -173,7 +180,7 @@ export default class BaseShape extends BaseObject {
     for (const shape of shapes) {
       const points = shape.points.map((p) => ({
         x: p.x * this.scaleShape,
-        y: p.y * this.scaleShape,
+        y: p.y * this.scaleShape
       }));
       for (let i = 0; i < points.length; i++) {
         points[i] = getPointByVectorRotation(points[i], pivot, rotation);
@@ -195,7 +202,7 @@ export default class BaseShape extends BaseObject {
    */
   currentShape() {
     return {
-      shapes: [],
+      shapes: []
     };
   }
 }

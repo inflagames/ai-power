@@ -34,6 +34,7 @@ export function addVectors(v1, v2) {
  * @param currentValue {number}
  */
 export function linearFunction(maxValue, currentValue) {
+  // toDo (gonzalezext)[20.04.24]: maybe it can be removed
   return Math.min(currentValue / maxValue, 1);
 }
 
@@ -42,6 +43,7 @@ export function linearFunction(maxValue, currentValue) {
  * @param currentValue {number}
  */
 export function logFunction(maxValue, currentValue) {
+  // toDo (gonzalezext)[20.04.24]: maybe it can be removed
   const x = (9 * currentValue) / maxValue + 1;
   return Math.min(Math.log10(x), 1);
 }

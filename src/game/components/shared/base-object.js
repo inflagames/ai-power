@@ -1,6 +1,6 @@
 import Observable, {
   filterObservable,
-  takeUntil,
+  takeUntil
 } from "../../utils/observable";
 import {
   EVENT_KEYDOWN,
@@ -9,7 +9,7 @@ import {
   EVENT_MOUSELEAVE,
   EVENT_MOUSEOUT,
   EVENT_TOUCHCANCEL,
-  EVENT_TOUCHUP,
+  EVENT_TOUCHUP
 } from "../../utils/variables";
 
 export default class BaseObject {
@@ -31,8 +31,10 @@ export default class BaseObject {
     this.lastMousePosition = null;
     this.isMouseHover = false;
 
-    // toDo guille 27.08.21: improve this random value to be unique
-    this.id = Math.random() * 1000000;
+    if (global['idCount'] === undefined) {
+      global['idCount'] = 0;
+    }
+    this.id = global['idCount']++;
   }
 
   set eventEmitter(value) {
