@@ -1,39 +1,56 @@
 import BaseShape from "./shared/base-shape";
 import shapeTile1 from "../shapes/tile1.json";
 import shapeTile2 from "../shapes/tile2.json";
+import floorTile from "../shapes/floor.tile.json";
 import { GRID_SIZE } from "../utils/variables";
 import { addVectors, randomNumber } from "../utils/math";
+
+export const TILE_1X1 = 1;
+export const TILE_2X2 = 2;
+export const TILE_FLOOR = 3;
 
 export default class Tile extends BaseShape {
   /**
    * @param eventEmitter {Observable}
    * @param x {number}
    * @param y {number}
-   * @param size {number}
+   * @param type {number}
    */
-  constructor(eventEmitter, x = 0, y = 0, size) {
-    super(eventEmitter, x, y, size * GRID_SIZE, size * GRID_SIZE);
+  constructor(eventEmitter, x = 0, y = 0, type) {
+    super(eventEmitter, x, y, type * GRID_SIZE, type * GRID_SIZE);
 
     this.directionVector = this.getRotation();
 
-    this.size = size;
-    this.tileShape = size === 1 ? {...shapeTile2} : {...shapeTile1};
+    this.type = type;
+    this.tileShape = { ...this.getShape(type) };
     this.positionCorrection = { x: 0, y: 0 };
 
     this.setupTile();
   }
 
+  getShape(type) {
+    switch (type) {
+    case TILE_1X1:
+      return shapeTile2;
+    case TILE_2X2:
+      return shapeTile1;
+    case TILE_FLOOR:
+    default:
+      return floorTile;
+    }
+  }
+
   getRotation() {
     const currentDirection = randomNumber(4);
     switch (currentDirection) {
-      case 0:
-        return { x: 1, y: 0 };
-      case 1:
-        return { x: 0, y: 1 };
-      case 2:
-        return { x: -1, y: 0 };
-      case 3:
-        return { x: 0, y: -1 };
+    case 0:
+      return { x: 1, y: 0 };
+    case 1:
+      return { x: 0, y: 1 };
+    case 2:
+      return { x: -1, y: 0 };
+    case 3:
+      return { x: 0, y: -1 };
     }
   }
 
@@ -61,13 +78,13 @@ export default class Tile extends BaseShape {
     }
 
     const tileFactor = {
-      x: (GRID_SIZE * this.size) / ((maxPosition.x - minPosition.x) * this.scaleShape),
-      y: (GRID_SIZE * this.size) / ((maxPosition.y - minPosition.y) * this.scaleShape)
+      x: (GRID_SIZE * this.getGridSize()) / ((maxPosition.x - minPosition.x) * this.scaleShape),
+      y: (GRID_SIZE * this.getGridSize()) / ((maxPosition.y - minPosition.y) * this.scaleShape)
     };
 
     this.positionCorrection = {
-      x: (GRID_SIZE * this.size) * 0.5,
-      y: (GRID_SIZE * this.size) * 0.5
+      x: (GRID_SIZE * this.getGridSize()) * 0.5,
+      y: (GRID_SIZE * this.getGridSize()) * 0.5
     };
 
     // make size correction base on the grid size
@@ -78,6 +95,16 @@ export default class Tile extends BaseShape {
         y: p.y * tileFactor.y
       }))
     }));
+  }
+
+  getGridSize() {
+    switch (this.type) {
+    case TILE_1X1:
+    case TILE_FLOOR:
+      return 1;
+    case TILE_2X2:
+      return 2;
+    }
   }
 
   /**

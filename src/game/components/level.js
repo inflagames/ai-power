@@ -1,7 +1,7 @@
 import BaseObject from "./shared/base-object";
 import { randomNumber, scale } from "../utils/math";
 import { SCREEN_HEIGHT, SCREEN_WIDTH, GRID_SIZE } from "../utils/variables";
-import Tile from "./tile";
+import Tile, { TILE_1X1, TILE_2X2, TILE_FLOOR } from "./tile";
 import level1 from "./levels/level.001.json";
 import Bubble from "./bubble";
 
@@ -36,6 +36,7 @@ export default class Level extends BaseObject {
 
     /** @member {BaseObject[]} */
     this.components = [bubble];
+    this.floor = [];
 
     this.bubbles = [];
 
@@ -54,9 +55,9 @@ export default class Level extends BaseObject {
     for (let row = 0; row < map.length; row++) {
       for (let col = 0; col < map[row].length; col++) {
         const tile = map[row][col];
-        if (flags[row][col] && (tile & ROW_TILE !== 0)) {
+        if (flags[row][col] && ((tile & ROW_TILE) !== 0)) {
 
-          let size = 1;
+          let type = TILE_1X1;
 
           // check if 2x2 tile fit
           if (row + 1 < map.length && col + 1 < map[row].length &&
@@ -69,16 +70,24 @@ export default class Level extends BaseObject {
             flags[row + 1][col] = false;
             flags[row + 1][col + 1] = false;
 
-            size = 2;
+            type = TILE_2X2;
           }
 
           const tile = new Tile(
             this.eventEmitter,
             col * GRID_SIZE,
             row * GRID_SIZE,
-            size
+            type
           );
           this.components.push(tile);
+        } else if ((tile & ROW_TILE) === 0) {
+          const tile = new Tile(
+            this.eventEmitter,
+            col * GRID_SIZE,
+            row * GRID_SIZE,
+            TILE_FLOOR
+          );
+          this.floor.push(tile);
         }
 
         if (tile & ROW_PLAYER_START) {
@@ -93,6 +102,9 @@ export default class Level extends BaseObject {
 
   render(context) {
     this.cleanScreen(context);
+
+    this.floor.forEach((component) => component.render(context));
+    this.renderWatterColor(context);
     this.updateBubbles();
 
     // this.paintGrid(context);
@@ -128,15 +140,17 @@ export default class Level extends BaseObject {
     return new Bubble(this.eventEmitter, x, y, width, height);
   }
 
-  cleanScreen(context) {
+  renderWatterColor(context) {
     if (this.backgroundColor) {
       context.beginPath();
       context.fillStyle = this.backgroundColor;
       context.rect(0, 0, scale(this.width), scale(this.height));
       context.fill();
-    } else {
-      context.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     }
+  }
+
+  cleanScreen(context) {
+    context.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
   }
 
   paintGrid(context) {
