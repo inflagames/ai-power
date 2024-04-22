@@ -1,9 +1,9 @@
 import { addVectors, detectCollision, lerpVector, multiplyVector, normalizeVector } from "../../utils/math";
 import DirectionKeys from "./direction-keys";
 
-const GAME_STOP = "3";
-const GAME_OVER = "5";
-const GAME_PAUSE = "7";
+export const GAME_STOP = "3";
+export const GAME_OVER = "5";
+export const GAME_PAUSE = "7";
 
 export default class GameLogic {
   /**
@@ -11,11 +11,6 @@ export default class GameLogic {
    * @param playerPosition {{x: number, y: number}}
    */
   constructor(playerPosition) {
-    /** @member {Score} */
-    this.score = null;
-
-    this.time = 0;
-
     /** @member {DirectionKeys} */
     this.directionKeys = new DirectionKeys();
 

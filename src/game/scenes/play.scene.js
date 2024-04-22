@@ -32,9 +32,9 @@ export default class ScenePlay extends Scene {
       this.eventEmitter,
       SCORE_MARGIN,
       SCORE_MARGIN,
-      60,
+      100,
       30,
-      "PAUSE"
+      "SETTINGS"
     );
     this.buttonPause.backgroundColor = "#00000000";
     this.buttonPause.textSize = 20;

@@ -9,7 +9,7 @@ export default class Score extends BaseObject {
    */
   constructor(eventEmitter, x, y) {
     super(eventEmitter, x, y);
-    this.score = 0;
+    this.level = 0;
     this.textSize = 30;
     this.backgroundColor = "#000";
     this.textColor = "#fff";
@@ -22,7 +22,8 @@ export default class Score extends BaseObject {
    */
   render(context) {
     context.font = `${scale(this.textSize)}px Arial`;
-    const metrics = context.measureText(this.score + "");
+    const text = `LEVEL ${this.level}`;
+    const metrics = context.measureText(text);
     const textWidth = metrics.width;
     const textHeight =
       metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
@@ -33,7 +34,7 @@ export default class Score extends BaseObject {
       scale(this.x - textWidth - padding * 2),
       scale(this.y),
       scale(textWidth + padding * 2),
-      scale(textHeight + padding * 2),
+      scale(textHeight + padding * 2)
     );
     context.fillStyle = this.backgroundColor;
     context.fill();
@@ -42,9 +43,9 @@ export default class Score extends BaseObject {
     context.font = `${scale(this.textSize)}px Arial`;
     context.fillStyle = this.textColor;
     context.fillText(
-      this.score + "",
+      text,
       scale(this.x - textWidth - padding),
-      scale(this.y + textHeight + padding),
+      scale(this.y + textHeight + padding)
     );
   }
 }

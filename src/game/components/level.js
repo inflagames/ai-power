@@ -11,7 +11,7 @@ const ROW_HOLE = 2; //         0010
 const ROW_TILE_TREE_V1 = 4; // 0100
 const ROW_PLAYER_START = 8; // 1000
 
-const MAX_NUMBER_OF_BUBBLES = 40;
+const MAX_NUMBER_OF_BUBBLES = 20;
 
 export default class Level extends BaseObject {
   /**
@@ -112,6 +112,12 @@ export default class Level extends BaseObject {
         }
       }
     }
+  }
+
+  pauseGame() {
+  }
+
+  unPauseGame() {
   }
 
   render(context) {
