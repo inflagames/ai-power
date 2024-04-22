@@ -1,5 +1,6 @@
 import { addVectors, detectCollision, lerpVector, multiplyVector, normalizeVector } from "../../utils/math";
 import DirectionKeys from "./direction-keys";
+import { ANIMATE_WALK } from "../../components/player";
 
 export const GAME_STOP = "3";
 export const GAME_OVER = "5";
@@ -65,6 +66,10 @@ export default class GameLogic {
       if (this.checkCollisionWithMap()) {
         this.player.position = prevPosition;
       }
+
+      this.player.component.animation |= ANIMATE_WALK;
+    } else {
+      this.player.component.animation = 0;
     }
 
     this.player.component.updateCoordinates(this.player.position);
@@ -101,7 +106,7 @@ export default class GameLogic {
   animateComponents() {
     // toDo (gonzalezext)[18.04.24]:
     // animation in general
-    // this.ship.component.animate();
+    this.player.component.animate();
   }
 
   pause() {
