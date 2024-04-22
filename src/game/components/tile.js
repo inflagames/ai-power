@@ -9,6 +9,8 @@ export const TILE_1X1 = 1;
 export const TILE_2X2 = 2;
 export const TILE_FLOOR = 3;
 
+const colors = ["#b85c54", "#c56057", "#be7063", "#c55f56"];
+
 export default class Tile extends BaseShape {
   /**
    * @param eventEmitter {Observable}
@@ -90,6 +92,7 @@ export default class Tile extends BaseShape {
     // make size correction base on the grid size
     this.tileShape.shapes = this.tileShape.shapes.map(s => ({
       ...s,
+      background: colors[randomNumber(colors.length)],
       points: s.points.map(p => ({
         x: p.x * tileFactor.x,
         y: p.y * tileFactor.y
