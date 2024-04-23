@@ -49,6 +49,7 @@ export default class Level extends BaseObject {
     this.currentLevel = { ...level1 };
 
     this.playerInitialPosition = { x: 0, y: 0 };
+    this.pause = false;
 
     this.gridSize = GRID_SIZE;
 
@@ -163,9 +164,11 @@ export default class Level extends BaseObject {
   }
 
   pauseGame() {
+    this.pause = true;
   }
 
   unPauseGame() {
+    this.pause = false;
   }
 
   render(context) {
@@ -173,7 +176,10 @@ export default class Level extends BaseObject {
 
     this.floor.forEach((component) => component.render(context));
     this.renderWatterColor(context);
-    this.updateBubbles();
+
+    if (!this.pause) {
+      this.updateBubbles();
+    }
 
     this.components.forEach((component) => component.render(context));
     this.cameras.forEach((component) => component.render(context));

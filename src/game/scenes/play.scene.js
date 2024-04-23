@@ -13,7 +13,7 @@ import Modal from "../components/modal";
 import Button from "../components/button";
 import Data from "../utils/data";
 import { isMobileMethod } from "../utils/mobile-device";
-import GameLogic from "./shared/game.logic";
+import GameLogic, { GAME_RUNNING } from "./shared/game.logic";
 import Level from "../components/level";
 
 export const isMobile = isMobileMethod.any();

@@ -3,9 +3,10 @@ import DirectionKeys from "./direction-keys";
 import { ANIMATE_WALK } from "../../components/player";
 import Level from "../../components/level";
 
-export const GAME_STOP = "3";
-export const GAME_OVER = "5";
-export const GAME_PAUSE = "7";
+export const GAME_RUNNING = 1;
+export const GAME_STOP = 3;
+export const GAME_OVER = 5;
+export const GAME_PAUSE = 7;
 
 export default class GameLogic {
   /**
@@ -32,9 +33,11 @@ export default class GameLogic {
    * run an iteration of the game logic
    */
   play() {
-    this.movePlayer();
-    this.animateComponents();
-    this.checkCollisionWithRelevantElements();
+    if (this.player.status === GAME_RUNNING) {
+      this.movePlayer();
+      this.animateComponents();
+      this.checkCollisionWithRelevantElements();
+    }
   }
 
   /**
@@ -112,11 +115,13 @@ export default class GameLogic {
   }
 
   pause() {
-    // toDo (gonzalezext)[18.04.24]:
+    this.player.status = GAME_PAUSE;
+    this.level.pauseGame();
   }
 
   unpause() {
-    // toDo (gonzalezext)[18.04.24]:
+    this.player.status = GAME_RUNNING;
+    this.level.unPauseGame();
   }
 
   updateSpaces() {
@@ -172,7 +177,7 @@ export default class GameLogic {
       minVelocity: 10,
       acceleration: 20,
       deceleration: -1.5,
-      status: [GAME_STOP],
+      status: GAME_RUNNING
     };
     this.objects = [];
   }
