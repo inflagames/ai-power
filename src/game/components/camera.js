@@ -7,13 +7,15 @@ export default class Camera extends BaseShape {
    * @param eventEmitter {Observable}
    * @param x {number}
    * @param y {number}
-   * @param gridSize
-   * @param distance
+   * @param gridSize {number}
+   * @param distance {number} number of grid cells distance
+   * @param initialRotation {number} fraction of PI
+   * @param maxRotation {number} fraction of PI
    */
-  constructor(eventEmitter, x = 0, y = 0, gridSize, distance) {
+  constructor(eventEmitter, x = 0, y = 0, gridSize, distance, initialRotation, maxRotation = 1) {
     super(eventEmitter, x, y, gridSize, gridSize);
 
-    this.baseDirection = { x: 0, y: 1 };
+    this.baseDirection = rotateVector({ x: 0, y: 1 }, Math.PI * initialRotation);
     this.directionVector = { x: 0, y: 1 };
     this.shape = { ...cameraShape };
     this.distance = distance;
@@ -29,7 +31,7 @@ export default class Camera extends BaseShape {
 
     this.scaleShape = gridSize / Math.max(maxPoint.x - minPoint.x, maxPoint.y - minPoint.y);
 
-    this.maxRotation = Math.PI;
+    this.maxRotation = Math.PI * maxRotation;
 
     this.initialTime = new Date().getTime();
   }

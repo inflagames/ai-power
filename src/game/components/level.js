@@ -107,10 +107,12 @@ export default class Level extends BaseObject {
             col * this.gridSize + this.gridSize * .5,
             row * this.gridSize + this.gridSize * .5,
             this.gridSize,
-            level.cameras[cameraCount++].viewDistance
+            level.cameras[cameraCount]['viewDistance'],
+            level.cameras[cameraCount]['initialRotation'],
+            level.cameras[cameraCount]['maxRotation']
           );
+          cameraCount++;
           this.cameras.push(camera);
-          this.components.push(camera);
         }
 
         if (tile & ROW_HOLE) {
@@ -147,6 +149,7 @@ export default class Level extends BaseObject {
     this.updateBubbles();
 
     this.components.forEach((component) => component.render(context));
+    this.cameras.forEach((component) => component.render(context));
   }
 
   updateBubbles() {
