@@ -7,7 +7,7 @@
    viewBox="0 0 23.894697 19.266474"
    version="1.1"
    id="svg165211"
-   sodipodi:docname="character.svg"
+   sodipodi:docname="character.model.svg"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -24,12 +24,12 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="6.0150393"
-     inkscape:cx="43.391238"
+     inkscape:cx="20.199369"
      inkscape:cy="18.121245"
-     inkscape:window-width="1680"
-     inkscape:window-height="1013"
-     inkscape:window-x="1920"
-     inkscape:window-y="662"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="g164736" />
   <defs
@@ -76,12 +76,14 @@
          style="fill:#6e3d2e;stroke:#000000;stroke-width:0.165853;stroke-miterlimit:4;stroke-dasharray:none"
          d="m 552.32917,61.641556 2.66338,-11.687279 0.12286,-3.455958 -0.1777,-4.343083 -0.57283,-2.169348 -3.61403,-0.772921 -2.568,1.682429 -1.03129,5.825491 -0.20663,6.038942 0.004,4.366588 0.47536,3.376762 z"
          id="path166293-4"
-         sodipodi:nodetypes="cccccccccccc" />
+         sodipodi:nodetypes="cccccccccccc"
+         inkscape:label="hand-l" />
       <path
          style="fill:#6e3d2e;stroke:#000000;stroke-width:0.165853;stroke-miterlimit:4;stroke-dasharray:none"
          d="m 619.68132,60.134205 -2.66338,-11.687279 -0.12286,-3.455958 0.1777,-4.343083 0.57283,-2.169348 3.61403,-0.772921 2.568,1.682429 1.03129,5.825491 0.20663,6.038942 -0.004,4.366588 -0.47536,3.376762 z"
          id="path166293-4-5"
-         sodipodi:nodetypes="cccccccccccc" />
+         sodipodi:nodetypes="cccccccccccc"
+         inkscape:label="hand-r" />
       <path
          style="fill:#6e3d2e;fill-opacity:1;stroke:#000000;stroke-width:0.165;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          d="m 614.58826,61.292636 1.01034,12.37565 5.0002,2.482485 2.91145,-1.03676 2.43324,-2.961087 1.14628,-5.705887 -0.77356,-4.281271 -1.73001,-3.169938 z"

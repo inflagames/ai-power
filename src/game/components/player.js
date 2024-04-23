@@ -1,6 +1,8 @@
 import BaseShape from "./shared/base-shape";
 import shape from "../shapes/character.json";
 
+// shape.shapes = shape.shapes.filter((shape) => shape.id.startsWith("hand") || shape.id.startsWith("foot"));
+
 export const ANIMATE_WALK = 1;
 
 export default class Player extends BaseShape {
@@ -47,7 +49,10 @@ export default class Player extends BaseShape {
 
   animate() {
     if ((this.animation & ANIMATE_WALK) !== 0) {
-      this.animationIsOn = true
+      if (!this.animationIsOn) {
+        this.time = new Date().getTime();
+      }
+      this.animationIsOn = true;
       this.animateWalk();
     } else if (this.animationIsOn) {
       this.shape = { ...shape };
@@ -56,14 +61,42 @@ export default class Player extends BaseShape {
 
   animateWalk() {
     const maxMovement = -20;
-    const movement = this.stepAnimationFunction() * maxMovement;
+    const footMovement = this.stepAnimationFunction() * maxMovement;
+    const handMovement = this.handAnimationFunction();
+
+    let minPoint = { x: 1000, y: 1000 };
+    let maxPoint = { x: -1000, y: -1000 };
+    // toDo (gonzalezext)[23.04.24]: this can be calculated at the begining
+    this.shape.shapes.forEach((shape) => shape.points.forEach((point) => {
+      minPoint.y = Math.min(minPoint.y, point.y);
+      minPoint.x = Math.min(minPoint.x, point.x);
+      maxPoint.y = Math.max(maxPoint.y, point.y);
+      maxPoint.x = Math.max(maxPoint.x, point.x);
+    }));
+    const middleHandPivot = -2;
+
+    // toDo (gonzalezext)[23.04.24]: this can be optimized by using a map
     this.shape.shapes = shape.shapes.map((shape) => {
+      // foot animation
       if (shape.id.startsWith("foot")) {
-        const footMov = shape.id.endsWith("-l") ? movement : -movement;
+        const footMov = shape.id.endsWith("-l") ? footMovement : -footMovement;
         return {
           ...shape,
           points: shape.points.map((point) => {
             return { ...point, y: point.y + footMov };
+          })
+        };
+      }
+      // hand animation
+      if (shape.id.startsWith("hand")) {
+        const dir = shape.id.endsWith("-l") ? 1 : -1;
+        return {
+          ...shape,
+          points: shape.points.map((point) => {
+            return {
+              ...point,
+              y: (point.y - middleHandPivot) * handMovement * dir + middleHandPivot
+            };
           })
         };
       }
@@ -74,6 +107,11 @@ export default class Player extends BaseShape {
   stepAnimationFunction() {
     const time = (new Date().getTime() - this.time) / 500;
     return Math.sin(time * Math.PI);
+  }
+
+  handAnimationFunction() {
+    const time = (new Date().getTime() - this.time) / 500;
+    return Math.cos(time * Math.PI);
   }
 
   currentShape() {
