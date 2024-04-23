@@ -104,9 +104,11 @@ export default class GameLogic {
   }
 
   animateComponents() {
-    // toDo (gonzalezext)[18.04.24]:
-    // animation in general
+    // animate player
     this.player.component.animate();
+
+    // animate cameras
+    this.level.cameras.forEach((obj) => obj.animate());
   }
 
   pause() {

@@ -42,6 +42,7 @@ export default class Level extends BaseObject {
     this.floor = [];
     this.bubbles = [];
     this.finishLevelItem = [];
+    this.cameras = [];
 
     this.currentLevel = { ...level2 };
     this.playerInitialPosition = { x: 0, y: 0 };
@@ -108,6 +109,7 @@ export default class Level extends BaseObject {
             this.gridSize,
             level.cameras[cameraCount++].viewDistance
           );
+          this.cameras.push(camera);
           this.components.push(camera);
         }
 

@@ -1,6 +1,6 @@
 import BaseShape from "./shared/base-shape";
 import cameraShape from "../shapes/camera.json";
-import { vectorToAngle } from "../utils/math";
+import { rotateVector, vectorToAngle } from "../utils/math";
 
 export default class Camera extends BaseShape {
   /**
@@ -13,7 +13,8 @@ export default class Camera extends BaseShape {
   constructor(eventEmitter, x = 0, y = 0, gridSize, distance) {
     super(eventEmitter, x, y, gridSize, gridSize);
 
-    this.directionVector = { x: -1, y: 1 };
+    this.baseDirection = { x: 0, y: 1 };
+    this.directionVector = { x: 0, y: 1 };
     this.shape = { ...cameraShape };
     this.distance = distance;
 
@@ -27,19 +28,34 @@ export default class Camera extends BaseShape {
     }));
 
     this.scaleShape = gridSize / Math.max(maxPoint.x - minPoint.x, maxPoint.y - minPoint.y);
+
+    this.maxRotation = Math.PI;
+
+    this.initialTime = new Date().getTime();
+  }
+
+  animate() {
+    const currentTime = (this.initialTime - new Date().getTime()) / 1000;
+    const factor = Math.sin(currentTime);
+
+    this.directionVector = rotateVector(this.baseDirection, factor * this.maxRotation * .5);
   }
 
   render(context) {
     // render vision cone
     context.beginPath();
-    const angle = vectorToAngle({x: -this.directionVector.x, y: this.directionVector.y})  - Math.PI / 6;
+    const angle = vectorToAngle({ x: -this.directionVector.x, y: this.directionVector.y }) - Math.PI / 6;
     context.moveTo(this.x, this.y);
     context.arc(this.x, this.y, this.width * this.distance, angle, angle + Math.PI / 3, false);
-    context.fillStyle = "rgba(255, 255, 255, 0.1)";
+    context.fillStyle = this.getVisionColor();
     context.fill();
 
     // render camera
     super.render(context);
+  }
+
+  getVisionColor() {
+    return "rgba(0, 255, 0, 0.1)";
   }
 
   getPosition() {
