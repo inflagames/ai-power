@@ -2,7 +2,7 @@
   "shapes": [
     {
       "id": "foot-r",
-      "background": "#523e35",
+      "background": "#523e35ff",
       "stroke": "#000000",
       "strokeWidth": 0.165,
       "points": [
@@ -50,7 +50,7 @@
     },
     {
       "id": "foot-l",
-      "background": "#523e35",
+      "background": "#523e35ff",
       "stroke": "#000000",
       "strokeWidth": 0.165,
       "points": [
@@ -98,7 +98,7 @@
     },
     {
       "id": "path132294-9",
-      "background": "#e2eac1",
+      "background": "#e2eac1ff",
       "stroke": "#000000",
       "strokeWidth": 0.165,
       "points": [
@@ -170,7 +170,7 @@
     },
     {
       "id": "path132294",
-      "background": "#e2eac1",
+      "background": "#e2eac1ff",
       "stroke": "#000000",
       "strokeWidth": 0.165,
       "points": [
@@ -242,7 +242,7 @@
     },
     {
       "id": "path70565",
-      "background": "#3a3544",
+      "background": "#3a3544ff",
       "stroke": "#000000",
       "strokeWidth": 0.165,
       "points": [
@@ -286,7 +286,7 @@
     },
     {
       "id": "hand-l",
-      "background": "#6e3d2e",
+      "background": "#6e3d2eff",
       "stroke": "#000000",
       "strokeWidth": 0.165853,
       "points": [
@@ -338,7 +338,7 @@
     },
     {
       "id": "hand-r",
-      "background": "#6e3d2e",
+      "background": "#6e3d2eff",
       "stroke": "#000000",
       "strokeWidth": 0.165853,
       "points": [
@@ -390,7 +390,7 @@
     },
     {
       "id": "path149189",
-      "background": "#6e3d2e",
+      "background": "#6e3d2eff",
       "stroke": "#000000",
       "strokeWidth": 0.165,
       "points": [
@@ -430,7 +430,7 @@
     },
     {
       "id": "path149189-7",
-      "background": "#6e3d2e",
+      "background": "#6e3d2eff",
       "stroke": "#000000",
       "strokeWidth": 0.165,
       "points": [
@@ -470,7 +470,7 @@
     },
     {
       "id": "path71384",
-      "background": "#7b7959",
+      "background": "#7b7959ff",
       "stroke": "#000000",
       "strokeWidth": 0.175779,
       "points": [
@@ -534,7 +534,7 @@
     },
     {
       "id": "path71384-1",
-      "background": "#7b7959",
+      "background": "#7b7959ff",
       "stroke": "#000000",
       "strokeWidth": 0.160998,
       "points": [
@@ -598,7 +598,7 @@
     },
     {
       "id": "path65968-1",
-      "background": "#ba6560",
+      "background": "#ba6560ff",
       "stroke": "#000000",
       "strokeWidth": 0.165,
       "points": [
@@ -634,7 +634,7 @@
     },
     {
       "id": "path65968",
-      "background": "#ba6560",
+      "background": "#ba6560ff",
       "stroke": "#000000",
       "strokeWidth": 0.165,
       "points": [
@@ -670,7 +670,7 @@
     },
     {
       "id": "path63330-3",
-      "background": "#ab5552",
+      "background": "#ab5552ff",
       "stroke": "#000000",
       "strokeWidth": 0.100969,
       "points": [
@@ -750,7 +750,7 @@
     },
     {
       "id": "path70563-6",
-      "background": "#3a3544",
+      "background": "#3a3544ff",
       "stroke": "#000000",
       "strokeWidth": 0.165,
       "points": [
@@ -774,7 +774,7 @@
     },
     {
       "id": "path70563",
-      "background": "#3a3544",
+      "background": "#3a3544ff",
       "stroke": "#000000",
       "strokeWidth": 0.165,
       "points": [
@@ -798,7 +798,7 @@
     },
     {
       "id": "path66083",
-      "background": "#c56057",
+      "background": "#c56057ff",
       "stroke": "#000000",
       "strokeWidth": 0.165,
       "points": [
@@ -862,7 +862,7 @@
     },
     {
       "id": "path119374",
-      "background": "#e2eac1",
+      "background": "#e2eac1ff",
       "stroke": "#000000",
       "strokeWidth": 0.165,
       "points": [
@@ -898,7 +898,7 @@
     },
     {
       "id": "path119374-2",
-      "background": "#e2eac1",
+      "background": "#e2eac1ff",
       "stroke": "#000000",
       "strokeWidth": 0.165,
       "points": [
@@ -934,7 +934,7 @@
     },
     {
       "id": "path63330",
-      "background": "#ab5552",
+      "background": "#ab5552ff",
       "stroke": "#000000",
       "strokeWidth": 0.165,
       "points": [
@@ -1014,7 +1014,7 @@
     },
     {
       "id": "path132989",
-      "background": "#e2eac1",
+      "background": "#e2eac1ff",
       "stroke": "#000000",
       "strokeWidth": 0.165,
       "points": [

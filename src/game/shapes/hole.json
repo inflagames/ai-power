@@ -2,7 +2,7 @@
   "shapes": [
     {
       "id": "center",
-      "background": "#352835",
+      "background": "#352835ff",
       "points": [
         {
           "x": -15.52132701421802,
@@ -32,7 +32,7 @@
     },
     {
       "id": "path187494",
-      "background": "#4e3b43",
+      "background": "#4e3b43ff",
       "points": [
         {
           "x": -25,
@@ -110,7 +110,7 @@
     },
     {
       "id": "path187494-6",
-      "background": "#4e3b43",
+      "background": "#4e3b43ff",
       "points": [
         {
           "x": -25,
@@ -188,7 +188,7 @@
     },
     {
       "id": "path188158",
-      "background": "#1f1720",
+      "background": "#1f1720ff",
       "points": [
         {
           "x": -17.417061611374407,
@@ -258,7 +258,7 @@
     },
     {
       "id": "path188158-3",
-      "background": "#1f1720",
+      "background": "#1f1720ff",
       "points": [
         {
           "x": -17.417061611374407,
@@ -328,7 +328,7 @@
     },
     {
       "id": "path194589",
-      "background": "#697083",
+      "background": "#697083dc",
       "points": [
         {
           "x": -10.781990521327028,
@@ -422,7 +422,7 @@
     },
     {
       "id": "path202169",
-      "background": "#697083",
+      "background": "#697083ff",
       "points": [
         {
           "x": -10.781990521327028,

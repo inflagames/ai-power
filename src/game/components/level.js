@@ -6,10 +6,11 @@ import level1 from "./levels/level.001.json";
 import level2 from "./levels/level.002.json";
 import Bubble from "./bubble";
 import Hole from "./hole";
+import Camera from "./camera";
 
 const ROW_TILE = 1; //         0001
 const ROW_HOLE = 2; //         0010
-const ROW_TILE_TREE_V1 = 4; // 0100
+const ROW_CAMERA = 4; // 1000
 const ROW_PLAYER_START = 8; // 1000
 
 const MAX_NUMBER_OF_BUBBLES = 20;
@@ -96,6 +97,16 @@ export default class Level extends BaseObject {
             this.gridSize
           );
           this.floor.push(tile);
+        }
+
+        if (tile & ROW_CAMERA) {
+          const camera = new Camera(
+            this.eventEmitter,
+            col * this.gridSize + this.gridSize * .5,
+            row * this.gridSize + this.gridSize * .5,
+            this.gridSize
+          );
+          this.components.push(camera);
         }
 
         if (tile & ROW_HOLE) {

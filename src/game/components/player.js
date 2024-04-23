@@ -21,7 +21,6 @@ export default class Player extends BaseShape {
 
     const scaleConst = 0.015578125;
     this.scaleShape = this.width * scaleConst;
-    console.log(this.width, 1.5);
 
     this.shape = { ...shape };
 

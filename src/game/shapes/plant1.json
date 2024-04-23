@@ -2,7 +2,7 @@
   "shapes": [
     {
       "id": "path968",
-      "background": "#8ba23d",
+      "background": "#8ba23dff",
       "points": [
         {
           "x": -16.14785992217898,
@@ -188,7 +188,7 @@
     },
     {
       "id": "path754",
-      "background": "#7d8c3b",
+      "background": "#7d8c3bff",
       "points": [
         {
           "x": -3.5019455252918164,
@@ -414,7 +414,7 @@
     },
     {
       "id": "path705",
-      "background": "#a5b849",
+      "background": "#a5b849ff",
       "points": [
         {
           "x": -20.525291828793765,

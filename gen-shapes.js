@@ -67,7 +67,7 @@ function extractPath(file) {
 
     shapes.push({
       id: values.get("inkscape:label") || values.get("id"),
-      background: getStyle(values.get("style"), "fill"),
+      background: getBackground(values.get("style")),
       ...(Boolean(stroke) && Boolean(strokeWidth && stroke !== "none") ? { stroke, strokeWidth: +strokeWidth } : {}),
       points: extractMesh(values.get("d"))
     });
@@ -111,6 +111,24 @@ function extractPath(file) {
   return {
     shapes
   };
+}
+
+function getBackground(style) {
+  const fill = getStyle(style, "fill");
+  const fillOpacity = getOpacity(getStyle(style, "fill-opacity"));
+
+  return fill + (fillOpacity.length === 2 ? "" : "0") + fillOpacity
+}
+
+/**
+ * @param colorScalar {number} value between 0 and 1
+ * @returns {string} hexadecimal color
+ */
+function getOpacity(colorScalar) {
+  if (!colorScalar) {
+    return "ff";
+  }
+  return Math.round(colorScalar * 255).toString(16);
 }
 
 function getStyle(style, property) {
