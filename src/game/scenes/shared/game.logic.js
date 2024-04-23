@@ -10,35 +10,20 @@ export const GAME_PAUSE = "7";
 export default class GameLogic {
   /**
    *
-   * @param playerPosition {{x: number, y: number}}
+   * @param level {Level}
    */
-  constructor(playerPosition) {
+  constructor(level) {
     /** @member {DirectionKeys} */
     this.directionKeys = new DirectionKeys();
 
     /** @member {Level} */
-    this.level = null;
+    this.level = level;
 
-    this.player = {
-      position: playerPosition,
-      rotation: Math.PI / 2, // todo: eliminate this property
-      directionVector: { x: 0, y: 1 },
-      expectedRotation: 0,
-      velocity: 0,
-      minVelocity: 10,
-      acceleration: 20,
-      deceleration: -1.5,
-      status: [GAME_STOP],
-      component: undefined
-    };
-    this.enemies = [];
-    this.objects = [];
-
-    this.configs = {};
+    this.player = {};
+    this.restartLevel();
   }
 
   destroy() {
-    this.enemies.forEach((enemy) => enemy.component.destroy.emit());
     this.objects.forEach((obj) => obj.component.destroy.emit());
     this.player.component.destroy.emit();
   }
@@ -170,7 +155,25 @@ export default class GameLogic {
   }
 
   levelComplete() {
-    // toDo (gonzalezext)[18.04.24]:
     console.log("Level complete");
+    this.level.loadNextLevel();
+
+    this.restartLevel();
+  }
+
+  restartLevel() {
+    this.player = {
+      ...this.player,
+      position: this.level.playerInitialPosition,
+      rotation: Math.PI / 2, // todo: eliminate this property
+      directionVector: { x: 0, y: 1 },
+      expectedRotation: 0,
+      velocity: 0,
+      minVelocity: 10,
+      acceleration: 20,
+      deceleration: -1.5,
+      status: [GAME_STOP],
+    };
+    this.objects = [];
   }
 }
