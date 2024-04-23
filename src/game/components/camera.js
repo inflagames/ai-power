@@ -82,14 +82,6 @@ export default class Camera extends BaseShape {
       const halfAngle = Math.PI / (this.viewAngle * 2);
       const cameraAngle = this.currentViewAngle() + halfAngle;
 
-      // if (!this.a || this.a < 1000020) {
-      //   if (!this.a) {
-      //     this.a = 0;
-      //   }
-      //   this.a++;
-      //   console.log(this.toDegree(angle), this.toDegree(cameraAngle), this.toDegree(halfAngle));
-      // }
-
       return Math.abs(angle - cameraAngle) < halfAngle || Math.abs(angle - cameraAngle + Math.PI * 2) < halfAngle;
     }
     return false;

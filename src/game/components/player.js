@@ -1,5 +1,6 @@
 import BaseShape from "./shared/base-shape";
 import shape from "../shapes/character.json";
+import { MAX_LIFE_TIME, newBubble } from "./bubble";
 
 // shape.shapes = shape.shapes.filter((shape) => shape.id.startsWith("hand") || shape.id.startsWith("foot"));
 
@@ -29,7 +30,21 @@ export default class Player extends BaseShape {
     this.animation = 0;
     this.animationIsOn = false;
 
+    this.bubblesIntervalToShow = 3;
+    this.bubblesCount = 0;
+    this.bubbles = [];
+
     this.updateCoordinates();
+  }
+
+  render(context) {
+    //clean bubbles
+    this.bubbles = this.bubbles.filter((bubble) => !bubble.bubbleDead());
+
+    // render bubbles
+    this.bubbles.forEach((bubble) => bubble.render(context));
+
+    super.render(context);
   }
 
   /**
@@ -58,6 +73,8 @@ export default class Player extends BaseShape {
       this.animationIsOn = true;
       this.animateWalk();
     } else if (this.animationIsOn) {
+      this.animationIsOn = false;
+
       this.shape = { ...shape };
     }
   }
@@ -105,6 +122,21 @@ export default class Player extends BaseShape {
       }
       return { ...shape };
     });
+
+    // create walk bubbles
+    if (this.bubblesCount === 0) {
+      this.newBubble();
+    }
+    this.bubblesCount++;
+    if (this.bubblesCount >= this.bubblesIntervalToShow) {
+      this.bubblesCount = 0;
+    }
+  }
+
+  newBubble() {
+    const bubble = newBubble(this.eventEmitter, this.x, this.y, 50, 50);
+    bubble.lifeTime = MAX_LIFE_TIME / 4;
+    this.bubbles.push(bubble);
   }
 
   stepAnimationFunction() {

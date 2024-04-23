@@ -1,6 +1,16 @@
 import BaseShape from "./shared/base-shape";
+import { randomNumber } from "../utils/math";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../utils/variables";
 
-const MAX_LIFE_TIME = 20;
+export const MAX_LIFE_TIME = 20;
+
+export function newBubble(eventEmitter, x = undefined, y = undefined, w = undefined, h = undefined) {
+  x = x ? x : randomNumber(SCREEN_WIDTH);
+  y = y ? y : randomNumber(SCREEN_HEIGHT);
+  const width = w ? w : randomNumber(40, 10);
+  const height = h ? h : randomNumber(40, 10);
+  return new Bubble(eventEmitter, x, y, width, height);
+}
 
 export default class Bubble extends BaseShape {
   /**
@@ -39,12 +49,10 @@ export default class Bubble extends BaseShape {
   }
 
   showAndHideFunction(time) {
-    // toDo (gonzalezext)[21.04.24]: check if this function can be optimized
-    return Math.sin(time * Math.PI) / 1.5;
+    return Math.sin(time * Math.PI) / 4;
   }
 
   growBubbleFunction(time) {
-    // todo (gonzalezext)[21.04.24]: check if this function can be optimized
     return Math.log(time + 1) * 1.4426950408889634;
   }
 

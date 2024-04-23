@@ -4,7 +4,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH, GRID_SIZE } from "../utils/variables";
 import Tile, { TILE_1X1, TILE_2X2, TILE_FLOOR } from "./tile";
 import level1 from "./levels/level.001.json";
 import level2 from "./levels/level.002.json";
-import Bubble from "./bubble";
+import Bubble, { newBubble } from "./bubble";
 import Hole from "./hole";
 import Camera from "./camera";
 
@@ -166,19 +166,11 @@ export default class Level extends BaseObject {
 
     if (this.bubbles.length < MAX_NUMBER_OF_BUBBLES) {
       if (randomNumber(2) === 1) {
-        const bubble = this.newBubble();
+        const bubble = newBubble(this.eventEmitter);
         this.components.unshift(bubble);
         this.bubbles.push(bubble);
       }
     }
-  }
-
-  newBubble() {
-    const width = randomNumber(40, 10);
-    const height = randomNumber(40, 10);
-    const x = randomNumber(SCREEN_WIDTH);
-    const y = randomNumber(SCREEN_HEIGHT);
-    return new Bubble(this.eventEmitter, x, y, width, height);
   }
 
   renderWatterColor(context) {
