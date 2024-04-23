@@ -1,6 +1,6 @@
 import BaseShape from "./shared/base-shape";
 import cameraShape from "../shapes/camera.json";
-import { rotateVector, vectorToAngle } from "../utils/math";
+import { distanceNoSqrt, getVector, rotateVector, square, vectorToAngle } from "../utils/math";
 
 export default class Camera extends BaseShape {
   /**
@@ -9,10 +9,11 @@ export default class Camera extends BaseShape {
    * @param y {number}
    * @param gridSize {number}
    * @param distance {number} number of grid cells distance
+   * @param viewAngle {number} fraction of PI
    * @param initialRotation {number} fraction of PI
    * @param maxRotation {number} fraction of PI
    */
-  constructor(eventEmitter, x = 0, y = 0, gridSize, distance, initialRotation, maxRotation = 1) {
+  constructor(eventEmitter, x = 0, y = 0, gridSize, distance, viewAngle, initialRotation, maxRotation = 1) {
     super(eventEmitter, x, y, gridSize, gridSize);
 
     this.baseDirection = rotateVector({ x: 0, y: 1 }, Math.PI * initialRotation);
@@ -32,8 +33,9 @@ export default class Camera extends BaseShape {
     this.scaleShape = gridSize / Math.max(maxPoint.x - minPoint.x, maxPoint.y - minPoint.y);
 
     this.maxRotation = Math.PI * maxRotation;
-
     this.initialTime = new Date().getTime();
+    this.viewAngle = viewAngle;
+    this.sawPlayer = false;
   }
 
   animate() {
@@ -46,9 +48,9 @@ export default class Camera extends BaseShape {
   render(context) {
     // render vision cone
     context.beginPath();
-    const angle = vectorToAngle({ x: -this.directionVector.x, y: this.directionVector.y }) - Math.PI / 6;
+    const angle = this.currentViewAngle();
     context.moveTo(this.x, this.y);
-    context.arc(this.x, this.y, this.width * this.distance, angle, angle + Math.PI / 3, false);
+    context.arc(this.x, this.y, this.width * this.distance, angle, angle + Math.PI / this.viewAngle, false);
     context.fillStyle = this.getVisionColor();
     context.fill();
 
@@ -57,7 +59,51 @@ export default class Camera extends BaseShape {
   }
 
   getVisionColor() {
+    if (this.sawPlayer) {
+      return "rgba(255, 0, 0, 0.1)";
+    }
     return "rgba(0, 255, 0, 0.1)";
+  }
+
+  seeAnyPoint(shapes) {
+    for (const s of shapes) {
+      for (const p of s.points) {
+        if (this.seePoint(p)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  seePoint(p) {
+    if (distanceNoSqrt(p, { x: this.x, y: this.y }) <= square(this.width * this.distance)) {
+      const angle = vectorToAngle(getVector({ x: this.x, y: this.y }, p));
+      const halfAngle = Math.PI / (this.viewAngle * 2);
+      const cameraAngle = this.currentViewAngle() + halfAngle;
+
+      // if (!this.a || this.a < 1000020) {
+      //   if (!this.a) {
+      //     this.a = 0;
+      //   }
+      //   this.a++;
+      //   console.log(this.toDegree(angle), this.toDegree(cameraAngle), this.toDegree(halfAngle));
+      // }
+
+      return Math.abs(angle - cameraAngle) < halfAngle || Math.abs(angle - cameraAngle + Math.PI * 2) < halfAngle;
+    }
+    return false;
+  }
+
+  toDegree(rad) {
+    return rad * 180 / Math.PI;
+  }
+
+  currentViewAngle() {
+    return vectorToAngle({
+      x: -this.directionVector.x,
+      y: this.directionVector.y
+    }) - Math.PI / (this.viewAngle * 2);
   }
 
   getPosition() {

@@ -75,6 +75,12 @@ export function getVector(p1, p2) {
   return { x: p2.x - p1.x, y: p2.y - p1.y };
 }
 
+export function distanceNoSqrt(p1, p2) {
+  return square(p2.x - p1.x) + square(p2.y - p1.y);
+}
+
+export const square = (x) => x * x;
+
 export function distance(p1, p2) {
   // toDo guille 31.08.21: maybe it can be improved (check it)
   return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));

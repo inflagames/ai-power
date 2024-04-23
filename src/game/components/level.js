@@ -108,6 +108,7 @@ export default class Level extends BaseObject {
             row * this.gridSize + this.gridSize * .5,
             this.gridSize,
             level.cameras[cameraCount]['viewDistance'],
+            level.cameras[cameraCount]['viewAngle'],
             level.cameras[cameraCount]['initialRotation'],
             level.cameras[cameraCount]['maxRotation']
           );

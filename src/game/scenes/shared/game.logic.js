@@ -1,6 +1,7 @@
 import { addVectors, detectCollision, lerpVector, multiplyVector, normalizeVector } from "../../utils/math";
 import DirectionKeys from "./direction-keys";
 import { ANIMATE_WALK } from "../../components/player";
+import Level from "../../components/level";
 
 export const GAME_STOP = "3";
 export const GAME_OVER = "5";
@@ -48,6 +49,7 @@ export default class GameLogic {
   play() {
     this.movePlayer();
     this.animateComponents();
+    this.checkCollisionWithRelevantElements();
   }
 
   /**
@@ -80,22 +82,35 @@ export default class GameLogic {
    * @returns {boolean}
    */
   checkCollisionWithMap() {
-    // toDo (gonzalezext)[19.04.24]: this need to be optimized (check only with the nearest components)
+    const playerProjection = this.player.component.getProjection();
     for (const component of this.level.tiles) {
-      if (this.checkCollisionInProjections(this.player.component.getProjection(), component.getProjection())) {
+      if (this.checkCollisionInProjections(playerProjection, component.getProjection())) {
         return true;
+      }
+    }
+    return false;
+  }
+
+  checkCollisionWithRelevantElements() {
+    const playerProjection = this.player.component.getProjection();
+    for (const camera of this.level.cameras) {
+      if (camera.seeAnyPoint(playerProjection)) {
+        camera.sawPlayer = true;
+        // this.level.gameOver();
+        // return true;
+      } else {
+        // toDo (gonzalezext)[23.04.24]: remove this
+        camera.sawPlayer = false;
       }
     }
 
     // validate end of the level
     for (const component of this.level.finishLevelItem) {
-      if (this.checkCollisionInProjections(this.player.component.getProjection(), component.getProjection("center"))) {
+      if (this.checkCollisionInProjections(playerProjection, component.getProjection("center"))) {
         this.levelComplete();
         return false;
       }
     }
-
-    return false;
   }
 
   canPauseGame() {
