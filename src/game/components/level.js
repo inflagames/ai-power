@@ -57,6 +57,7 @@ export default class Level extends BaseObject {
     this.gridSize = SCREEN_HEIGHT / level.map.length;
 
     const map = level.map;
+    let cameraCount = 0;
     const flags = new Array(map.length).fill(1).map(() => new Array(map[0].length).fill(true));
     for (let row = 0; row < map.length; row++) {
       for (let col = 0; col < map[row].length; col++) {
@@ -104,7 +105,8 @@ export default class Level extends BaseObject {
             this.eventEmitter,
             col * this.gridSize + this.gridSize * .5,
             row * this.gridSize + this.gridSize * .5,
-            this.gridSize
+            this.gridSize,
+            level.cameras[cameraCount++].viewDistance
           );
           this.components.push(camera);
         }
