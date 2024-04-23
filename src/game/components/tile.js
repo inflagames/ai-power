@@ -2,7 +2,6 @@ import BaseShape from "./shared/base-shape";
 import shapeTile1 from "../shapes/tile1.json";
 import shapeTile2 from "../shapes/tile2.json";
 import floorTile from "../shapes/floor.tile.json";
-import { GRID_SIZE } from "../utils/variables";
 import { addVectors, randomNumber } from "../utils/math";
 
 export const TILE_1X1 = 1;
@@ -17,12 +16,14 @@ export default class Tile extends BaseShape {
    * @param x {number}
    * @param y {number}
    * @param type {number}
+   * @param gridSize {number}
    */
-  constructor(eventEmitter, x = 0, y = 0, type) {
-    super(eventEmitter, x, y, type * GRID_SIZE, type * GRID_SIZE);
+  constructor(eventEmitter, x = 0, y = 0, type, gridSize) {
+    super(eventEmitter, x, y, type * gridSize, type * gridSize);
 
     this.directionVector = this.getRotation();
 
+    this.gridSize = gridSize;
     this.type = type;
     this.tileShape = { ...this.getShape(type) };
     this.positionCorrection = { x: 0, y: 0 };
@@ -80,13 +81,13 @@ export default class Tile extends BaseShape {
     }
 
     const tileFactor = {
-      x: (GRID_SIZE * this.getGridSize()) / ((maxPosition.x - minPosition.x) * this.scaleShape),
-      y: (GRID_SIZE * this.getGridSize()) / ((maxPosition.y - minPosition.y) * this.scaleShape)
+      x: (this.gridSize * this.getGridSize()) / ((maxPosition.x - minPosition.x) * this.scaleShape),
+      y: (this.gridSize * this.getGridSize()) / ((maxPosition.y - minPosition.y) * this.scaleShape)
     };
 
     this.positionCorrection = {
-      x: (GRID_SIZE * this.getGridSize()) * 0.5,
-      y: (GRID_SIZE * this.getGridSize()) * 0.5
+      x: (this.gridSize * this.getGridSize()) * 0.5,
+      y: (this.gridSize * this.getGridSize()) * 0.5
     };
 
     // make size correction base on the grid size

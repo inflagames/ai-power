@@ -74,8 +74,8 @@ export default class ScenePlay extends Scene {
       this.eventEmitter,
       this.level.playerInitialPosition.x,
       this.level.playerInitialPosition.y,
-      30,
-      35
+      this.level.gridSize,
+      this.level.gridSize
     );
     this.currentGame = new GameLogic(this.level.playerInitialPosition);
     this.currentGame.player.component = this.player;

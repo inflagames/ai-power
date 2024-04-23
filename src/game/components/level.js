@@ -3,6 +3,7 @@ import { randomNumber, scale } from "../utils/math";
 import { SCREEN_HEIGHT, SCREEN_WIDTH, GRID_SIZE } from "../utils/variables";
 import Tile, { TILE_1X1, TILE_2X2, TILE_FLOOR } from "./tile";
 import level1 from "./levels/level.001.json";
+import level2 from "./levels/level.002.json";
 import Bubble from "./bubble";
 import Hole from "./hole";
 
@@ -33,8 +34,6 @@ export default class Level extends BaseObject {
     super(eventEmitter, x, y, width, height);
     this.backgroundColor = background;
 
-    const bubble = this.newBubble();
-
     /** @member {BaseObject[]} */
     this.components = [];
 
@@ -43,8 +42,10 @@ export default class Level extends BaseObject {
     this.bubbles = [];
     this.finishLevelItem = [];
 
-    this.currentLevel = { ...level1 };
+    this.currentLevel = { ...level2 };
     this.playerInitialPosition = { x: 0, y: 0 };
+
+    this.gridSize = GRID_SIZE;
 
     this.loadLevel(this.currentLevel);
   }
@@ -52,6 +53,7 @@ export default class Level extends BaseObject {
   loadLevel(level) {
     // load level background
     this.backgroundColor = level.background;
+    this.gridSize = SCREEN_HEIGHT / level.map.length;
 
     const map = level.map;
     const flags = new Array(map.length).fill(1).map(() => new Array(map[0].length).fill(true));
@@ -78,18 +80,20 @@ export default class Level extends BaseObject {
 
           const tile = new Tile(
             this.eventEmitter,
-            col * GRID_SIZE,
-            row * GRID_SIZE,
-            type
+            col * this.gridSize,
+            row * this.gridSize,
+            type,
+            this.gridSize
           );
           this.tiles.push(tile);
           this.components.push(tile);
         } else if ((tile & ROW_TILE) === 0) {
           const tile = new Tile(
             this.eventEmitter,
-            col * GRID_SIZE,
-            row * GRID_SIZE,
-            TILE_FLOOR
+            col * this.gridSize,
+            row * this.gridSize,
+            TILE_FLOOR,
+            this.gridSize
           );
           this.floor.push(tile);
         }
@@ -97,8 +101,8 @@ export default class Level extends BaseObject {
         if (tile & ROW_HOLE) {
           const hole = new Hole(
             this.eventEmitter,
-            col * GRID_SIZE + GRID_SIZE * .5,
-            row * GRID_SIZE + GRID_SIZE * .5
+            col * this.gridSize + this.gridSize * .5,
+            row * this.gridSize + this.gridSize * .5
           );
           this.finishLevelItem.push(hole);
           this.components.push(hole);
@@ -106,8 +110,8 @@ export default class Level extends BaseObject {
 
         if (tile & ROW_PLAYER_START) {
           this.playerInitialPosition = {
-            x: col * GRID_SIZE + GRID_SIZE * .5,
-            y: row * GRID_SIZE + GRID_SIZE * .5
+            x: col * this.gridSize + this.gridSize * .5,
+            y: row * this.gridSize + this.gridSize * .5
           };
         }
       }
