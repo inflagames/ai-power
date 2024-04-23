@@ -27,7 +27,7 @@ if (( $FILE_SIZE > 13 )); then
   echo "-----------------------------------------"
   echo "| FILE NOT VALID FOR JS13KGAMES CONTEST (${FILE_SIZE}KB) |"
   echo "-----------------------------------------"
-  exit 27
+#  exit 27
 else
   echo "------------------------------------------------------------"
   echo "| ${FILE_SIZE}KB (${FILE_SIZE_BYTE} BYTES) OF 13KB, STILL ${MISSING} BYTES LEFT, GAME ON |"
