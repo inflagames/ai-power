@@ -10,7 +10,7 @@ export default class Score extends BaseObject {
   constructor(eventEmitter, x, y) {
     super(eventEmitter, x, y);
     this.level = 0;
-    this.textSize = 30;
+    this.textSize = 20;
     this.backgroundColor = "#000";
     this.textColor = "#fff";
 

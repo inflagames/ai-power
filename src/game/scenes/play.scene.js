@@ -69,6 +69,14 @@ export default class ScenePlay extends Scene {
       "#000"
     );
 
+    // score component
+    const score = new Score(
+      this.eventEmitter,
+      SCREEN_WIDTH - SCORE_MARGIN,
+      SCORE_MARGIN
+    );
+    score.backgroundColor = "#00000000";
+
     // player component
     this.player = new Player(
       this.eventEmitter,
@@ -77,17 +85,8 @@ export default class ScenePlay extends Scene {
       this.level.gridSize,
       this.level.gridSize
     );
-    this.currentGame = new GameLogic(this.level);
+    this.currentGame = new GameLogic(this.level, score);
     this.currentGame.player.component = this.player;
-
-    // score component
-    const score = new Score(
-      this.eventEmitter,
-      SCREEN_WIDTH - SCORE_MARGIN,
-      SCORE_MARGIN
-    );
-    score.backgroundColor = "#00000000";
-    this.currentGame.score = score;
 
     // add components to the element array
     this.elements = [this.player, this.buttonPause];

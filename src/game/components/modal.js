@@ -16,11 +16,11 @@ export default class Modal extends BaseObject {
     this.backgroundColor = "#fff";
     this.textSize = 90;
     this.text2Size = 30;
-    this.text = "RECORD";
+    this.text = "FEAR THE WATER";
     this.score = 1000;
 
     const buttonHeight = 30;
-    const button1Width = 40;
+    const button1Width = 70;
     const button2Width = 120;
     const buttonMargin = 15;
 
@@ -48,7 +48,7 @@ export default class Modal extends BaseObject {
   }
 
   createPlayButton(x, y, w, h) {
-    this.buttonPlay = new Button(this.eventEmitter, x, y, w, h, "PLAY");
+    this.buttonPlay = new Button(this.eventEmitter, x, y, w, h, "CONTINUE");
   }
 
   createCredits(x, y, w, h) {
@@ -71,7 +71,7 @@ export default class Modal extends BaseObject {
       "SHARE ON TWITTER",
     );
     this.buttonShareRecord.listenerEvent(EVENT_CLICK, () => {
-      const message = `I%20just%20make%20a%20new%20record%20of%20${this.score}%20points%20in%20the%20%23azetz%20%23game%20developed%20for%20the%20%40js13kGames%20competition.%0A%0A%23js13k%20%23gamedev%0A%0AIf%20you%20want%20to%20check%20it%20out%2C%20here%20is%20the%20link%20to%20the%20%23github%20repository%0Ahttps%3A%2F%2Fgithub.com%2Finflagames%2Fazetz`;
+      const message = `I'm%20currently%20playing%20the%20game%20FEAR%20THE%20WATER%20developed%20for%20the%20%23gamedevjs%20jam.%0A%0A%23gamedev%0A%0AIf%20you%20want%20to%20check%20it%20out%2C%20here%20is%20the%20link%20to%20the%20%23github%20repository%0Ahttps%3A%2F%2Finflagames.github.io%2Ffear-the-water%2F`;
       const url = `https://twitter.com/intent/tweet?text=${message}`;
       window.open(url, "_blank").focus();
     });
@@ -107,21 +107,6 @@ export default class Modal extends BaseObject {
    * @param context {CanvasRenderingContext2D}
    */
   renderScore(context) {
-    // toDo guille 01.09.21: refactor this code
-    context.beginPath();
-    context.font = `${scale(this.textSize)}px Arial`;
-    const metrics = context.measureText(this.score + "");
-    const textWidth = unscale(metrics.width);
-    const textHeight = unscale(
-      metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent,
-    );
-    context.fillStyle = "#000";
-    context.fillText(
-      this.score + "",
-      scale(this.x + this.width / 2 - textWidth / 2),
-      scale(this.y + this.height / 2 + textHeight / 2),
-    );
-
     context.beginPath();
     context.font = `${scale(this.text2Size)}px Arial`;
     const metrics2 = context.measureText(this.text);
@@ -135,10 +120,7 @@ export default class Modal extends BaseObject {
       scale(this.x + this.width / 2 - text2Width / 2),
       scale(
         this.y +
-          this.height / 2 +
-          textHeight / 2 -
-          textHeight -
-          text2Height / 2,
+          this.height / 2
       ),
     );
   }

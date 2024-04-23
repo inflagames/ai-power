@@ -12,13 +12,17 @@ export default class GameLogic {
   /**
    *
    * @param level {Level}
+   * @param score {Score}
    */
-  constructor(level) {
+  constructor(level, score) {
     /** @member {DirectionKeys} */
     this.directionKeys = new DirectionKeys();
 
     /** @member {Level} */
     this.level = level;
+
+    /** @member {Score} */
+    this.score = score;
 
     this.player = {};
     this.restartLevel();
@@ -180,5 +184,6 @@ export default class GameLogic {
       status: GAME_RUNNING
     };
     this.objects = [];
+    this.score.level = this.level.levelIndex + 1;
   }
 }
