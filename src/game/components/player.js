@@ -66,6 +66,8 @@ export default class Player extends BaseShape {
   }
 
   animate() {
+    super.animate();
+
     if ((this.animation & ANIMATE_WALK) !== 0) {
       if (!this.animationIsOn) {
         this.time = new Date().getTime();

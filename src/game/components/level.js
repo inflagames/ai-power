@@ -73,6 +73,7 @@ export default class Level extends BaseObject {
 
   loadLevel(level) {
     // clear previous level
+    // toDo (gonzalezext)[24.04.24]: destroy all components
     this.components = [];
     this.tiles = [];
     this.floor = [];

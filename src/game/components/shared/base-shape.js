@@ -53,7 +53,7 @@ export default class BaseShape extends BaseObject {
   }
 
   brakeShapes() {
-    const shapes = this.shipShape().shapes;
+    const shapes = this.currentShape().shapes;
 
     this.brakedShape = { shapes: [] };
 

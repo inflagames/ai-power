@@ -26,10 +26,11 @@ export default class GameLogic {
 
     this.player = {};
     this.restartLevel();
+
+    this.sideAnimation = 0;
   }
 
   destroy() {
-    this.objects.forEach((obj) => obj.component.destroy.emit());
     this.player.component.destroy.emit();
   }
 
@@ -41,6 +42,11 @@ export default class GameLogic {
       this.movePlayer();
       this.animateComponents();
       this.checkCollisionWithRelevantElements();
+    } else if (this.player.status === GAME_OVER) {
+      this.animateComponents();
+      if (new Date().getTime() - this.sideAnimation > 3000) {
+        this.restartLevel();
+      }
     }
   }
 
@@ -88,8 +94,8 @@ export default class GameLogic {
     for (const camera of this.level.cameras) {
       if (camera.seeAnyPoint(playerProjection)) {
         camera.sawPlayer = true;
-        // this.level.gameOver();
-        // return true;
+        this.gameOver();
+        return true;
       } else {
         // toDo (gonzalezext)[23.04.24]: remove this
         camera.sawPlayer = false;
@@ -103,6 +109,13 @@ export default class GameLogic {
         return false;
       }
     }
+  }
+
+  gameOver() {
+    this.player.status = GAME_OVER;
+    this.player.component.animation = 0;
+    this.player.component.brakeShapes();
+    this.sideAnimation = new Date().getTime();
   }
 
   canPauseGame() {
@@ -128,25 +141,6 @@ export default class GameLogic {
     this.level.unPauseGame();
   }
 
-  updateSpaces() {
-    // toDo (gonzalezext)[18.04.24]:
-  }
-
-  updateScore() {
-    // toDo (gonzalezext)[18.04.24]:
-  }
-
-  /**
-   * @return {number}
-   */
-  getScore() {
-    // toDo (gonzalezext)[18.04.24]:
-  }
-
-  checkCollision() {
-    // toDo (gonzalezext)[18.04.24]:
-  }
-
   /**
    * @param shapes1 {{points: {x: number, y: number}[], background: string}[]}
    * @param shapes2 {{points: {x: number, y: number}[], background: string}[]}
@@ -164,9 +158,7 @@ export default class GameLogic {
   }
 
   levelComplete() {
-    console.log("Level complete");
     this.level.loadNextLevel();
-
     this.restartLevel();
   }
 
@@ -183,7 +175,9 @@ export default class GameLogic {
       deceleration: -1.5,
       status: GAME_RUNNING
     };
-    this.objects = [];
+    if (this.player.component) {
+      this.player.component.brakedShape = null;
+    }
     this.score.level = this.level.levelIndex + 1;
   }
 }
