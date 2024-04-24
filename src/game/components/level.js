@@ -155,7 +155,8 @@ export default class Level extends BaseObject {
           const hole = new Hole(
             this.eventEmitter,
             col * this.gridSize + this.gridSize * .5,
-            row * this.gridSize + this.gridSize * .5
+            row * this.gridSize + this.gridSize * .5,
+            this.gridSize
           );
           this.finishLevelItem.push(hole);
           this.components.push(hole);
