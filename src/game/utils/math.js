@@ -143,12 +143,30 @@ export function detectCollision(shape1, shape2) {
  * @returns {boolean}
  */
 export function detectCollisionWithCircle(shape, circle) {
+  const minPoint = { ...shape[0] };
+  const maxPoint = { ...shape[0] };
+
   for (const p of shape) {
-    if (square(p.x - circle.x) + square(p.y - circle.y) <= square(circle.r)) {
-      return true;
-    }
+    minPoint.x = Math.min(minPoint.x, p.x);
+    minPoint.y = Math.min(minPoint.y, p.y);
+    maxPoint.x = Math.max(maxPoint.x, p.x);
+    maxPoint.y = Math.max(maxPoint.y, p.y);
   }
-  return false;
+
+  const middlePoint = { x: (maxPoint.x + minPoint.x) * 0.5, y: (maxPoint.y + minPoint.y) * 0.5 };
+  const distanceToCircle = { x: Math.abs(circle.x - middlePoint.x), y: Math.abs(circle.y - middlePoint.y) };
+
+  if (distanceToCircle.x > ((maxPoint.x - minPoint.x) * 0.5 + circle.r) ||
+    distanceToCircle.y > ((maxPoint.y - minPoint.y) * 0.5 + circle.r)) {
+    return false;
+  }
+
+  if (distanceToCircle.x <= (maxPoint.x - minPoint.x) * 0.5 || distanceToCircle.y <= (maxPoint.y - minPoint.y) * 0.5) {
+    return true;
+  }
+
+  const cornerDistance = square(distanceToCircle.x - (maxPoint.x - minPoint.x) * 0.5) + square(distanceToCircle.y - (maxPoint.y - minPoint.y) * 0.5);
+  return cornerDistance <= square(circle.r);
 }
 
 /**

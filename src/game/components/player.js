@@ -47,7 +47,25 @@ export default class Player extends BaseShape {
     // render bubbles
     this.bubbles.forEach((bubble) => bubble.render(context));
 
+    // // toDo (gonzalezext)[24.04.24]: remove this code
+    // context.beginPath();
+    // context.fillStyle = "#000";
+    // const c = this.getCollisionCircle();
+    // context.arc(c.x, c.y, c.r, 0, 2 * Math.PI);
+    // context.fill();
+
     super.render(context);
+  }
+
+  /**
+   * @returns {{r: number, x: number, y: number}}
+   */
+  getCollisionCircle() {
+    return {
+      x: this.x,
+      y: this.y,
+      r: this.width / 3
+    };
   }
 
   /**

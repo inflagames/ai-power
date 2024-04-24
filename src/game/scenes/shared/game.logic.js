@@ -1,4 +1,11 @@
-import { addVectors, detectCollision, lerpVector, multiplyVector, normalizeVector } from "../../utils/math";
+import {
+  addVectors,
+  detectCollision,
+  detectCollisionWithCircle,
+  lerpVector,
+  multiplyVector,
+  normalizeVector
+} from "../../utils/math";
 import DirectionKeys from "./direction-keys";
 import { ANIMATE_WALK } from "../../components/player";
 import Level from "../../components/level";
@@ -66,11 +73,7 @@ export default class GameLogic {
       this.player.directionVector = multiplyVector(normalizeVector(rot), VELOCITY);
 
       // check collision
-      const prevPosition = this.player.position;
-      this.player.position = addVectors(this.player.directionVector, this.player.position);
-      if (this.checkCollisionWithMap()) {
-        this.player.position = prevPosition;
-      }
+      this.checkCollisionAndSlide();
 
       this.player.component.animation |= ANIMATE_WALK;
     } else {
@@ -84,14 +87,40 @@ export default class GameLogic {
   /**
    * @returns {boolean}
    */
-  checkCollisionWithMap() {
-    const playerProjection = this.player.component.getProjection();
-    // toDo (gonzalezext)[24.04.24]: check with circle projection
-    for (const component of this.level.tiles) {
-      if (this.checkCollisionInProjections(playerProjection, component.getProjection())) {
-        return true;
+  checkCollisionAndSlide() {
+    const dirVectors = [
+      { ...this.player.directionVector },
+      { x: this.player.directionVector.x, y: 0 },
+      { x: 0, y: this.player.directionVector.y }
+    ];
+
+    const prevPosition = { ...this.player.position };
+    for (const vec of dirVectors) {
+      this.player.position = addVectors(vec, prevPosition);
+
+      const circle = this.player.component.getCollisionCircle();
+      circle.x = this.player.position.x;
+      circle.y = this.player.position.y;
+
+      if (!this.checkCollisionWithMapRecursive(circle)) {
+        return false;
       }
     }
+
+    this.player.position = prevPosition;
+    return true;
+  }
+
+  checkCollisionWithMapRecursive(circle) {
+    for (const component of this.level.tiles) {
+      const shapes = component.getProjection();
+      for (const shape of shapes) {
+        if (detectCollisionWithCircle(shape.points, circle)) {
+          return true;
+        }
+      }
+    }
+
     return false;
   }
 
@@ -114,6 +143,22 @@ export default class GameLogic {
         return false;
       }
     }
+  }
+
+  /**
+   * @param shapes1 {{points: {x: number, y: number}[], background: string}[]}
+   * @param shapes2 {{points: {x: number, y: number}[], background: string}[]}
+   * @return {boolean}
+   */
+  checkCollisionInProjections(shapes1, shapes2) {
+    for (const s1 of shapes1) {
+      for (const s2 of shapes2) {
+        if (detectCollision(s1.points, s2.points)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   gameOver() {
@@ -147,22 +192,6 @@ export default class GameLogic {
   unpause() {
     this.player.status = GAME_RUNNING;
     this.level.unPauseGame();
-  }
-
-  /**
-   * @param shapes1 {{points: {x: number, y: number}[], background: string}[]}
-   * @param shapes2 {{points: {x: number, y: number}[], background: string}[]}
-   * @return {boolean}
-   */
-  checkCollisionInProjections(shapes1, shapes2) {
-    for (const s1 of shapes1) {
-      for (const s2 of shapes2) {
-        if (detectCollision(s1.points, s2.points)) {
-          return true;
-        }
-      }
-    }
-    return false;
   }
 
   levelComplete() {
