@@ -20,35 +20,44 @@ export default class Modal extends BaseObject {
     this.score = 1000;
 
     const buttonHeight = 30;
-    const button1Width = 70;
+    const button1Width = 120;
     const button2Width = 120;
-    const buttonMargin = 15;
+    const buttonMargin = 20;
 
     this.createCredits(
       this.x + buttonMargin,
       this.y,
       button1Width,
-      buttonHeight,
+      buttonHeight
     );
     this.createPlayButton(
-      this.x + (this.width - button1Width - button2Width - buttonMargin) / 2,
-      this.y + this.height - buttonHeight - buttonMargin,
+      this.x + (this.width - button1Width) / 2,
+      this.y + this.height - (buttonHeight + buttonMargin) * 3,
       button1Width,
-      buttonHeight,
+      buttonHeight
+    );
+    this.createRestartButton(
+      this.x + (this.width - button2Width) / 2,
+      this.y + this.height - (buttonHeight + buttonMargin) * 2,
+      button2Width,
+      buttonHeight
     );
     this.createShareButton(
       this.x +
-        (this.width - button1Width - button2Width - buttonMargin) / 2 +
-        button1Width +
-        buttonMargin,
+      (this.width - button2Width - buttonMargin * 2) / 2 +
+      buttonMargin,
       this.y + this.height - buttonHeight - buttonMargin,
       button2Width,
-      buttonHeight,
+      buttonHeight
     );
   }
 
   createPlayButton(x, y, w, h) {
     this.buttonPlay = new Button(this.eventEmitter, x, y, w, h, "CONTINUE");
+  }
+
+  createRestartButton(x, y, w, h) {
+    this.buttonRestart = new Button(this.eventEmitter, x, y, w, h, "RESTART");
   }
 
   createCredits(x, y, w, h) {
@@ -57,7 +66,7 @@ export default class Modal extends BaseObject {
     this.buttonCredits.textColor = "#000";
     this.buttonCredits.textColorHover = "#0048ff";
     this.buttonCredits.listenerEvent(EVENT_CLICK, () =>
-      window.open("https://twitter.com/ggjnez92", "_blank").focus(),
+      window.open("https://twitter.com/ggjnez92", "_blank").focus()
     );
   }
 
@@ -68,7 +77,7 @@ export default class Modal extends BaseObject {
       y,
       w,
       h,
-      "SHARE ON TWITTER",
+      "SHARE ON TWITTER"
     );
     this.buttonShareRecord.listenerEvent(EVENT_CLICK, () => {
       const message = `I'm%20currently%20playing%20the%20game%20FEAR%20THE%20WATER%20developed%20for%20the%20%23gamedevjs%20jam.%0A%0A%23gamedev%0A%0AIf%20you%20want%20to%20check%20it%20out%2C%20here%20is%20the%20link%20to%20the%20%23github%20repository%0Ahttps%3A%2F%2Finflagames.github.io%2Ffear-the-water%2F`;
@@ -91,7 +100,7 @@ export default class Modal extends BaseObject {
       scale(this.x),
       scale(this.y),
       scale(this.width),
-      scale(this.height),
+      scale(this.height)
     );
     context.fillStyle = this.backgroundColor;
     context.fill();
@@ -99,6 +108,7 @@ export default class Modal extends BaseObject {
     this.buttonPlay.render(context);
     this.buttonCredits.render(context);
     this.buttonShareRecord.render(context);
+    this.buttonRestart.render(context);
 
     this.renderScore(context);
   }
@@ -111,17 +121,11 @@ export default class Modal extends BaseObject {
     context.font = `${scale(this.text2Size)}px Arial`;
     const metrics2 = context.measureText(this.text);
     const text2Width = unscale(metrics2.width);
-    const text2Height = unscale(
-      metrics2.actualBoundingBoxAscent + metrics2.actualBoundingBoxDescent,
-    );
     context.fillStyle = "#000";
     context.fillText(
       this.text,
       scale(this.x + this.width / 2 - text2Width / 2),
-      scale(
-        this.y +
-          this.height / 2
-      ),
+      scale(this.y + 70)
     );
   }
 }

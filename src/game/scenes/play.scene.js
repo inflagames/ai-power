@@ -126,11 +126,11 @@ export default class ScenePlay extends Scene {
     if (!this.isModalShow) {
       this.isModalShow = true;
       const modalWidth = 300;
-      const modalHeight = 200;
+      const modalHeight = 300;
       const modal = new Modal(
         this.eventEmitter,
         SCREEN_WIDTH / 2 - modalWidth / 2,
-        SCREEN_HEIGHT / 2 - modalWidth / 2,
+        SCREEN_HEIGHT / 2 - modalHeight / 2,
         modalWidth,
         modalHeight
       );
