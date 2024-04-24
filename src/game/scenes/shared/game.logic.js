@@ -158,8 +158,13 @@ export default class GameLogic {
   }
 
   levelComplete() {
-    this.level.loadNextLevel();
-    this.restartLevel();
+    if (this.level.hasMoreLevels()) {
+      this.level.loadNextLevel();
+      this.restartLevel();
+    } else {
+      // toDo (gonzalezext)[24.04.24]: save score
+      this.loadFirstLevel();
+    }
   }
 
   loadFirstLevel() {

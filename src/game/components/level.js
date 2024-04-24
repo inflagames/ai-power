@@ -57,8 +57,12 @@ export default class Level extends BaseObject {
     this.loadLastLevel();
   }
 
+  hasMoreLevels() {
+    return this.levelIndex + 1 < this.levels.length;
+  }
+
   loadLastLevel() {
-    this.levelIndex = Data.getInstance().getLastLevel()
+    this.levelIndex = Data.getInstance().getLastLevel();
     this.loadLevel();
   }
 
