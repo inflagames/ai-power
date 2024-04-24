@@ -2,8 +2,6 @@ import BaseShape from "./shared/base-shape";
 import shape from "../shapes/character.json";
 import { MAX_LIFE_TIME, newBubble } from "./bubble";
 
-// shape.shapes = shape.shapes.filter((shape) => shape.id.startsWith("hand") || shape.id.startsWith("foot"));
-
 export const ANIMATE_WALK = 1;
 
 export default class Player extends BaseShape {
@@ -15,8 +13,7 @@ export default class Player extends BaseShape {
    */
   constructor(eventEmitter, x = 0, y = 0, gridSize) {
     super(eventEmitter, x, y, gridSize, gridSize);
-    /** @member {number} */
-    this.rotation = Math.PI / 2;
+
     this.directionVector = { x: 0, y: 1 };
 
     this.calculateScale();
@@ -46,13 +43,6 @@ export default class Player extends BaseShape {
 
     // render bubbles
     this.bubbles.forEach((bubble) => bubble.render(context));
-
-    // // toDo (gonzalezext)[24.04.24]: remove this code
-    // context.beginPath();
-    // context.fillStyle = "#000";
-    // const c = this.getCollisionCircle();
-    // context.arc(c.x, c.y, c.r, 0, 2 * Math.PI);
-    // context.fill();
 
     super.render(context);
   }

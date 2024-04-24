@@ -91,8 +91,13 @@ export default class Settings extends BaseObject {
       "SHARE ON TWITTER"
     );
     this.buttonShareRecord.listenerEvent(EVENT_CLICK, () => {
-      const message = `I'm%20currently%20playing%20the%20game%20FEAR%20THE%20WATER%20developed%20for%20the%20%23gamedevjs%20jam.%0A%0A%23gamedev%0A%0AIf%20you%20want%20to%20check%20it%20out%2C%20here%20is%20the%20link%20to%20the%20%23github%20repository%0Ahttps%3A%2F%2Finflagames.github.io%2Ffear-the-water%2F`;
-      const url = `https://twitter.com/intent/tweet?text=${message}`;
+      let message = `I'm currently playing the game FEAR THE WATER developed for the #gamedevjs jam.\n\n#gamedev\n\nIf you want to check it out, here is the link to the #github repository\nhttps://inflagames.github.io/fear-the-water/`;
+
+      if (this.bestScore) {
+        message = "I finish the game FEAR THE WATER with " + this.bestScore + " deaths. Can you beat me?\n\n#gamedevjs #gamedev\n\nIf you want to check it out, here is the link to the #github repository\nhttps://inflagames.github.io/fear-the-water/";
+      }
+
+      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
       window.open(url, "_blank").focus();
     });
     this.components.push(this.buttonShareRecord);
