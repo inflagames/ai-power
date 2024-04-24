@@ -2,6 +2,7 @@ import { addVectors, detectCollision, lerpVector, multiplyVector, normalizeVecto
 import DirectionKeys from "./direction-keys";
 import { ANIMATE_WALK } from "../../components/player";
 import Level from "../../components/level";
+import Data from "../../utils/data";
 
 export const GAME_RUNNING = 1;
 export const GAME_STOP = 3;
@@ -13,8 +14,9 @@ export default class GameLogic {
    *
    * @param level {Level}
    * @param score {Score}
+   * @param deathsScore {Score}
    */
-  constructor(level, score) {
+  constructor(level, score, deathsScore) {
     /** @member {DirectionKeys} */
     this.directionKeys = new DirectionKeys();
 
@@ -23,6 +25,9 @@ export default class GameLogic {
 
     /** @member {Score} */
     this.score = score;
+
+    /** @member {Score} */
+    this.scoreDeaths = deathsScore;
 
     this.player = {};
     this.restartLevel();
@@ -112,6 +117,10 @@ export default class GameLogic {
   }
 
   gameOver() {
+    // save deaths
+    this.player.deaths++;
+    Data.getInstance().saveDeaths(this.player.deaths);
+
     this.player.status = GAME_OVER;
     this.player.component.animation = 0;
     this.player.component.brakeShapes();
@@ -163,12 +172,16 @@ export default class GameLogic {
       this.restartLevel();
     } else {
       // toDo (gonzalezext)[24.04.24]: save score
+      Data.getInstance().saveDeaths(0);
+
       this.loadFirstLevel();
     }
+    this.updateDeathScore();
   }
 
   loadFirstLevel() {
     this.level.loadFirstLevel();
+    Data.getInstance().saveDeaths(0);
     this.restartLevel();
   }
 
@@ -180,6 +193,7 @@ export default class GameLogic {
       directionVector: { x: 0, y: 1 },
       expectedRotation: 0,
       velocity: 0,
+      deaths: Data.getInstance().loadDeaths(),
       minVelocity: 10,
       acceleration: 20,
       deceleration: -1.5,
@@ -190,6 +204,12 @@ export default class GameLogic {
       this.player.component.width = this.level.gridSize;
       this.player.component.calculateScale();
     }
-    this.score.level = this.level.levelIndex + 1;
+    this.score.score = this.level.levelIndex + 1;
+
+    this.updateDeathScore();
+  }
+
+  updateDeathScore() {
+    this.scoreDeaths.score = this.player.deaths;
   }
 }

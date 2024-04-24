@@ -94,9 +94,19 @@ export default class ScenePlay extends Scene {
     const score = new Score(
       this.eventEmitter,
       SCREEN_WIDTH - SCORE_MARGIN,
-      SCORE_MARGIN
+      SCORE_MARGIN,
+      "LEVEL"
     );
     score.backgroundColor = "#00000000";
+
+    // deaths indicator
+    const deathsScore = new Score(
+      this.eventEmitter,
+      SCREEN_WIDTH * 0.5 + 40,
+      SCORE_MARGIN,
+      "DEATHS"
+    );
+    deathsScore.backgroundColor = "#00000000";
 
     // player component
     this.player = new Player(
@@ -105,12 +115,11 @@ export default class ScenePlay extends Scene {
       this.level.playerInitialPosition.y,
       this.level.gridSize
     );
-    this.currentGame = new GameLogic(this.level, score);
+    this.currentGame = new GameLogic(this.level, score, deathsScore);
     this.currentGame.player.component = this.player;
 
     // add components to the element array
-    this.elements = [this.player, this.buttonPause, this.buttonHelp];
-    this.elements.push(score);
+    this.elements = [this.player, this.buttonPause, this.buttonHelp, score, deathsScore];
 
     // elements of the game
     this.playableElements = [this.player];

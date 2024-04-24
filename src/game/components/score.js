@@ -6,13 +6,15 @@ export default class Score extends BaseObject {
    * @param eventEmitter {Observable}
    * @param x {number} corner coordinates
    * @param y {number} corner coordinates
+   * @param text {string}
    */
-  constructor(eventEmitter, x, y) {
+  constructor(eventEmitter, x, y, text) {
     super(eventEmitter, x, y);
-    this.level = 0;
+    this.score = 0;
     this.textSize = 20;
     this.backgroundColor = "#000";
     this.textColor = "#fff";
+    this.text = text;
 
     this.lastTime = 0;
   }
@@ -22,7 +24,7 @@ export default class Score extends BaseObject {
    */
   render(context) {
     context.font = `${scale(this.textSize)}px Arial`;
-    const text = `LEVEL ${this.level}`;
+    const text = `${this.text} ${this.score}`;
     const metrics = context.measureText(text);
     const textWidth = metrics.width;
     const textHeight =
