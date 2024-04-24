@@ -1,0 +1,137 @@
+{
+  "name": "first level",
+  "background": "#756266c8",
+  "map": [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1],
+    [1, 0, 1, 1, 5, 1, 1, 5, 1, 1, 5, 1, 1, 5, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 5, 1, 1, 5, 1, 1, 5, 1, 1, 5, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 5, 1, 1, 5, 1, 1, 5, 1, 1, 5, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 5, 1, 1, 5, 1, 1, 5, 1, 1, 5, 0, 1],
+    [1, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+  ],
+  "cameras": [
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 1.2,
+      "initialRotation": 1,
+      "animationDelay": 0
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 1.2,
+      "initialRotation": 1,
+      "animationDelay": 700
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 1.2,
+      "initialRotation": 1,
+      "animationDelay": 1400
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 1.2,
+      "initialRotation": 1,
+      "animationDelay": 2100
+    },
+
+
+    {
+      "viewDistance": 1.5,
+      "viewAngle": 3,
+      "maxRotation": 1,
+      "initialRotation": 1,
+      "animationDelay": -700
+    },
+    {
+      "viewDistance": 1.5,
+      "viewAngle": 3,
+      "maxRotation": 1,
+      "initialRotation": 1,
+      "animationDelay": 0
+    },
+    {
+      "viewDistance": 1.5,
+      "viewAngle": 3,
+      "maxRotation": 1,
+      "initialRotation": 1,
+      "animationDelay": 700
+    },
+    {
+      "viewDistance": 1.5,
+      "viewAngle": 3,
+      "maxRotation": 1,
+      "initialRotation": 1,
+      "animationDelay": 1400
+    },
+
+
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 1.2,
+      "initialRotation": 1,
+      "animationDelay": 2800
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 1.2,
+      "initialRotation": 1,
+      "animationDelay": 3500
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 1.2,
+      "initialRotation": 1,
+      "animationDelay": 4200
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 1.2,
+      "initialRotation": 1,
+      "animationDelay": 4800
+    },
+
+
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 1.2,
+      "initialRotation": 0
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 1.2,
+      "initialRotation": 0,
+      "animationDelay": 700
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 1.2,
+      "initialRotation": 0,
+      "animationDelay": 1400
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 1.2,
+      "initialRotation": 0,
+      "animationDelay": 2100
+    }
+  ]
+}

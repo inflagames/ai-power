@@ -5,6 +5,7 @@ import Tile, { TILE_1X1, TILE_2X2, TILE_FLOOR } from "./tile";
 import level1 from "./levels/level.001.json";
 import level2 from "./levels/level.002.json";
 import level3 from "./levels/level.003.json";
+import level4 from "./levels/level.004.json";
 import { newBubble } from "./bubble";
 import Hole from "./hole";
 import Camera from "./camera";
@@ -48,7 +49,7 @@ export default class Level extends BaseObject {
     this.finishLevelItem = [];
     this.cameras = [];
 
-    this.levels = [level1, level2, level3];
+    this.levels = [level1, level2, level3, level4];
 
     this.playerInitialPosition = { x: 0, y: 0 };
     this.pause = false;
@@ -156,7 +157,8 @@ export default class Level extends BaseObject {
             this.currentLevel.cameras[cameraCount]["viewDistance"],
             this.currentLevel.cameras[cameraCount]["viewAngle"],
             this.currentLevel.cameras[cameraCount]["initialRotation"],
-            this.currentLevel.cameras[cameraCount]["maxRotation"]
+            this.currentLevel.cameras[cameraCount]["maxRotation"],
+            this.currentLevel.cameras[cameraCount]["animationDelay"],
           );
           cameraCount++;
           this.cameras.push(camera);

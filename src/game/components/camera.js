@@ -12,14 +12,16 @@ export default class Camera extends BaseShape {
    * @param viewAngle {number} fraction of PI
    * @param initialRotation {number} fraction of PI
    * @param maxRotation {number} fraction of PI
+   * @param animationDelay {number} in milliseconds
    */
-  constructor(eventEmitter, x = 0, y = 0, gridSize, distance, viewAngle, initialRotation, maxRotation = 1) {
+  constructor(eventEmitter, x = 0, y = 0, gridSize, distance, viewAngle, initialRotation, maxRotation = 1, animationDelay) {
     super(eventEmitter, x, y, gridSize, gridSize);
 
     this.baseDirection = rotateVector({ x: 0, y: 1 }, Math.PI * initialRotation);
     this.directionVector = { x: 0, y: 1 };
     this.shape = { ...cameraShape };
     this.distance = distance;
+    this.animationDelay = animationDelay || 0;
 
     const minPoint = { ...this.shape.shapes[0].points[0] };
     const maxPoint = { ...this.shape.shapes[0].points[0] };
@@ -39,7 +41,7 @@ export default class Camera extends BaseShape {
   }
 
   animate() {
-    const currentTime = (this.initialTime - new Date().getTime()) / 1000;
+    const currentTime = (this.initialTime - new Date().getTime() + this.animationDelay) / 1000;
     const factor = Math.sin(currentTime);
 
     this.directionVector = rotateVector(this.baseDirection, factor * this.maxRotation * .5);
