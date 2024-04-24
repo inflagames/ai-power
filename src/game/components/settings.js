@@ -3,7 +3,7 @@ import { EVENT_CLICK, SCREEN_HEIGHT, SCREEN_WIDTH } from "../utils/variables";
 import { scale, unscale } from "../utils/math";
 import Button from "./button";
 
-export default class Modal extends BaseObject {
+export default class Settings extends BaseObject {
   /**
    * @param x {number}
    * @param y {number}
@@ -23,6 +23,8 @@ export default class Modal extends BaseObject {
     const button1Width = 120;
     const button2Width = 120;
     const buttonMargin = 20;
+
+    this.components = [];
 
     this.createCredits(
       this.x + buttonMargin,
@@ -52,12 +54,18 @@ export default class Modal extends BaseObject {
     );
   }
 
+  destroyComponents() {
+    this.components.forEach((component) => component.destroy.emit());
+  }
+
   createPlayButton(x, y, w, h) {
     this.buttonPlay = new Button(this.eventEmitter, x, y, w, h, "CONTINUE");
+    this.components.push(this.buttonPlay);
   }
 
   createRestartButton(x, y, w, h) {
     this.buttonRestart = new Button(this.eventEmitter, x, y, w, h, "RESTART");
+    this.components.push(this.buttonRestart);
   }
 
   createCredits(x, y, w, h) {
@@ -68,6 +76,7 @@ export default class Modal extends BaseObject {
     this.buttonCredits.listenerEvent(EVENT_CLICK, () =>
       window.open("https://twitter.com/ggjnez92", "_blank").focus()
     );
+    this.components.push(this.buttonCredits);
   }
 
   createShareButton(x, y, w, h) {
@@ -84,6 +93,7 @@ export default class Modal extends BaseObject {
       const url = `https://twitter.com/intent/tweet?text=${message}`;
       window.open(url, "_blank").focus();
     });
+    this.components.push(this.buttonShareRecord);
   }
 
   /**
@@ -105,10 +115,7 @@ export default class Modal extends BaseObject {
     context.fillStyle = this.backgroundColor;
     context.fill();
 
-    this.buttonPlay.render(context);
-    this.buttonCredits.render(context);
-    this.buttonShareRecord.render(context);
-    this.buttonRestart.render(context);
+    this.components.forEach((component) => component.render(context));
 
     this.renderScore(context);
   }

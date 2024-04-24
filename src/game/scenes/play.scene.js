@@ -9,12 +9,13 @@ import {
 } from "../utils/variables";
 import Player from "../components/player";
 import Score from "../components/score";
-import Modal from "../components/modal";
+import Settings from "../components/settings";
 import Button from "../components/button";
 import Data from "../utils/data";
 import { isMobileMethod } from "../utils/mobile-device";
 import GameLogic, { GAME_RUNNING } from "./shared/game.logic";
 import Level from "../components/level";
+import Help from "../components/help";
 
 export const isMobile = isMobileMethod.any();
 
@@ -51,7 +52,7 @@ export default class ScenePlay extends Scene {
     this.buttonPause.listenerEvent(EVENT_CLICK, () => {
       if (this.currentGame.canPauseGame()) {
         this.currentGame.pause();
-        this.showModal(Data.getInstance().getScore(), false);
+        this.showSettings(Data.getInstance().getScore(), false);
       }
     });
   }
@@ -68,7 +69,7 @@ export default class ScenePlay extends Scene {
     this.buttonHelp.backgroundColor = "#00000000";
     this.buttonHelp.textSize = 20;
     this.buttonHelp.listenerEvent(EVENT_CLICK, () => {
-      // toDo (gonzalezext)[24.04.24]: show help
+      this.showHelp();
     });
   }
 
@@ -143,12 +144,12 @@ export default class ScenePlay extends Scene {
     this.currentGame.directionKeys.removeKey(event.key);
   }
 
-  showModal(score, restartGame = true) {
+  showSettings(score, restartGame = true) {
     if (!this.isModalShow) {
       this.isModalShow = true;
       const modalWidth = 300;
       const modalHeight = 300;
-      const modal = new Modal(
+      const modal = new Settings(
         this.eventEmitter,
         SCREEN_WIDTH / 2 - modalWidth / 2,
         SCREEN_HEIGHT / 2 - modalHeight / 2,
@@ -163,7 +164,7 @@ export default class ScenePlay extends Scene {
       modal.buttonPlay.listenerEvent(EVENT_MOUSEUP, () => {
         this.hideModal(modal);
         if (restartGame) {
-          this.initGame();
+          this.currentGame.restartLevel();
         }
       });
       modal.buttonRestart.listenerEvent(EVENT_CLICK, () => {
@@ -174,11 +175,30 @@ export default class ScenePlay extends Scene {
     }
   }
 
+  showHelp() {
+    if (!this.isModalShow) {
+      this.isModalShow = true;
+      const modalWidth = SCREEN_WIDTH * 0.8;
+      const modalHeight = SCREEN_HEIGHT * 0.5;
+      const modal = new Help(
+        this.eventEmitter,
+        SCREEN_WIDTH / 2 - modalWidth / 2,
+        SCREEN_HEIGHT / 2 - modalHeight / 2,
+        modalWidth,
+        modalHeight
+      );
+
+      modal.closeHelpButton.listenerEvent(EVENT_MOUSEUP, () => {
+        this.hideModal(modal);
+      });
+
+      this.elements.push(modal);
+    }
+  }
+
   hideModal(modal) {
-    modal.buttonPlay.destroy.emit();
-    modal.buttonShareRecord.destroy.emit();
-    modal.buttonCredits.destroy.emit();
-    modal.buttonRestart.destroy.emit();
+    modal.destroyComponents();
+    modal.destroy.emit();
     this.currentGame.unpause();
     this.elements.pop();
     this.isModalShow = false;

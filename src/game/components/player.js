@@ -20,7 +20,7 @@ export default class Player extends BaseShape {
     this.rotation = Math.PI / 2;
     this.directionVector = { x: 0, y: 1 };
 
-    const scaleConst = 0.015578125;
+    const scaleConst = 0.012578125;
     this.scaleShape = this.width * scaleConst;
 
     this.shape = { ...shape };
