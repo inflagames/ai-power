@@ -129,6 +129,7 @@ export default class ScenePlay extends Scene {
     if (Data.getInstance().isFirstTime()) {
       this.showHelp();
     }
+    this.showSettings(false);
   }
 
   /**

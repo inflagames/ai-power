@@ -2,6 +2,7 @@ export const APPLICATION_PREFIX = "fearwater";
 export const LAST_LEVEL_KEY = `${APPLICATION_PREFIX}_game_last_level`;
 export const CURRENT_DEATHS_KEY = `${APPLICATION_PREFIX}_game_current_deaths`;
 export const FIRST_TIME_KEY = `${APPLICATION_PREFIX}_game_first_time`;
+export const BEST_DEATHS_KEY = `${APPLICATION_PREFIX}_game_best_deaths`;
 
 /** @type Data */
 let data = null;
@@ -12,6 +13,23 @@ export default class Data {
       data = new Data();
     }
     return data;
+  }
+
+  /**
+   * @param deaths {number}
+   */
+  saveBestDeaths(deaths) {
+    const bestDeaths = +(this.loadBestDeaths() || 999999);
+    if (deaths < bestDeaths) {
+      this.saveData(BEST_DEATHS_KEY, deaths);
+    }
+  }
+
+  /**
+   * @returns {string|undefined}
+   */
+  loadBestDeaths() {
+    return this.getData(BEST_DEATHS_KEY);
   }
 
   isFirstTime() {

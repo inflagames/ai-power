@@ -171,7 +171,7 @@ export default class GameLogic {
       this.level.loadNextLevel();
       this.restartLevel();
     } else {
-      // toDo (gonzalezext)[24.04.24]: save score
+      Data.getInstance().saveBestDeaths(this.player.deaths);
       Data.getInstance().saveDeaths(0);
 
       this.loadFirstLevel();

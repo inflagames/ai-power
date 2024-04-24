@@ -2,6 +2,7 @@ import BaseObject from "./shared/base-object";
 import { EVENT_CLICK, SCREEN_HEIGHT, SCREEN_WIDTH } from "../utils/variables";
 import { scale, unscale } from "../utils/math";
 import Button from "./button";
+import Data from "../utils/data";
 
 export default class Settings extends BaseObject {
   /**
@@ -18,6 +19,7 @@ export default class Settings extends BaseObject {
     this.text2Size = 30;
     this.text = "FEAR THE WATER";
     this.score = 1000;
+    this.bestScore = Data.getInstance().loadBestDeaths();
 
     const buttonHeight = 30;
     const button1Width = 120;
@@ -27,7 +29,7 @@ export default class Settings extends BaseObject {
     this.components = [];
 
     this.createCredits(
-      this.x + buttonMargin,
+      this.x,
       this.y,
       button1Width,
       buttonHeight
@@ -100,6 +102,15 @@ export default class Settings extends BaseObject {
    * @param context {CanvasRenderingContext2D}
    */
   render(context) {
+    this.renderDialogBox(context);
+
+    this.components.forEach((component) => component.render(context));
+
+    this.renderTitle(context);
+    this.renderScore(context);
+  }
+
+  renderDialogBox(context) {
     context.beginPath();
     context.rect(0, 0, scale(SCREEN_WIDTH), scale(SCREEN_HEIGHT));
     context.fillStyle = "rgba(0,0,0,0.82)";
@@ -114,16 +125,28 @@ export default class Settings extends BaseObject {
     );
     context.fillStyle = this.backgroundColor;
     context.fill();
+  }
 
-    this.components.forEach((component) => component.render(context));
-
-    this.renderScore(context);
+  renderScore(context) {
+    if (this.bestScore !== undefined && this.bestScore !== null) {
+      context.beginPath();
+      context.font = `${scale(20)}px Arial`;
+      const text = `Best score: ${this.bestScore} deaths`;
+      const metrics = context.measureText(text);
+      const textWidth = unscale(metrics.width);
+      context.fillStyle = "#000";
+      context.fillText(
+        text,
+        scale(this.x + this.width / 2 - textWidth / 2),
+        scale(this.y + 110)
+      );
+    }
   }
 
   /**
    * @param context {CanvasRenderingContext2D}
    */
-  renderScore(context) {
+  renderTitle(context) {
     context.beginPath();
     context.font = `${scale(this.text2Size)}px Arial`;
     const metrics2 = context.measureText(this.text);
