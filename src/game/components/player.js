@@ -11,17 +11,15 @@ export default class Player extends BaseShape {
    * @param eventEmitter {Observable}
    * @param x {number}
    * @param y {number}
-   * @param width {number}
-   * @param height {number}
+   * @param gridSize {number}
    */
-  constructor(eventEmitter, x = 0, y = 0, width = 0, height = 0) {
-    super(eventEmitter, x, y, width, height);
+  constructor(eventEmitter, x = 0, y = 0, gridSize) {
+    super(eventEmitter, x, y, gridSize, gridSize);
     /** @member {number} */
     this.rotation = Math.PI / 2;
     this.directionVector = { x: 0, y: 1 };
 
-    const scaleConst = 0.012578125;
-    this.scaleShape = this.width * scaleConst;
+    this.calculateScale();
 
     this.shape = { ...shape };
 
@@ -35,6 +33,11 @@ export default class Player extends BaseShape {
     this.bubbles = [];
 
     this.updateCoordinates();
+  }
+
+  calculateScale() {
+    const scaleConst = 0.012578125;
+    this.scaleShape = this.width * scaleConst;
   }
 
   render(context) {

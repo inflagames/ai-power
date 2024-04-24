@@ -11,9 +11,8 @@ import Player from "../components/player";
 import Score from "../components/score";
 import Settings from "../components/settings";
 import Button from "../components/button";
-import Data from "../utils/data";
 import { isMobileMethod } from "../utils/mobile-device";
-import GameLogic, { GAME_RUNNING } from "./shared/game.logic";
+import GameLogic from "./shared/game.logic";
 import Level from "../components/level";
 import Help from "../components/help";
 
@@ -104,7 +103,6 @@ export default class ScenePlay extends Scene {
       this.eventEmitter,
       this.level.playerInitialPosition.x,
       this.level.playerInitialPosition.y,
-      this.level.gridSize,
       this.level.gridSize
     );
     this.currentGame = new GameLogic(this.level, score);

@@ -182,6 +182,8 @@ export default class GameLogic {
     };
     if (this.player.component) {
       this.player.component.brakedShape = null;
+      this.player.component.width = this.level.gridSize;
+      this.player.component.calculateScale();
     }
     this.score.level = this.level.levelIndex + 1;
   }
