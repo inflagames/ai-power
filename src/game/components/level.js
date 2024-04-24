@@ -8,6 +8,7 @@ import { newBubble } from "./bubble";
 import Hole from "./hole";
 import Camera from "./camera";
 import Plant from "./plant";
+import Data from "../utils/data";
 
 const ROW_TILE = 1;
 const ROW_HOLE = 2;
@@ -53,7 +54,12 @@ export default class Level extends BaseObject {
 
     this.gridSize = GRID_SIZE;
 
-    this.loadFirstLevel();
+    this.loadLastLevel();
+  }
+
+  loadLastLevel() {
+    this.levelIndex = Data.getInstance().getLastLevel()
+    this.loadLevel();
   }
 
   loadFirstLevel() {
@@ -179,6 +185,9 @@ export default class Level extends BaseObject {
         }
       }
     }
+
+    // save last level loaded
+    Data.getInstance().saveLastLevel(this.levelIndex);
   }
 
   pauseGame() {

@@ -52,7 +52,7 @@ export default class ScenePlay extends Scene {
     this.buttonPause.listenerEvent(EVENT_CLICK, () => {
       if (this.currentGame.canPauseGame()) {
         this.currentGame.pause();
-        this.showSettings(Data.getInstance().getScore(), false);
+        this.showSettings(false);
       }
     });
   }
@@ -144,7 +144,7 @@ export default class ScenePlay extends Scene {
     this.currentGame.directionKeys.removeKey(event.key);
   }
 
-  showSettings(score, restartGame = true) {
+  showSettings(restartGame = true) {
     if (!this.isModalShow) {
       this.isModalShow = true;
       const modalWidth = 300;
@@ -156,10 +156,6 @@ export default class ScenePlay extends Scene {
         modalWidth,
         modalHeight
       );
-      Data.getInstance().saveScore(
-        Math.max(Data.getInstance().getScore(), score)
-      );
-      modal.score = score;
       modal.currentGame = this.currentGame;
       modal.buttonPlay.listenerEvent(EVENT_MOUSEUP, () => {
         this.hideModal(modal);
