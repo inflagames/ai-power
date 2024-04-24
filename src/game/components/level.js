@@ -47,15 +47,18 @@ export default class Level extends BaseObject {
     this.cameras = [];
 
     this.levels = [level1, level2];
-    this.levelIndex = 0;
-    this.currentLevel = { ...level1 };
 
     this.playerInitialPosition = { x: 0, y: 0 };
     this.pause = false;
 
     this.gridSize = GRID_SIZE;
 
-    this.loadLevel(this.currentLevel);
+    this.loadFirstLevel();
+  }
+
+  loadFirstLevel() {
+    this.levelIndex = 0;
+    this.loadLevel();
   }
 
   /**
@@ -68,12 +71,13 @@ export default class Level extends BaseObject {
       return false;
     }
 
-    this.currentLevel = { ...this.levels[this.levelIndex] };
-    this.loadLevel(this.currentLevel);
+    this.loadLevel();
     return true;
   }
 
-  loadLevel(level) {
+  loadLevel() {
+    this.currentLevel = { ...this.levels[this.levelIndex] };
+
     // clear previous level
     // toDo (gonzalezext)[24.04.24]: destroy all components
     this.components = [];
@@ -85,10 +89,10 @@ export default class Level extends BaseObject {
     this.cameras = [];
 
     // load level background
-    this.backgroundColor = level.background;
-    this.gridSize = SCREEN_HEIGHT / level.map.length;
+    this.backgroundColor = this.currentLevel.background;
+    this.gridSize = SCREEN_HEIGHT / this.currentLevel.map.length;
 
-    const map = level.map;
+    const map = this.currentLevel.map;
     let cameraCount = 0;
     const flags = new Array(map.length).fill(1).map(() => new Array(map[0].length).fill(true));
     for (let row = 0; row < map.length; row++) {
@@ -138,10 +142,10 @@ export default class Level extends BaseObject {
             col * this.gridSize + this.gridSize * .5,
             row * this.gridSize + this.gridSize * .5,
             this.gridSize,
-            level.cameras[cameraCount]["viewDistance"],
-            level.cameras[cameraCount]["viewAngle"],
-            level.cameras[cameraCount]["initialRotation"],
-            level.cameras[cameraCount]["maxRotation"]
+            this.currentLevel.cameras[cameraCount]["viewDistance"],
+            this.currentLevel.cameras[cameraCount]["viewAngle"],
+            this.currentLevel.cameras[cameraCount]["initialRotation"],
+            this.currentLevel.cameras[cameraCount]["maxRotation"]
           );
           cameraCount++;
           this.cameras.push(camera);

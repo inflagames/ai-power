@@ -159,19 +159,29 @@ export default class ScenePlay extends Scene {
         Math.max(Data.getInstance().getScore(), score)
       );
       modal.score = score;
+      modal.currentGame = this.currentGame;
       modal.buttonPlay.listenerEvent(EVENT_MOUSEUP, () => {
-        modal.buttonPlay.destroy.emit();
-        modal.buttonShareRecord.destroy.emit();
-        modal.buttonCredits.destroy.emit();
-        this.currentGame.unpause();
-        this.elements.pop();
-        this.isModalShow = false;
+        this.hideModal(modal);
         if (restartGame) {
           this.initGame();
         }
       });
+      modal.buttonRestart.listenerEvent(EVENT_CLICK, () => {
+        this.hideModal(modal);
+        this.currentGame.loadFirstLevel();
+      });
       this.elements.push(modal);
     }
+  }
+
+  hideModal(modal) {
+    modal.buttonPlay.destroy.emit();
+    modal.buttonShareRecord.destroy.emit();
+    modal.buttonCredits.destroy.emit();
+    modal.buttonRestart.destroy.emit();
+    this.currentGame.unpause();
+    this.elements.pop();
+    this.isModalShow = false;
   }
 
   renderOrRemovePlayableElements(context) {

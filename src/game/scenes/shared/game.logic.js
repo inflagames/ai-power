@@ -162,6 +162,11 @@ export default class GameLogic {
     this.restartLevel();
   }
 
+  loadFirstLevel() {
+    this.level.loadFirstLevel();
+    this.restartLevel();
+  }
+
   restartLevel() {
     this.player = {
       ...this.player,
