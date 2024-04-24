@@ -36,7 +36,7 @@ export default class Help extends BaseObject {
       this.eventEmitter,
       this.enemyPosition.x,
       this.enemyPosition.y,
-      this.enemySize, 2, 2, 1);
+      this.enemySize, 2, 2, 2, 0.5);
 
     this.winPosition = {
       x: x + width - this.padding - 110,
@@ -80,6 +80,7 @@ export default class Help extends BaseObject {
     this.renderEnemyInfo(context, this.enemyPosition.x, this.enemyPosition.y);
     this.renderWinGameInfo(context, this.winPosition.x, this.winPosition.y);
 
+    this.components.forEach((component) => component.animate && component.animate());
     this.components.forEach((component) => component.render(context));
   }
 
