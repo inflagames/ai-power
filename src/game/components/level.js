@@ -7,11 +7,13 @@ import level2 from "./levels/level.002.json";
 import { newBubble } from "./bubble";
 import Hole from "./hole";
 import Camera from "./camera";
+import Plant from "./plant";
 
-const ROW_TILE = 1; //         0001
-const ROW_HOLE = 2; //         0010
-const ROW_CAMERA = 4; // 1000
-const ROW_PLAYER_START = 8; // 1000
+const ROW_TILE = 1;
+const ROW_HOLE = 2;
+const ROW_CAMERA = 4;
+const ROW_PLAYER_START = 8;
+const ROW_TREE = 16;
 
 const MAX_NUMBER_OF_BUBBLES = 20;
 
@@ -75,6 +77,7 @@ export default class Level extends BaseObject {
     // clear previous level
     // toDo (gonzalezext)[24.04.24]: destroy all components
     this.components = [];
+    this.decorations = [];
     this.tiles = [];
     this.floor = [];
     this.bubbles = [];
@@ -154,6 +157,15 @@ export default class Level extends BaseObject {
           this.components.push(hole);
         }
 
+        if (tile & ROW_TREE) {
+          const plant = new Plant(
+            this.eventEmitter,
+            col * this.gridSize + this.gridSize * .5,
+            row * this.gridSize + this.gridSize * .5
+          );
+          this.decorations.push(plant);
+        }
+
         if (tile & ROW_PLAYER_START) {
           this.playerInitialPosition = {
             x: col * this.gridSize + this.gridSize * .5,
@@ -183,6 +195,7 @@ export default class Level extends BaseObject {
     }
 
     this.components.forEach((component) => component.render(context));
+    this.decorations.forEach((component) => component.render(context));
     this.cameras.forEach((component) => component.render(context));
   }
 

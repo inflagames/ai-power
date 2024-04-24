@@ -1,5 +1,6 @@
 import BaseShape from "./shared/base-shape";
 import shapePlant from "../shapes/plant1.json";
+import { rotateVector } from "../utils/math";
 
 export default class Plant extends BaseShape {
   /**
@@ -11,6 +12,9 @@ export default class Plant extends BaseShape {
    */
   constructor(eventEmitter, x = 0, y = 0, width = 0, height = 0) {
     super(eventEmitter, x, y, width, height);
+
+    const randomAngle = Math.random() * Math.PI * 2;
+    this.directionVector = rotateVector({ x: 0, y: 1 }, randomAngle);
   }
 
   currentShape() {
