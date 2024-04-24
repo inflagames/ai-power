@@ -28,6 +28,16 @@ export default class ScenePlay extends Scene {
   constructor(navigator, eventEmitter) {
     super(navigator, eventEmitter);
 
+    this.createSettingsButton();
+    this.createHelpButton();
+
+    this.listenerEvent(EVENT_KEYDOWN, this.keyDown.bind(this));
+    this.listenerEvent(EVENT_KEYUP, this.keyUp.bind(this));
+
+    this.initGame();
+  }
+
+  createSettingsButton() {
     this.buttonPause = new Button(
       this.eventEmitter,
       SCORE_MARGIN,
@@ -44,11 +54,22 @@ export default class ScenePlay extends Scene {
         this.showModal(Data.getInstance().getScore(), false);
       }
     });
+  }
 
-    this.listenerEvent(EVENT_KEYDOWN, this.keyDown.bind(this));
-    this.listenerEvent(EVENT_KEYUP, this.keyUp.bind(this));
-
-    this.initGame();
+  createHelpButton() {
+    this.buttonHelp = new Button(
+      this.eventEmitter,
+      SCORE_MARGIN + this.buttonPause.width,
+      SCORE_MARGIN,
+      100,
+      30,
+      "HELP"
+    );
+    this.buttonHelp.backgroundColor = "#00000000";
+    this.buttonHelp.textSize = 20;
+    this.buttonHelp.listenerEvent(EVENT_CLICK, () => {
+      // toDo (gonzalezext)[24.04.24]: show help
+    });
   }
 
   initGame() {
@@ -89,7 +110,7 @@ export default class ScenePlay extends Scene {
     this.currentGame.player.component = this.player;
 
     // add components to the element array
-    this.elements = [this.player, this.buttonPause];
+    this.elements = [this.player, this.buttonPause, this.buttonHelp];
     this.elements.push(score);
 
     // elements of the game
