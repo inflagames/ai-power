@@ -14,6 +14,12 @@ export default class Data {
     return data;
   }
 
+  isFirstTime() {
+    const firstTime = !this.getData(FIRST_TIME_KEY);
+    this.saveData(FIRST_TIME_KEY, "false");
+    return firstTime;
+  }
+
   /**
    * @param deaths {number}
    */

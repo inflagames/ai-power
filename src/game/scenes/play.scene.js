@@ -15,6 +15,7 @@ import { isMobileMethod } from "../utils/mobile-device";
 import GameLogic from "./shared/game.logic";
 import Level from "../components/level";
 import Help from "../components/help";
+import Data from "../utils/data";
 
 export const isMobile = isMobileMethod.any();
 
@@ -123,6 +124,11 @@ export default class ScenePlay extends Scene {
 
     // elements of the game
     this.playableElements = [this.player];
+
+    // show help if first time
+    if (Data.getInstance().isFirstTime()) {
+      this.showHelp();
+    }
   }
 
   /**
