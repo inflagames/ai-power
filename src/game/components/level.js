@@ -4,6 +4,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH, GRID_SIZE } from "../utils/variables";
 import Tile, { TILE_1X1, TILE_2X2, TILE_FLOOR } from "./tile";
 import level1 from "./levels/level.001.json";
 import level2 from "./levels/level.002.json";
+import level3 from "./levels/level.003.json";
 import { newBubble } from "./bubble";
 import Hole from "./hole";
 import Camera from "./camera";
@@ -47,7 +48,7 @@ export default class Level extends BaseObject {
     this.finishLevelItem = [];
     this.cameras = [];
 
-    this.levels = [level1, level2];
+    this.levels = [level1, level2, level3];
 
     this.playerInitialPosition = { x: 0, y: 0 };
     this.pause = false;

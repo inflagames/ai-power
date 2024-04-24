@@ -86,6 +86,7 @@ export default class GameLogic {
    */
   checkCollisionWithMap() {
     const playerProjection = this.player.component.getProjection();
+    // toDo (gonzalezext)[24.04.24]: check with circle projection
     for (const component of this.level.tiles) {
       if (this.checkCollisionInProjections(playerProjection, component.getProjection())) {
         return true;
@@ -102,7 +103,6 @@ export default class GameLogic {
         this.gameOver();
         return true;
       } else {
-        // toDo (gonzalezext)[23.04.24]: remove this
         camera.sawPlayer = false;
       }
     }
@@ -128,7 +128,6 @@ export default class GameLogic {
   }
 
   canPauseGame() {
-    // toDo (gonzalezext)[18.04.24]:
     return true;
   }
 
@@ -189,7 +188,6 @@ export default class GameLogic {
     this.player = {
       ...this.player,
       position: this.level.playerInitialPosition,
-      rotation: Math.PI / 2, // todo: eliminate this property
       directionVector: { x: 0, y: 1 },
       expectedRotation: 0,
       velocity: 0,

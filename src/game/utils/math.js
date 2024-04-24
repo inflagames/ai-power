@@ -138,6 +138,20 @@ export function detectCollision(shape1, shape2) {
 }
 
 /**
+ * @param shape {{x: number, y: number}[]}
+ * @param circle {{x: number, y: number, r: number}}
+ * @returns {boolean}
+ */
+export function detectCollisionWithCircle(shape, circle) {
+  for (const p of shape) {
+    if (square(p.x - circle.x) + square(p.y - circle.y) <= square(circle.r)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
  * Normalize a vector
  * @param v {{x: number, y: number}}
  * @returns {{x: number, y: number}}
