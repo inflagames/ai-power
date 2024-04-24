@@ -1,6 +1,6 @@
 import BaseShape from "./shared/base-shape";
 import cameraShape from "../shapes/camera.json";
-import { distanceNoSqrt, getVector, rotateVector, square, vectorToAngle } from "../utils/math";
+import { distanceNoSqrt, getVector, rotateVector, scale, square, vectorToAngle } from "../utils/math";
 
 export default class Camera extends BaseShape {
   /**
@@ -51,8 +51,14 @@ export default class Camera extends BaseShape {
     // render vision cone
     context.beginPath();
     const angle = this.currentViewAngle();
-    context.moveTo(this.x, this.y);
-    context.arc(this.x, this.y, this.width * this.distance, angle, angle + Math.PI / this.viewAngle, false);
+    context.moveTo(scale(this.x), scale(this.y));
+    context.arc(
+      scale(this.x),
+      scale(this.y),
+      scale(this.width * this.distance),
+      angle,
+      angle + Math.PI / this.viewAngle,
+      false);
     context.fillStyle = this.getVisionColor();
     context.fill();
 
