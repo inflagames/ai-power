@@ -210,15 +210,15 @@ export default class GameLogic {
       this.level.loadNextLevel();
       this.restartLevel();
     } else {
+      Data.getInstance().saveBestDeaths(this.player.deaths);
+      Data.getInstance().saveDeaths(0);
+
       this.showSettings(true);
     }
     this.updateDeathScore();
   }
 
   finishGame() {
-    Data.getInstance().saveBestDeaths(this.player.deaths);
-    Data.getInstance().saveDeaths(0);
-
     this.loadFirstLevel();
   }
 
