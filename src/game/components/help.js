@@ -89,7 +89,7 @@ export default class Help extends BaseObject {
       context,
       x - 90,
       y - 97,
-      "Reach all the holes to win\nthe game",
+      "Reach all the switches to\nwin the level",
       this.keysInfoTextSize,
       "#000"
     );

@@ -1,6 +1,5 @@
 import BaseShape from "./shared/base-shape";
 import hole from "../shapes/hole.json";
-import { SCREEN_HEIGHT } from "../utils/variables";
 
 export default class Hole extends BaseShape {
   /**
@@ -12,13 +11,30 @@ export default class Hole extends BaseShape {
   constructor(eventEmitter, x = 0, y = 0, gridSize) {
     super(eventEmitter, x, y, gridSize, gridSize);
 
-    this.directionVector = { x: 0, y: 1 };
+    this.directionVector = { x: -1, y: 1 };
     this.shape = { ...hole };
     this.scaleShape = 1.7 * gridSize / 85;
   }
 
+  render(context) {
+    // animate
+    this.animate();
+
+    super.render(context);
+  }
+
+  animate() {
+    super.animate();
+
+    // update hole color light
+    this.shape.shapes.filter(s => s.id === "center").forEach((shape) => {
+      const opacity = (Math.sin(new Date().getTime() / 200) + 1) * 0.2 + 0.6;
+      shape.background = this.getColorWithOpacity(shape.background, opacity);
+    });
+  }
+
   getPosition() {
-    return { x: this.x - 8, y: this.y + 10 };
+    return { x: this.x, y: this.y };
   }
 
   currentShape() {
