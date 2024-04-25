@@ -14,6 +14,7 @@ export default class Hole extends BaseShape {
     this.directionVector = { x: -1, y: 1 };
     this.shape = { ...hole };
     this.scaleShape = 1.7 * gridSize / 85;
+    this.enable = false;
   }
 
   render(context) {
@@ -29,8 +30,12 @@ export default class Hole extends BaseShape {
     // update hole color light
     this.shape.shapes.filter(s => s.id === "center").forEach((shape) => {
       const opacity = (Math.sin(new Date().getTime() / 200) + 1) * 0.2 + 0.6;
-      shape.background = this.getColorWithOpacity(shape.background, opacity);
+      shape.background = this.getColorWithOpacity(this.getCenterColor(), opacity);
     });
+  }
+
+  getCenterColor() {
+    return this.enable ? "#2ea12e" : "#b30f0f";
   }
 
   getPosition() {

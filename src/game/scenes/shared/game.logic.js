@@ -137,11 +137,19 @@ export default class GameLogic {
     }
 
     // validate end of the level
+    let countEnables = 0;
     for (const component of this.level.finishLevelItem) {
       if (this.checkCollisionInProjections(playerProjection, component.getProjection("center"))) {
-        this.levelComplete();
-        return false;
+        component.enable = true;
       }
+      if (component.enable) {
+        countEnables++;
+      }
+    }
+
+    if (countEnables === this.level.finishLevelItem.length) {
+      this.levelComplete();
+      return false;
     }
   }
 

@@ -2,15 +2,12 @@ import BaseObject from "./shared/base-object";
 import { randomNumber, scale } from "../utils/math";
 import { SCREEN_HEIGHT, SCREEN_WIDTH, GRID_SIZE } from "../utils/variables";
 import Tile, { TILE_1X1, TILE_2X2, TILE_FLOOR } from "./tile";
-import level1 from "./levels/level.001.json";
-import level2 from "./levels/level.002.json";
-import level3 from "./levels/level.003.json";
-import level4 from "./levels/level.004.json";
 import { newBubble } from "./bubble";
 import Hole from "./hole";
 import Camera from "./camera";
 import Plant from "./plant";
 import Data from "../utils/data";
+import levels from "./levels";
 
 const ROW_TILE = 1;
 const ROW_HOLE = 2;
@@ -49,7 +46,7 @@ export default class Level extends BaseObject {
     this.finishLevelItem = [];
     this.cameras = [];
 
-    this.levels = [level1, level2, level3, level4];
+    this.levels = levels;
 
     this.playerInitialPosition = { x: 0, y: 0 };
     this.pause = false;
