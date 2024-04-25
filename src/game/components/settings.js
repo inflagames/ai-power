@@ -28,15 +28,15 @@ export default class Settings extends BaseObject {
 
     this.components = [];
 
-    this.createCredits(
-      this.x,
-      this.y,
-      button1Width,
-      buttonHeight
-    );
     this.createPlayButton(
       this.x + (this.width - button1Width) / 2,
       this.y + this.height - (buttonHeight + buttonMargin) * 3,
+      button1Width,
+      buttonHeight
+    );
+    this.createCredits(
+      this.x,
+      this.y,
       button1Width,
       buttonHeight
     );
@@ -54,6 +54,10 @@ export default class Settings extends BaseObject {
       button2Width,
       buttonHeight
     );
+  }
+
+  hidePlayButton() {
+    this.buttonPlay.hide();
   }
 
   destroyComponents() {

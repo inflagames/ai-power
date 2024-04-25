@@ -118,6 +118,7 @@ export default class ScenePlay extends Scene {
     );
     this.currentGame = new GameLogic(this.level, score, deathsScore);
     this.currentGame.player.component = this.player;
+    this.currentGame.showSettings = this.showSettings.bind(this);
 
     // add components to the element array
     this.elements = [this.player, this.buttonPause, this.buttonHelp, score, deathsScore];
@@ -169,11 +170,15 @@ export default class ScenePlay extends Scene {
         modalWidth,
         modalHeight
       );
-      modal.currentGame = this.currentGame;
+
+      if (restartGame) {
+        modal.hidePlayButton();
+      }
+
       modal.buttonPlay.listenerEvent(EVENT_MOUSEUP, () => {
         this.hideModal(modal);
         if (restartGame) {
-          this.currentGame.restartLevel();
+          this.currentGame.finishGame();
         }
       });
       modal.buttonRestart.listenerEvent(EVENT_CLICK, () => {

@@ -27,18 +27,28 @@ export default class Button extends BaseObject {
     this.listenerEvent(EVENT_MOUSEOUT, (data) => {
       document.body.style.cursor = "default";
     });
+
+    this.visible = true;
+  }
+
+  hide() {
+    this.visible = false;
   }
 
   /**
    * @param context {CanvasRenderingContext2D}
    */
   render(context) {
+    if (!this.visible) {
+      return;
+    }
+
     context.beginPath();
     context.rect(
       scale(this.x),
       scale(this.y),
       scale(this.width),
-      scale(this.height),
+      scale(this.height)
     );
     context.fillStyle = this.backgroundColor;
     context.fill();
@@ -48,7 +58,7 @@ export default class Button extends BaseObject {
     const metrics = context.measureText(this.text);
     const textWidth = unscale(metrics.width);
     const textHeight = unscale(
-      metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent,
+      metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent
     );
     context.fillStyle = this.isMouseHover
       ? this.textColorHover
@@ -57,7 +67,7 @@ export default class Button extends BaseObject {
     context.fillText(
       this.text,
       scale(this.x + this.width / 2 - textWidth / 2),
-      scale(this.y + this.height / 2 + textHeight / 2),
+      scale(this.y + this.height / 2 + textHeight / 2)
     );
   }
 }
