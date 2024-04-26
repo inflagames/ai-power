@@ -4,7 +4,7 @@ Minimalistic game to participate in the gamedevjs contest (2024).
 
 [![show game image here](./files/game-presentation.png)]()
 
-[game demo deployed in github](https://inflagames.github.io/fear-the-water/)
+[game demo deployed in github](https://inflagames.github.io/ai-power/)
 
 ## Develop mode
 
