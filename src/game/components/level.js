@@ -66,7 +66,7 @@ export default class Level extends BaseObject {
   }
 
   loadFirstLevel() {
-    this.levelIndex = 0;
+    this.levelIndex = 2;
     this.loadLevel();
   }
 
@@ -151,11 +151,7 @@ export default class Level extends BaseObject {
             col * this.gridSize + this.gridSize * .5,
             row * this.gridSize + this.gridSize * .5,
             this.gridSize,
-            this.currentLevel.cameras[cameraCount]["viewDistance"],
-            this.currentLevel.cameras[cameraCount]["viewAngle"],
-            this.currentLevel.cameras[cameraCount]["initialRotation"],
-            this.currentLevel.cameras[cameraCount]["maxRotation"],
-            this.currentLevel.cameras[cameraCount]["animationDelay"],
+            this.currentLevel.cameras[cameraCount]
           );
           cameraCount++;
           this.cameras.push(camera);

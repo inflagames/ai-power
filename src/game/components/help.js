@@ -36,7 +36,14 @@ export default class Help extends BaseObject {
       this.eventEmitter,
       this.enemyPosition.x,
       this.enemyPosition.y,
-      this.enemySize, 2, 2, 2, 0.5);
+      this.enemySize,
+      {
+        viewDistance: 2,
+        viewAngle: 2,
+        initialRotation: 2,
+        maxRotation: 0.5
+      }
+    );
 
     this.winPosition = {
       x: x + width - this.padding - 110,
