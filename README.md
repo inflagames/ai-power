@@ -2,7 +2,7 @@
 
 Minimalistic game to participate in the gamedevjs contest (2024).
 
-[![show game image here](./files/game-presentation.png)]()
+[![show game image here](./files/game-banner.png)]()
 
 [game demo deployed in github](https://inflagames.github.io/ai-power/)
 
