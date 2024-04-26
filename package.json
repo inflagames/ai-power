@@ -1,5 +1,5 @@
 {
-  "name": "fear-the-water",
+  "name": "ai-power",
   "version": "0.0.1",
   "description": "<Fear the Watter> is a game made for js13kgames 2024",
   "keywords": [
@@ -11,7 +11,7 @@
   "author": "wil92",
   "scripts": {
     "build:ci": "NODE_ENV=production webpack",
-    "build": "NODE_ENV=production webpack && ./compress.sh fear_the_water",
+    "build": "NODE_ENV=production webpack && ./compress.sh ai-power",
     "dev": "webpack",
     "start": "webpack serve",
     "gen": "node ./gen-shapes.js",

@@ -66,7 +66,7 @@ export default class Level extends BaseObject {
   }
 
   loadFirstLevel() {
-    this.levelIndex = 5;
+    this.levelIndex = 0;
     this.loadLevel();
   }
 

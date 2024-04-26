@@ -1,10 +1,8 @@
-# Fear the water (Game)
+# AI Power (Game)
 
-Minimalistic game to participate in the js14kgames contest (2024).
+Minimalistic game to participate in the gamedevjs contest (2024).
 
-TBD
-
-[![show game image here]()]()
+[![show game image here](./files/game-presentation.png)]()
 
 [game demo deployed in github](https://inflagames.github.io/fear-the-water/)
 
@@ -18,7 +16,7 @@ You can start the project in develop with the command `npm start`. This has live
 
 To build the project in production and generate the *game.zip* file, you only need to run the command `npm run build`.
 
-> **Note**: the build script generate the *./dist* folder and at the same time it compress automatically the game in the *fear_the_water.zip* file.
+> **Note**: the build script generate the *./dist* folder and at the same time it compress automatically the game in the *ai-power.zip* file.
 
 ## Run tests
 

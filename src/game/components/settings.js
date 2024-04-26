@@ -17,7 +17,7 @@ export default class Settings extends BaseObject {
     this.backgroundColor = "#fff";
     this.textSize = 90;
     this.text2Size = 30;
-    this.text = "FEAR THE WATER";
+    this.text = "AI POWER";
     this.score = 1000;
     this.bestScore = Data.getInstance().loadBestDeaths();
 
