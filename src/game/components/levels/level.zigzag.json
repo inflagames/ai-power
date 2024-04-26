@@ -1,0 +1,107 @@
+{
+  "name": "first level",
+  "background": "#756266c8",
+  "map": [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 8, 1, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0, 1, 1, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 8, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0, 1, 0, 1],
+    [1, 0, 1, 1, 0, 0, 0, 5, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0, 1, 1, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+  ],
+  "cameras": [
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 0,
+      "initialRotation": 0,
+      "animateDistance": true,
+      "speed": 500
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 0,
+      "initialRotation": 0,
+      "animateDistance": true,
+      "speed": 500
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 0,
+      "initialRotation": 1,
+      "animateDistance": true,
+      "speed": 500
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 0,
+      "initialRotation": 1,
+      "animateDistance": true,
+      "speed": 500
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 2,
+      "initialRotation": 0
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 2,
+      "initialRotation": 1
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 0,
+      "initialRotation": 1,
+      "animateDistance": true
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 2,
+      "initialRotation": 1
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 0,
+      "initialRotation": 0,
+      "animateDistance": true,
+      "speed": 500
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 2,
+      "initialRotation": 1
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 0,
+      "initialRotation": 1,
+      "animateDistance": true,
+      "speed": 500
+    },
+    {
+      "viewDistance": 2,
+      "viewAngle": 3,
+      "maxRotation": 0,
+      "initialRotation": 1,
+      "animateDistance": true,
+      "speed": 500
+    }
+  ]
+}
