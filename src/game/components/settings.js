@@ -95,10 +95,10 @@ export default class Settings extends BaseObject {
       "SHARE ON TWITTER"
     );
     this.buttonShareRecord.listenerEvent(EVENT_CLICK, () => {
-      let message = `I'm currently playing the game FEAR THE WATER developed for the #gamedevjs jam.\n\n#gamedev\n\nIf you want to check it out, here is the link to the #github repository\nhttps://inflagames.github.io/fear-the-water/`;
+      let message = `I'm currently playing the game AI POWER developed for the #gamedevjs jam.\n\n#gamedev\n\nIf you want to check it out, here is the link to the #github repository\nhttps://github.com/inflagames/ai-power`;
 
       if (this.bestScore) {
-        message = "I finish the game FEAR THE WATER with " + this.bestScore + " deaths. Can you beat me?\n\n#gamedevjs #gamedev\n\nIf you want to check it out, here is the link to the #github repository\nhttps://inflagames.github.io/fear-the-water/";
+        message = "I finish the game AI POWER with " + this.bestScore + " deaths. Can you beat me?\n\n#gamedevjs #gamedev\n\nIf you want to check it out, here is the link to the #github repository\nhttps://github.com/inflagames/ai-power";
       }
 
       const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
